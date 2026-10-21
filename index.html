@@ -130,6 +130,16 @@
   .btn small { font-size: 0.65rem; font-weight: 600; opacity: 0.8; }
   .btn-gen { background: var(--accent); color: white; }
   .btn-sell { background: linear-gradient(135deg, var(--gold), #b8860b); color: #2d1b00; }
+  
+  /* Новая кнопка обмена на главном экране */
+  .btn-trade-main {
+    background: rgba(92,107,192,0.15); color: #8b9dff;
+    border: 1px solid rgba(92,107,192,0.3);
+    width: 100%; max-width: 400px; padding: 12px;
+    margin-top: -10px; border-radius: 14px; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; font-family: inherit; transition: 0.2s;
+  }
+  .btn-trade-main:active { background: rgba(92,107,192,0.25); }
 
   /* Нижняя навигация */
   .bottom-nav {
@@ -302,7 +312,7 @@
       <div class="value-display" id="valueDisplay">0 ₽</div>
     </div>
 
-    <!-- Кнопки -->
+    <!-- Кнопки действий -->
     <div class="actions">
       <button class="btn btn-gen" id="spinBtn">
         <span>🎰 Крутить</span>
@@ -313,6 +323,11 @@
         <small id="sellPrice">—</small>
       </button>
     </div>
+
+    <!-- Кнопка обмена (вынесена на главный экран) -->
+    <button class="btn-trade-main" id="tradeMainBtn" onclick="openTrade(state.current?.id)" style="display:none;">
+      🤝 Обменять этот номер по ссылке
+    </button>
   </div>
 
   <!-- Нижняя панель -->
@@ -321,6 +336,10 @@
       <span class="nav-icon">📦</span>
       <span class="nav-label">Склад</span>
       <span class="nav-badge" id="invBadge" style="display:none;">0</span>
+    </button>
+    <button class="nav-btn" data-tab="trade">
+      <span class="nav-icon">🤝</span>
+      <span class="nav-label">Обмен</span>
     </button>
     <button class="nav-btn" data-tab="stats">
       <span class="nav-icon">📊</span>
@@ -385,7 +404,7 @@ const randLetter = () => LETTERS[Math.floor(Math.random() * LETTERS.length)];
 const formatMoney = (val) => Math.floor(val).toLocaleString('ru-RU');
 const $ = (id) => document.getElementById(id);
 
-// Генерация уникального кода обмена (например: A1B2C3)
+// Генерация уникального кода обмена
 function generateTradeCode(text, region, price) {
   const payload = `${text}|${region}|${price}`;
   const b64 = btoa(unescape(encodeURIComponent(payload)));
@@ -462,9 +481,11 @@ function updateUI() {
     
     $('sellBtn').disabled = false;
     $('sellPrice').textContent = `+${formatMoney(c.price)} ₽`;
+    $('tradeMainBtn').style.display = 'block';
   } else {
     $('sellBtn').disabled = true;
     $('sellPrice').textContent = '—';
+    $('tradeMainBtn').style.display = 'none';
   }
   
   saveGame();
@@ -487,6 +508,7 @@ function spin() {
   wrap.classList.add('spinning');
   $('spinBtn').disabled = true;
   $('sellBtn').disabled = true;
+  $('tradeMainBtn').style.display = 'none';
 
   const finalPlate = generatePlate();
   
@@ -629,7 +651,10 @@ function sellFromInv(id) {
 let tradeItemId = null;
 
 function openTrade(id) {
+  if (!id) { toast('Нет номера для обмена', 'error'); return; }
   tradeItemId = id;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-tab="trade"]').classList.add('active');
   openModal('trade');
 }
 
@@ -642,6 +667,7 @@ function renderTrade() {
     if (!item) { tradeItemId = null; renderTrade(); return; }
     
     const code = generateTradeCode(item.text, item.region, item.price);
+    // Ссылка будет работать на том же домене, где открыта игра
     const url = `${window.location.origin}${window.location.pathname}?trade=${code}`;
     
     body.innerHTML = `
@@ -658,7 +684,7 @@ function renderTrade() {
         </div>
         
         <div style="font-size:0.7rem;color:var(--text-dim);margin-top:20px;line-height:1.4;">
-          Внимание: после того, как друг перейдет по ссылке, номер <b>исчезнет из твоего инвентаря</b> и появится у него.
+          Внимание: после нажатия "Скопировать" номер <b>удалится из твоего инвентаря</b> и будет ждать, пока друг перейдет по ссылке.
         </div>
       </div>
     `;
@@ -667,7 +693,7 @@ function renderTrade() {
     body.innerHTML = `
       <div class="trade-box">
         <div style="font-size:1.2rem;font-weight:800;margin-bottom:15px;">Принять обмен</div>
-        <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:5px;text-align:left;">Вставь код или ссылку:</div>
+        <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:5px;text-align:left;">Вставь ссылку или код:</div>
         <input type="text" class="trade-link-input" id="tradeInput" placeholder="Вставь ссылку сюда...">
         <button class="inv-btn" style="width:100%;padding:14px;background:var(--accent);color:white;" onclick="receiveTrade()">🎁 Получить номер</button>
       </div>
@@ -737,7 +763,6 @@ function checkTradeUrl() {
   if (code) {
     const parsed = parseTradeCode(code);
     if (parsed) {
-      // Небольшая задержка для инициализации
       setTimeout(() => {
         const newPlate = {
           id: Date.now() + Math.random(),
@@ -751,8 +776,6 @@ function checkTradeUrl() {
         state.stats.generated++;
         updateUI();
         toast(`🎁 Получен номер: ${parsed.text}`, 'success');
-        
-        // Очищаем URL, чтобы при обновлении страницы не дублировалось
         window.history.replaceState({}, document.title, window.location.pathname);
       }, 300);
     }
