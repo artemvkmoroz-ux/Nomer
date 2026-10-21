@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Генератор Номеров</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  :root {
+    --bg: #0f0f13;
+    --bg-card: #1c1c22;
+    --accent: #5c6bc0;
+    --text: #ffffff;
+    --text-dim: #8a8a9a;
+    --border: #2c2c35;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    user-select: none;
+    overflow: hidden;
+  }
+
+  .game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  /* Плашка редкости (сверху) */
+  .rarity-badge {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .rarity-badge.common { color: #aaa; border-color: #444; }
+  .rarity-badge.rare { color: #6bb6ff; border-color: rgba(107,182,255,0.4); box-shadow: 0 0 15px rgba(107,182,255,0.1); }
+  .rarity-badge.epic { color: #d4a3ff; border-color: rgba(212,163,255,0.4); box-shadow: 0 0 15px rgba(212,163,255,0.1); }
+  .rarity-badge.legendary { color: #ffd700; border-color: rgba(255,215,0,0.5); box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+  .rarity-badge.mythic { color: #ff6b6b; border-color: rgba(255,107,107,0.5); box-shadow: 0 0 25px rgba(255,107,107,0.3); }
+
+  /* Сам номер по центру */
+  .plate-scene {
+    perspective: 1000px;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .plate-wrap {
+    cursor: pointer;
+    transition: transform 0.15s;
+    position: relative;
+  }
+  .plate-wrap:active { transform: scale(0.96); }
+
+  .plate {
+    display: flex;
+    border: 3px solid #444;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset;
+    height: 100px;
+    align-items: stretch;
+    background: linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%);
+    min-width: 300px;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .plate::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none; z-index: 2;
+  }
+
+  .plate-main {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 2px;
+    font-family: "Arial Narrow", "JetBrains Mono", monospace;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  .plate-region {
+    width: 75px;
+    border-left: 3px solid #444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    background: rgba(0,0,0,0.03);
+  }
+  .region-num { font-size: 2.2rem; font-weight: 800; color: #1a1a1a; line-height: 1; margin-top: 6px; }
+  .region-label {
+    font-size: 0.8rem; font-weight: 800; color: #1a1a1a;
+    display: flex; align-items: center; gap: 3px; margin-bottom: 4px;
+  }
+  .flag { width: 20px; height: 13px; border: 1px solid #999; display: flex; flex-direction: column; }
+  .flag div { flex: 1; }
+
+  /* Информация снизу */
+  .info-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .value-display {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .value-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* Анимация прокрутки */
+  @keyframes blurSpin {
+    0%, 100% { filter: blur(0); }
+    50% { filter: blur(8px); }
+  }
+  .spinning .plate-main {
+    animation: blurSpin 0.1s infinite;
+  }
+
+  /* Вспышка при легендарке */
+  @keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0; }
+  }
+  .flash-overlay {
+    position: fixed; inset: 0; background: white; pointer-events: none; z-index: 100;
+    opacity: 0;
+  }
+  .flash-overlay.active { animation: flash 0.5s ease; }
+
+  /* Медиа запрос для маленьких экранов */
+  @media (max-width: 380px) {
+    .plate-main { font-size: 3rem; padding: 0 15px; }
+    .plate { height: 85px; min-width: 260px; }
+    .region-num { font-size: 1.8rem; }
+    .plate-region { width: 65px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <!-- Плашка редкости -->
+  <div class="rarity-badge common" id="rarityBadge">
+    <span id="rarityIcon">⚪</span>
+    <span id="rarityText">Обычный</span>
+  </div>
+
+  <!-- Номер -->
+  <div class="plate-scene">
+    <div class="plate-wrap" id="plateWrap">
+      <div class="plate">
+        <div class="plate-main" id="plateText">А001АА</div>
+        <div class="plate-region">
+          <div class="region-num" id="regionNum">77</div>
+          <div class="region-label">
+            RUS
+            <div class="flag">
+              <div style="background:#fff;"></div>
+              <div style="background:#0039a6;"></div>
+              <div style="background:#d52b1e;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Инфо -->
+  <div class="info-panel">
+    <div style="text-align: center;">
+      <div class="value-label">Стоимость</div>
+      <div class="value-display" id="valueDisplay">0 ₽</div>
+    </div>
+    <div class="hint">Нажми на номер, чтобы прокрутить</div>
+  </div>
+</div>
+
+<div class="flash-overlay" id="flashOverlay"></div>
+
+<script>
+// ============ ДАННЫЕ ============
+const LETTERS = "АВЕКМНОРСТУХ";
+const REGIONS = ["77", "99", "97", "177", "199", "197", "50", "150", "190", "750", "46", "23", "161", "61", "777", "799"];
+const RARITIES = {
+  common:    { name: "Обычный",      icon: "⚪", multiplier: 1 },
+  rare:      { name: "Редкий",        icon: "🔵", multiplier: 3 },
+  epic:      { name: "Эпический",     icon: "🟣", multiplier: 8 },
+  legendary: { name: "Легендарный",   icon: "🟡", multiplier: 25 },
+  mythic:    { name: "Мифический",    icon: "🔴", multiplier: 100 }
+};
+
+// ============ УТИЛИТЫ ============
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const randLetter = () => LETTERS[Math.floor(Math.random() * LETTERS.length)];
+const formatMoney = (val) => Math.floor(val).toLocaleString('ru-RU');
+
+// ============ ЭЛЕМЕНТЫ ============
+const $ = (id) => document.getElementById(id);
+const plateWrap = $('plateWrap');
+const plateText = $('plateText');
+const regionNum = $('regionNum');
+const rarityBadge = $('rarityBadge');
+const rarityIcon = $('rarityIcon');
+const rarityText = $('rarityText');
+const valueDisplay = $('valueDisplay');
+const flashOverlay = $('flashOverlay');
+
+let isSpinning = false;
+
+// ============ ОЦЕНКА НОМЕРА ============
+function evaluateNumber(text) {
+  const digits = text.replace(/\D/g, '');
+  const letters = text.replace(/[^А-Я]/g, '');
+  
+  const isTriple = /(\d)\1\1/.test(digits);
+  const isMirror = digits.length >= 3 && digits[0] === digits[digits.length - 1] && !isTriple;
+  const isLow = parseInt(digits) < 100 && digits.length > 0;
+  const isRepeatedLetters = /(.)\1/.test(letters);
+  
+  let rarity = 'common';
+  let basePrice = rand(500, 1500);
+
+  if (isTriple) { rarity = 'legendary'; basePrice = rand(50000, 150000); }
+  else if (isMirror) { rarity = 'epic'; basePrice = rand(8000, 25000); }
+  else if (isLow) { rarity = 'epic'; basePrice = rand(5000, 15000); }
+  else if (isRepeatedLetters) { rarity = 'rare'; basePrice = rand(2000, 6000); }
+  else {
+    // Случайный шанс на редкость
+    const roll = Math.random();
+    if (roll < 0.01) { rarity = 'mythic'; basePrice = rand(500000, 1500000); }
+    else if (roll < 0.05) { rarity = 'legendary'; basePrice = rand(50000, 150000); }
+    else if (roll < 0.15) { rarity = 'epic'; basePrice = rand(8000, 25000); }
+    else if (roll < 0.40) { rarity = 'rare'; basePrice = rand(2000, 6000); }
+  }
+
+  const totalPrice = Math.floor(basePrice * RARITIES[rarity].multiplier * 0.5);
+  return { rarity, price: totalPrice };
+}
+
+// ============ UI ОБНОВЛЕНИЕ ============
+function updateUI(text, region, rarity, price) {
+  plateText.textContent = text;
+  regionNum.textContent = region;
+  
+  const r = RARITIES[rarity];
+  rarityBadge.className = 'rarity-badge ' + rarity;
+  rarityIcon.textContent = r.icon;
+  rarityText.textContent = r.name;
+  valueDisplay.textContent = formatMoney(price) + ' ₽';
+}
+
+// ============ ПРОКРУТКА ============
+function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+  plateWrap.classList.add('spinning');
+
+  // Случайный финальный результат
+  const finalText = `${randLetter()}${rand(0,9)}${rand(0,9)}${rand(0,9)}${randLetter()}${randLetter()}`;
+  const finalRegion = pick(REGIONS);
+  
+  let ticks = 0;
+  const totalTicks = 15;
+  
+  const interval = setInterval(() => {
+    // Рандомный текст во время прокрутки
+    const tempText = `${randLetter()}${rand(0,9)}${rand(0,9)}${rand(0,9)}${randLetter()}${randLetter()}`;
+    plateText.textContent = tempText;
+    regionNum.textContent = pick(REGIONS);
+    
+    ticks++;
+    if (ticks >= totalTicks) {
+      clearInterval(interval);
+      finishSpin(finalText, finalRegion);
+    }
+  }, 50);
+}
+
+function finishSpin(text, region) {
+  const evalResult = evaluateNumber(text);
+  updateUI(text, region, evalResult.rarity, evalResult.price);
+  
+  // Если выпала легендарка или мифик — вспышка
+  if (evalResult.rarity === 'legendary' || evalResult.rarity === 'mythic') {
+    flashOverlay.classList.add('active');
+    setTimeout(() => flashOverlay.classList.remove('active'), 500);
+  }
+
+  setTimeout(() => {
+    plateWrap.classList.remove('spinning');
+    isSpinning = false;
+  }, 100);
+}
+
+// ============ ИНИЦИАЛИЗАЦИЯ ============
+plateWrap.addEventListener('click', spin);
+
+// Стартовый номер
+const startText = `${randLetter()}${rand(0,9)}${rand(0,9)}${rand(0,9)}${randLetter()}${randLetter()}`;
+const startRegion = pick(REGIONS);
+const startEval = evaluateNumber(startText);
+updateUI(startText, startRegion, startEval.rarity, startEval.price);
+
+</script>
+</body>
+</html>
