@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Генератор Номеров</title>
+<title>Генератор Номеров — Обмен</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700&display=swap');
   
@@ -48,14 +48,16 @@
     transition: transform 0.2s;
   }
   .balance-pill.flash { transform: scale(1.1); }
-  .menu-btn {
+  
+  .top-buttons { display: flex; gap: 10px; }
+  .icon-btn {
     background: var(--bg-card); border: 1px solid var(--border);
     width: 44px; height: 44px; border-radius: 12px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px;
-    cursor: pointer; transition: background 0.2s;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; transition: background 0.2s; font-size: 1.2rem;
+    color: var(--text);
   }
-  .menu-btn:active { background: var(--bg-card-hover); }
-  .menu-btn span { display: block; width: 20px; height: 2px; background: var(--text); border-radius: 2px; }
+  .icon-btn:active { background: var(--bg-card-hover); }
 
   /* Основная зона */
   .main-area {
@@ -198,12 +200,28 @@
   .inv-region { font-size: 0.7rem; background: var(--border); padding: 2px 6px; border-radius: 4px; color: var(--text-dim); }
   .inv-meta { display: flex; gap: 8px; margin-top: 4px; align-items: center; font-size: 0.75rem; }
   .inv-price { color: var(--gold); font-weight: 700; }
+  .inv-actions { display: flex; gap: 6px; }
+  
   .inv-btn {
     background: var(--bg-card-hover); border: none; color: var(--text);
-    padding: 8px 14px; border-radius: 10px; font-weight: 700;
+    padding: 8px 12px; border-radius: 10px; font-weight: 700;
     cursor: pointer; font-size: 0.8rem; font-family: inherit; transition: 0.2s;
   }
   .inv-btn.sell { background: linear-gradient(135deg, var(--gold), #b8860b); color: #2d1b00; }
+  .inv-btn.trade { background: rgba(92,107,192,0.2); color: #8b9dff; border: 1px solid rgba(92,107,192,0.4); }
+
+  /* Обмен */
+  .trade-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; text-align: center;
+  }
+  .trade-link-input {
+    width: 100%; background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text); padding: 14px; border-radius: 12px;
+    font-family: inherit; font-size: 0.9rem; outline: none;
+    margin: 15px 0; word-break: break-all;
+  }
+  .trade-link-input:focus { border-color: var(--accent); }
 
   /* Тосты */
   .toast-container {
@@ -245,9 +263,9 @@
       <span>💎</span>
       <span id="balance">10 000</span>
     </div>
-    <button class="menu-btn" onclick="openModal('settings')">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="top-buttons">
+      <button class="icon-btn" onclick="openModal('settings')" title="Настройки">⚙️</button>
+    </div>
   </div>
 
   <!-- Основная зона -->
@@ -366,6 +384,21 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const randLetter = () => LETTERS[Math.floor(Math.random() * LETTERS.length)];
 const formatMoney = (val) => Math.floor(val).toLocaleString('ru-RU');
 const $ = (id) => document.getElementById(id);
+
+// Генерация уникального кода обмена (например: A1B2C3)
+function generateTradeCode(text, region, price) {
+  const payload = `${text}|${region}|${price}`;
+  const b64 = btoa(unescape(encodeURIComponent(payload)));
+  return b64.replace(/=/g, ''); 
+}
+function parseTradeCode(code) {
+  try {
+    const b64 = code + '=='.slice(0, (4 - code.length % 4) % 4);
+    const decoded = decodeURIComponent(escape(atob(b64)));
+    const [text, region, price] = decoded.split('|');
+    return { text, region, price: parseInt(price) };
+  } catch(e) { return null; }
+}
 
 // ================= ЛОГИКА =================
 function evaluateNumber(text) {
@@ -536,6 +569,9 @@ function openModal(tab) {
   } else if (tab === 'stats') {
     $('modalTitle').textContent = '📊 Статистика';
     renderStats();
+  } else if (tab === 'trade') {
+    $('modalTitle').textContent = '🤝 Обмен номерами';
+    renderTrade();
   }
 }
 
@@ -564,7 +600,10 @@ function renderInventory() {
             <span class="inv-price">${formatMoney(item.price)} ₽</span>
           </div>
         </div>
-        <button class="inv-btn sell" onclick="sellFromInv(${item.id})">Продать</button>
+        <div class="inv-actions">
+          <button class="inv-btn trade" onclick="openTrade(${item.id})">🤝</button>
+          <button class="inv-btn sell" onclick="sellFromInv(${item.id})">Продать</button>
+        </div>
       </div>
     `;
   }).join('');
@@ -584,6 +623,140 @@ function sellFromInv(id) {
   toast(`+${formatMoney(item.price)} ₽`, 'success');
   updateUI();
   renderInventory();
+}
+
+// ================= СИСТЕМА ОБМЕНА =================
+let tradeItemId = null;
+
+function openTrade(id) {
+  tradeItemId = id;
+  openModal('trade');
+}
+
+function renderTrade() {
+  const body = $('modalBody');
+  
+  if (tradeItemId) {
+    // Экран создания ссылки
+    const item = state.inventory.find(i => i.id === tradeItemId);
+    if (!item) { tradeItemId = null; renderTrade(); return; }
+    
+    const code = generateTradeCode(item.text, item.region, item.price);
+    const url = `${window.location.origin}${window.location.pathname}?trade=${code}`;
+    
+    body.innerHTML = `
+      <div class="trade-box">
+        <div style="font-size:1.2rem;font-weight:800;margin-bottom:5px;">${item.text} <span style="font-size:0.8rem;color:var(--text-dim);">${item.region}</span></div>
+        <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:15px;">Стоимость: ${formatMoney(item.price)} ₽</div>
+        
+        <div style="font-size:0.8rem;margin-bottom:5px;text-align:left;">Ссылка для друга:</div>
+        <input type="text" class="trade-link-input" id="tradeLinkInput" value="${url}" readonly onclick="this.select()">
+        
+        <div style="display:flex;gap:10px;">
+          <button class="inv-btn" style="flex:1;padding:14px;background:var(--accent);color:white;" onclick="copyTradeLink()">📋 Скопировать</button>
+          <button class="inv-btn" style="flex:1;padding:14px;background:var(--danger);color:white;" onclick="cancelTrade()">Отмена</button>
+        </div>
+        
+        <div style="font-size:0.7rem;color:var(--text-dim);margin-top:20px;line-height:1.4;">
+          Внимание: после того, как друг перейдет по ссылке, номер <b>исчезнет из твоего инвентаря</b> и появится у него.
+        </div>
+      </div>
+    `;
+  } else {
+    // Экран ввода кода (если игрок хочет принять обмен вручную)
+    body.innerHTML = `
+      <div class="trade-box">
+        <div style="font-size:1.2rem;font-weight:800;margin-bottom:15px;">Принять обмен</div>
+        <div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:5px;text-align:left;">Вставь код или ссылку:</div>
+        <input type="text" class="trade-link-input" id="tradeInput" placeholder="Вставь ссылку сюда...">
+        <button class="inv-btn" style="width:100%;padding:14px;background:var(--accent);color:white;" onclick="receiveTrade()">🎁 Получить номер</button>
+      </div>
+    `;
+  }
+}
+
+function copyTradeLink() {
+  const input = $('tradeLinkInput');
+  input.select();
+  document.execCommand('copy');
+  toast('Ссылка скопирована!', 'success');
+  
+  // Удаляем номер из своего инвентаря (он "передан" другу)
+  const idx = state.inventory.findIndex(i => i.id === tradeItemId);
+  if (idx !== -1) {
+    state.inventory.splice(idx, 1);
+    if (state.current && state.current.id === tradeItemId) state.current = null;
+  }
+  tradeItemId = null;
+  updateUI();
+  setTimeout(() => closeModal(), 1000);
+}
+
+function cancelTrade() {
+  tradeItemId = null;
+  closeModal();
+}
+
+function receiveTrade() {
+  const input = $('tradeInput').value.trim();
+  if (!input) return;
+  
+  let code = input;
+  // Если вставили полную ссылку — вытаскиваем код
+  if (input.includes('?trade=')) {
+    code = input.split('?trade=')[1];
+  }
+  
+  const parsed = parseTradeCode(code);
+  if (!parsed) {
+    toast('Неверный код или ссылка', 'error');
+    return;
+  }
+  
+  const newPlate = {
+    id: Date.now() + Math.random(),
+    text: parsed.text,
+    region: parsed.region,
+    price: parsed.price,
+    rarity: evaluateNumber(parsed.text).rarity
+  };
+  
+  state.inventory.unshift(newPlate);
+  state.current = newPlate;
+  state.stats.generated++;
+  
+  updateUI();
+  toast('Номер получен!', 'success');
+  closeModal();
+}
+
+// ================= АВТО-ПРИЕМ ОБМЕНА ИЗ ССЫЛКИ =================
+function checkTradeUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('trade');
+  if (code) {
+    const parsed = parseTradeCode(code);
+    if (parsed) {
+      // Небольшая задержка для инициализации
+      setTimeout(() => {
+        const newPlate = {
+          id: Date.now() + Math.random(),
+          text: parsed.text,
+          region: parsed.region,
+          price: parsed.price,
+          rarity: evaluateNumber(parsed.text).rarity
+        };
+        state.inventory.unshift(newPlate);
+        state.current = newPlate;
+        state.stats.generated++;
+        updateUI();
+        toast(`🎁 Получен номер: ${parsed.text}`, 'success');
+        
+        // Очищаем URL, чтобы при обновлении страницы не дублировалось
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }, 300);
+    }
+  }
 }
 
 // ================= СТАТИСТИКА =================
@@ -611,6 +784,7 @@ function renderStats() {
 function renderSettings() {
   $('modalBody').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:12px;">
+      <button class="inv-btn" style="padding:16px;background:var(--accent);color:white;" onclick="openModal('trade')">🤝 Принять обмен по коду</button>
       <button class="inv-btn" style="padding:16px;background:var(--danger);color:white;" onclick="resetGame()">🗑️ Сбросить прогресс</button>
       <div style="font-size:0.75rem;color:var(--text-dim);text-align:center;margin-top:10px;">
         Прогресс сохраняется автоматически в браузере.
@@ -645,13 +819,16 @@ $('modal').addEventListener('click', (e) => {
 // ================= ИНИЦИАЛИЗАЦИЯ =================
 loadGame();
 
-if (!state.current) {
+if (!state.current && state.inventory.length === 0) {
   const start = generatePlate();
   state.current = start;
   state.inventory.unshift(start);
+} else if (state.inventory.length > 0 && !state.current) {
+  state.current = state.inventory[0];
 }
 
 updateUI();
+checkTradeUrl();
 </script>
 </body>
 </html>
