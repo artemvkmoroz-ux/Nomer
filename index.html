@@ -462,8 +462,8 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 'use strict';
 
 const CFG = {
-  COST: 100, START: 50000, KEY: 'nomerix_newyear_v5', VER: 10,
-  SECRET: 'nomerix_newyear_salt_secret_v5', MAX_PRICE: 100_000_000,
+  COST: 100, START: 50000, KEY: 'nomerix_newyear_v6', VER: 11,
+  SECRET: 'nomerix_newyear_salt_secret_v6', MAX_PRICE: 100_000_000,
   TRADE_MAX_AGE: 30 * 24 * 3600 * 1000, SAVE_FILE_EXT: '.nomerix.json',
   ADMIN_PASSWORD: '3006',
 };
@@ -642,7 +642,7 @@ const State = {
   stats: { spins:0, spent:0, earned:0, bestLvl:0, sold:0, trades:0 },
   settings: { sound: true, haptic: true }, spinning: false,
   ownedThemes: ['classic'], currentTheme: 'classic',
-  admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {} },
+  admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {}, maxPriceLimit: 100_000_000 },
 };
 
 let saveTimer;
@@ -968,7 +968,8 @@ const Game = {
     const beautyBonus = generated.beauty ? 1.3 : 1.0;
     const basePrice = rnd(win.max - win.min) + win.min;
     const mult = State.admin.priceMultiplier || 1;
-    const finalPrice = Math.min(Math.floor(basePrice * beautyBonus * mult), win.max * mult);
+    const cap = State.admin.maxPriceLimit || 100_000_000;
+    const finalPrice = Math.min(Math.floor(basePrice * beautyBonus * mult), cap);
 
     UI.els.plate.className = `plate ${State.country}`;
     UI.els.price.textContent = '...';
@@ -1534,11 +1535,21 @@ const Admin = {
       </div>
 
       <div class="admin-section">
-        <div class="admin-section-title">💎 МНОЖИТЕЛЬ ЦЕН (×${a.priceMultiplier})</div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px">
-          ${[1,2,3,5,10].map(m => `
-            <button class="admin-btn ${a.priceMultiplier===m?'active':''}" onclick="Admin.setMultiplier(${m})" style="font-size:10px">×${m}</button>
-          `).join('')}
+        <div class="admin-section-title">💎 ЦЕНЫ И ЛИМИТЫ</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="flex:1;font-size:10px">Множитель цен</span>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;flex:2">
+              ${[1,2,3,5,10].map(m => `
+                <button class="admin-btn ${a.priceMultiplier===m?'active':''}" onclick="Admin.setMultiplier(${m})" style="font-size:10px">×${m}</button>
+              `).join('')}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:4px;">
+            <span style="flex:1;font-size:10px">Макс. цена номера</span>
+            <input type="number" id="admin-maxprice-input" value="${a.maxPriceLimit}" min="0" class="admin-input" style="width:100px;text-align:center">
+            <button class="admin-btn" onclick="Admin.setMaxPrice()">SET</button>
+          </div>
         </div>
       </div>
 
@@ -1678,6 +1689,14 @@ const Admin = {
     toast(`×${m} множитель`);
   },
 
+  setMaxPrice() {
+    const v = parseInt($('admin-maxprice-input').value);
+    if (!Number.isFinite(v) || v < 0) { toast('❌ Неверное значение'); return; }
+    State.admin.maxPriceLimit = v;
+    saveGame(true);
+    toast(`Макс. цена: ${fmt(v)}`);
+  },
+
   setSpinCost() {
     const v = parseInt($('admin-cost-input').value);
     if (!Number.isFinite(v) || v < 0) return;
@@ -1698,7 +1717,10 @@ const Admin = {
   giveRandomPlate() {
     const win = rollRarity();
     const generated = genPlate(State.country, win);
-    Game.addToInventory(generated.text, generated.region, Math.floor(Math.random() * (win.max - win.min)) + win.min, win, generated.beauty);
+    const basePrice = Math.floor(Math.random() * (win.max - win.min)) + win.min;
+    const cap = State.admin.maxPriceLimit || 100_000_000;
+    const price = Math.min(basePrice, cap);
+    Game.addToInventory(generated.text, generated.region, price, win, generated.beauty);
     saveGame(true);
     toast(`🎁 ${generated.text} (${win.name})`);
     Sound.win(win.lvl);
@@ -1707,7 +1729,10 @@ const Admin = {
   giveAllRarities() {
     RARITIES.forEach(win => {
       const generated = genPlate(State.country, win);
-      Game.addToInventory(generated.text, generated.region, Math.floor((win.min + win.max) / 2), win, generated.beauty);
+      const basePrice = Math.floor((win.min + win.max) / 2);
+      const cap = State.admin.maxPriceLimit || 100_000_000;
+      const price = Math.min(basePrice, cap);
+      Game.addToInventory(generated.text, generated.region, price, win, generated.beauty);
     });
     saveGame(true);
     toast('✨ Выдано 8 номеров (по одному каждой редкости)');
@@ -1756,7 +1781,7 @@ function init() {
   Modal.init();
   initSnow();
   initGarland();
-  Themes.apply(); // Применяем тему при старте
+  Themes.apply();
 
   for (let i = 0; i < 8; i++) {
     const d = document.createElement('div');
