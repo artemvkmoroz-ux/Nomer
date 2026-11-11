@@ -28,11 +28,17 @@
   --sb:env(safe-area-inset-bottom,0px);
   --st:env(safe-area-inset-top,0px);
 }
+/* ТЕМЫ */
+body.theme-classic { --bg:#0a1628; --bg-g:radial-gradient(circle at 50% 0%,#1a2942 0%,#0a1628 60%,#050d18 100%); --xmas-gold:#fbbf24; --xmas-red:#dc2626; --xmas-green:#16a34a; --glass:rgba(20,35,60,.55); }
+body.theme-neon { --bg:#09090b; --bg-g:radial-gradient(circle at 50% 0%,#1e1b4b 0%,#09090b 70%); --xmas-gold:#ec4899; --xmas-red:#d946ef; --xmas-green:#06b6d4; --glass:rgba(20,20,30,.7); --gb:rgba(236,72,153,.2); }
+body.theme-halloween { --bg:#0f0a06; --bg-g:radial-gradient(circle at 50% 0%,#2a1608 0%,#0f0a06 70%); --xmas-gold:#f97316; --xmas-red:#dc2626; --xmas-green:#65a30d; --glass:rgba(30,20,10,.6); }
+body.theme-matrix { --bg:#000000; --bg-g:radial-gradient(circle at 50% 0%,#002200 0%,#000000 70%); --xmas-gold:#22c55e; --xmas-red:#ef4444; --xmas-green:#10b981; --glass:rgba(0,20,0,.6); --gb:rgba(34,197,94,.2); }
+
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
-body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative}
+body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;transition:background 0.5s;}
 
-#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;transition:opacity 0.5s;}
 .snowflake{position:absolute;top:-10px;color:var(--snow);opacity:.8;user-select:none;pointer-events:none;animation:snowfall linear infinite;will-change:transform}
 @keyframes snowfall{
   0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0}
@@ -122,6 +128,8 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .menu-card:nth-child(2)::before{background:var(--xmas-green);box-shadow:0 0 10px var(--xmas-green)}
 .menu-card:nth-child(3)::before{background:var(--xmas-gold);box-shadow:0 0 10px var(--xmas-gold)}
 .menu-card:nth-child(4)::before{background:var(--blue);box-shadow:0 0 10px var(--blue)}
+.menu-card:nth-child(5)::before{background:#a855f7;box-shadow:0 0 10px #a855f7}
+.menu-card:nth-child(6)::before{background:#ef4444;box-shadow:0 0 10px #ef4444}
 .menu-card:active{transform:scale(.97);background:rgba(255,255,255,.08)}
 .menu-ico{font-size:30px;filter:drop-shadow(0 0 10px rgba(255,255,255,.3))}
 .menu-txt{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:1px}
@@ -241,7 +249,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 }
 </style>
 </head>
-<body>
+<body class="theme-classic">
 
 <div id="snow-container"></div>
 <div id="garland"></div>
@@ -261,7 +269,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="rec-card">
         <div class="rec-ico">🏆</div>
         <div>
-          <div class="rec-lbl">🎅 Новогодний рекорд</div>
+          <div class="rec-lbl">🎅 Личный рекорд</div>
           <div class="rec-val" id="record">0 $</div>
         </div>
       </div>
@@ -299,6 +307,8 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('trades')"><div class="menu-ico">🤝</div><div><div class="menu-txt">Обмены</div><div class="menu-sub">Подарочные коды</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('stats')"><div class="menu-ico">📊</div><div><div class="menu-txt">Статистика</div><div class="menu-sub">Твой прогресс</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('rules')"><div class="menu-ico">📖</div><div><div class="menu-txt">Правила</div><div class="menu-sub">Как играть и редкости</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('themes')"><div class="menu-ico">🎨</div><div><div class="menu-txt">Кастомизация</div><div class="menu-sub">Сменить тему</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Страна, звук, сохранение</div></div><div class="arrow">→</div></div>
     </div>
   </div>
@@ -331,6 +341,48 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="s-block">
         <div class="s-title lit">🏅 Коллекция редкостей</div>
         <div id="rarity-coll" style="display:flex;flex-direction:column;gap:6px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scr-rules" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('rules')">←</button><span>📖 ПРАВИЛА</span></div>
+    <div class="settings">
+      <div class="s-block">
+        <div class="s-title lit">🎯 Как играть</div>
+        <div class="s-hint">
+          Жми на номерной знак, чтобы прокрутить генератор.<br>
+          Каждая попытка стоит <b>100 $</b>.<br>
+          Выпавшие номера попадают в инвентарь. Там их можно продать за деньги, чтобы крутить ещё!
+        </div>
+      </div>
+      <div class="s-block">
+        <div class="s-title lit">🏅 Редкости</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:600;">
+          <div style="color:var(--trash)">🧦 МУСОР — дальние регионы, случайные цифры</div>
+          <div style="color:var(--common)">🍬 ОБЫЧНЫЙ — обычные номера</div>
+          <div style="color:var(--uncommon)">🔔 НЕОБЫЧНЫЙ — может быть одна красивая цифра</div>
+          <div style="color:var(--rare)">⛄ РЕДКИЙ — красивые цифры (001, 777) или регион (77, 99)</div>
+          <div style="color:var(--epic)">🎄 ЭПИЧЕСКИЙ — буквы повторяются (ААА) и топ-регион</div>
+          <div style="color:var(--legend)">🎅 ЛЕГЕНДАРНЫЙ — всё красивое сразу</div>
+          <div style="color:var(--elite)">🌟 БЛАТНОЙ — «О001ОО» и регион 77</div>
+          <div style="color:var(--god)">👑 БОЖЕСТВЕННЫЙ — идеал</div>
+        </div>
+      </div>
+      <div class="s-block">
+        <div class="s-title lit">✨ Что значит «Красивый» номер?</div>
+        <div class="s-hint">Красивые номера дают бонус к цене (+30%) и метку «✦ КРАСИВЫЙ».<br>Это номера с повторяющимися цифрами (001, 777), буквами (ААА, ООО) или премиальными регионами.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scr-themes" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('themes')">←</button><span>🎨 ТЕМЫ</span></div>
+    <div class="settings">
+      <div class="s-block">
+        <div class="s-title lit">Доступные темы</div>
+        <div class="s-hint" style="margin-bottom:8px">Покупай темы за игровую валюту. Выбранная тема меняет внешний вид игры.</div>
+        <div id="theme-grid" style="display:grid;grid-template-columns:1fr;gap:8px;"></div>
       </div>
     </div>
   </div>
@@ -410,8 +462,8 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 'use strict';
 
 const CFG = {
-  COST: 100, START: 50000, KEY: 'nomerix_newyear_v4', VER: 9,
-  SECRET: 'nomerix_newyear_salt_secret_v4', MAX_PRICE: 100_000_000,
+  COST: 100, START: 50000, KEY: 'nomerix_newyear_v5', VER: 10,
+  SECRET: 'nomerix_newyear_salt_secret_v5', MAX_PRICE: 100_000_000,
   TRADE_MAX_AGE: 30 * 24 * 3600 * 1000, SAVE_FILE_EXT: '.nomerix.json',
   ADMIN_PASSWORD: '3006',
 };
@@ -589,6 +641,7 @@ const State = {
   money: CFG.START, inventory: [], maxRecord: 0, country: 'ru', history: [],
   stats: { spins:0, spent:0, earned:0, bestLvl:0, sold:0, trades:0 },
   settings: { sound: true, haptic: true }, spinning: false,
+  ownedThemes: ['classic'], currentTheme: 'classic',
   admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {} },
 };
 
@@ -600,6 +653,7 @@ function saveGame(immediate = false) {
         _v: CFG.VER, money: State.money, inventory: State.inventory, maxRecord: State.maxRecord,
         country: State.country, history: State.history.slice(0, 10), stats: State.stats,
         settings: State.settings, admin: State.admin,
+        ownedThemes: State.ownedThemes, currentTheme: State.currentTheme
       }));
     } catch(e) { console.warn('Save failed', e); }
   };
@@ -620,6 +674,8 @@ function loadGame() {
     State.history = Array.isArray(d.history) ? d.history.slice(0,10) : [];
     State.stats = { spins:0, spent:0, earned:0, bestLvl:0, sold:0, trades:0, ...(d.stats||{}) };
     State.settings = { sound:true, haptic:true, ...(d.settings||{}) };
+    State.ownedThemes = Array.isArray(d.ownedThemes) ? d.ownedThemes : ['classic'];
+    State.currentTheme = d.currentTheme || 'classic';
     if (d.admin) {
       State.admin = { ...State.admin, ...d.admin };
       State.admin.unlocked = false;
@@ -639,6 +695,7 @@ const SaveFile = {
         money: State.money, inventory: State.inventory, maxRecord: State.maxRecord,
         country: State.country, history: State.history, stats: State.stats,
         settings: State.settings, admin: State.admin,
+        ownedThemes: State.ownedThemes, currentTheme: State.currentTheme
       };
       const json = JSON.stringify(data, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
@@ -686,6 +743,8 @@ const SaveFile = {
       State.stats = data.stats || { spins:0, spent:0, earned:0, bestLvl:0, sold:0, trades:0 };
       State.settings = data.settings || { sound:true, haptic:true };
       State.history = Array.isArray(data.history) ? data.history.slice(0,10) : [];
+      State.ownedThemes = Array.isArray(data.ownedThemes) ? data.ownedThemes : ['classic'];
+      State.currentTheme = data.currentTheme || 'classic';
       if (data.admin) { State.admin = { ...State.admin, ...data.admin, unlocked: false }; }
       State.inventory = data.inventory.map(it => {
         const rar = RARITIES.find(r => r.lvl === (it.rarity && it.rarity.lvl)) || RARITIES[1];
@@ -703,6 +762,7 @@ const SaveFile = {
       UI.updateRecord(State.maxRecord);
       UI.renderHistory();
       Settings.render();
+      Themes.apply();
       Sound.win(6); Haptic.buzz([30,30,80,30,80]);
       toast('✅ Прогресс восстановлен');
     } catch(e) { console.error(e); toast('❌ Ошибка импорта'); }
@@ -770,6 +830,7 @@ const UI = {
     if (name === 'inventory') Inventory.render();
     if (name === 'stats') Stats.render();
     if (name === 'settings') Settings.render();
+    if (name === 'themes') Themes.render();
     Haptic.buzz(8);
   },
   close(name) {
@@ -1256,7 +1317,6 @@ const Settings = {
       return;
     }
 
-    // Кастомные промокоды админа
     if (State.admin.customPromos[code]) {
       const reward = State.admin.customPromos[code].reward;
       State.money += reward;
@@ -1268,7 +1328,6 @@ const Settings = {
       return;
     }
 
-    // Стандартные промокоды
     if (DEFAULT_PROMOS[code]) {
       State.money += DEFAULT_PROMOS[code];
       UI.updateMoney();
@@ -1285,6 +1344,84 @@ const Settings = {
       location.reload();
     });
   },
+};
+
+const Themes = {
+  list: [
+    { id: 'classic',   name: '🎄 Новогодняя', price: 0,       desc: 'Снег и гирлянды (по умолчанию)' },
+    { id: 'neon',      name: '🌆 Неон',       price: 50000,   desc: 'Стиль киберпанка и розовый свет' },
+    { id: 'halloween', name: '🎃 Хэллоуин',   price: 100000,  desc: 'Тыквы и мистика' },
+    { id: 'matrix',    name: '🟢 Матрица',    price: 250000,  desc: 'Зелёные цифры и код' }
+  ],
+  
+  render() {
+    const grid = $('theme-grid');
+    if (!grid) return;
+    grid.innerHTML = this.list.map(t => {
+      const owned = State.ownedThemes.includes(t.id);
+      const active = State.currentTheme === t.id;
+      const canBuy = State.money >= t.price;
+      
+      let btnText = 'ВЫБРАТЬ';
+      let btnStyle = 'background:var(--xmas-green);color:#fff';
+      let btnDisabled = '';
+      
+      if (active) {
+        btnText = 'АКТИВНА';
+        btnStyle = 'background:var(--xmas-gold);color:#000';
+        btnDisabled = 'disabled';
+      } else if (!owned) {
+        btnText = `КУПИТЬ (${fmt(t.price)})`;
+        if (!canBuy) {
+          btnStyle = 'background:#333;color:#888';
+          btnDisabled = 'disabled';
+        }
+      }
+      
+      return `
+        <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.3);border:1px solid ${active?'var(--xmas-gold)':'var(--gb)'};padding:12px;border-radius:12px;gap:8px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:900;color:#fff;font-size:13px">${t.name}</div>
+            <div style="font-size:10px;color:var(--sub);margin-top:2px">${t.desc}</div>
+          </div>
+          <button class="btn-sm" style="${btnStyle};min-width:90px" ${btnDisabled} onclick="Themes.action('${t.id}')">${btnText}</button>
+        </div>
+      `;
+    }).join('');
+  },
+  
+  action(id) {
+    const theme = this.list.find(t => t.id === id);
+    if (!theme) return;
+    
+    if (State.ownedThemes.includes(id)) {
+      State.currentTheme = id;
+      this.apply();
+      this.render();
+      saveGame();
+      Sound.tone(660, .1);
+      toast(`Тема изменена: ${theme.name}`);
+    } else {
+      if (State.money >= theme.price) {
+        State.money -= theme.price;
+        State.ownedThemes.push(id);
+        State.currentTheme = id;
+        this.apply();
+        UI.updateMoney();
+        this.render();
+        saveGame(true);
+        Sound.win(4);
+        Haptic.buzz([20,30,40]);
+        toast(`✅ Куплено: ${theme.name}`);
+      }
+    }
+  },
+  
+  apply() {
+    document.body.className = 'theme-' + (State.currentTheme || 'classic');
+    const snow = $('snow-container');
+    if (snow) snow.style.display = (State.currentTheme === 'classic') ? 'block' : 'none';
+  }
 };
 
 const Admin = {
@@ -1619,6 +1756,7 @@ function init() {
   Modal.init();
   initSnow();
   initGarland();
+  Themes.apply(); // Применяем тему при старте
 
   for (let i = 0; i < 8; i++) {
     const d = document.createElement('div');
