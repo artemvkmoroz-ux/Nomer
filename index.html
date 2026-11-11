@@ -221,13 +221,12 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .admin-input{background:rgba(0,0,0,.6);border:1px solid var(--gb);padding:8px 10px;border-radius:8px;color:#fff;font-size:11px;font-family:'Montserrat',sans-serif;outline:none;min-width:0}
 .admin-input:focus{border-color:var(--xmas-gold)}
 
-/* СТИЛИ ДЛЯ БИРЖИ */
+/* СТИЛИ ДЛЯ БИРЖИ И КОЛЕСА */
 .bid-input{background:rgba(0,0,0,.6);border:1px solid var(--gb);padding:10px;border-radius:10px;color:#fff;font-size:14px;font-weight:700;outline:none;width:100%;text-align:center;}
 .market-tabs{display:flex;gap:10px;margin-bottom:12px;}
 .market-tab{flex:1;padding:10px;border-radius:10px;text-align:center;font-weight:900;font-size:12px;cursor:pointer;background:var(--glass);border:1px solid var(--gb);color:var(--sub);}
 .market-tab.active{background:var(--xmas-gold);color:#000;border-color:var(--xmas-gold);}
 
-/* КОЛЕСО */
 .wheel-container{position:relative;width:280px;height:280px;margin:20px auto;}
 .wheel{width:100%;height:100%;border-radius:50%;border:8px solid var(--xmas-gold);position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.1,1);box-shadow:0 0 40px rgba(251,191,36,0.4);}
 .wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:30px;z-index:10;filter:drop-shadow(0 4px 4px rgba(0,0,0,0.5));}
@@ -298,7 +297,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- ЭКРАНЫ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>🎄 МЕНЮ</span></div>
     <div class="menu-grid">
@@ -440,7 +438,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   </div>
 </div>
 
-<!-- МОДАЛКИ -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <div class="modal-title" id="modal-title">Заголовок</div>
@@ -476,12 +473,13 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 </div>
 
 <div id="toast" class="toast"></div>
+
 <script>
 'use strict';
 
 const CFG = {
   COST: 100, START: 1000000, KEY: 'nomerix_ultra_v10', VER: 12,
-  SECRET: 'nomerix_salt_secret_v10', MAX_PRICE: 100_000_000,
+  SECRET: 'nomerix_salt_secret_v10', MAX_PRICE: 100_000_000_000,
   TRADE_MAX_AGE: 30 * 24 * 3600 * 1000, SAVE_FILE_EXT: '.nomerix.json',
   ADMIN_PASSWORD: '3006',
 };
@@ -659,9 +657,9 @@ const State = {
   ownedThemes: ['classic'], currentTheme: 'classic',
   wheelLast: 0,
   market: [], // { id, plate, region, rarity, price, seller, isPlayer }
-  admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {}, maxPriceLimit: 1_000_000_000 },
+  admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {}, maxPriceLimit: 1_000_000_000_000 },
 };
-<script>
+
 let saveTimer;
 function saveGame(immediate = false) {
   const doSave = () => {
@@ -966,7 +964,7 @@ const Game = {
     const beautyBonus = generated.beauty ? 1.3 : 1.0;
     const basePrice = rnd(win.max - win.min) + win.min;
     const mult = State.admin.priceMultiplier || 1;
-    const cap = State.admin.maxPriceLimit || 1_000_000_000;
+    const cap = State.admin.maxPriceLimit || 1_000_000_000_000;
     const finalPrice = Math.min(Math.floor(basePrice * beautyBonus * mult), cap);
 
     UI.els.plate.className = `plate ${State.country}`;
@@ -1324,9 +1322,7 @@ const Market = {
     if (!content) return;
 
     if (this.tab === 'buy') {
-      // Генерируем лоты от ботов, если их нет
       if (State.market.length === 0) this.generateBots();
-      
       const available = State.market.filter(m => !m.isPlayer);
       
       if (available.length === 0) {
@@ -1383,7 +1379,7 @@ const Market = {
   generateBots() {
     const n = 3 + rnd(3);
     for (let i = 0; i < n; i++) {
-      const rar = pick(RARITIES.slice(2)); // От необычного и выше
+      const rar = pick(RARITIES.slice(2));
       const gen = genPlate(pick(Object.keys(COUNTRIES)), rar);
       const price = Math.floor((rar.min + rar.max) / 2 * (0.8 + Math.random()*0.4));
       State.market.push({
@@ -1404,8 +1400,7 @@ const Market = {
     const item = State.inventory.find(i => i.id === id);
     if (!item) return;
 
-    Modal.show('Выставить на биржу', `Номер: ${item.plate}\nРекомендуемая цена: ${fmt(item.price)}`, 'Выставить', () => {
-      // Просто выставляем по рыночной цене (упрощённо)
+    Modal.show('Выставить на биржу', `Номер: ${item.plate}\nЦена: ${fmt(item.price)}`, 'Выставить', () => {
       State.market.push({
         id: uid(),
         plate: item.plate,
@@ -1416,7 +1411,6 @@ const Market = {
         lvl: item.rarity.lvl,
         isPlayer: true
       });
-      // Удаляем из инвентаря
       const idx = State.inventory.findIndex(i => i.id === id);
       State.inventory.splice(idx, 1);
       
@@ -1429,19 +1423,16 @@ const Market = {
   buy(id) {
     const lot = State.market.find(m => m.id === id);
     if (!lot) return;
-    
     if (State.money < lot.price) { toast('❌ Не хватает денег'); return; }
     
     Modal.show('Купить номер?', `${lot.plate} за ${fmt(lot.price)}`, 'Купить', () => {
       State.money -= lot.price;
       UI.updateMoney();
-      
       State.inventory.push({
         id: uid(), plate: lot.plate, region: lot.region, price: lot.price,
         rarity: { lvl: lot.lvl, name: lot.rarityName, color: lot.color, glow: '#fff' },
         country: State.country, beauty: false, ts: Date.now()
       });
-      
       State.market = State.market.filter(m => m.id !== id);
       saveGame(true);
       Market.render();
@@ -1453,13 +1444,11 @@ const Market = {
   cancel(id) {
     const lot = State.market.find(m => m.id === id);
     if (!lot) return;
-    
     State.inventory.push({
       id: uid(), plate: lot.plate, region: lot.region, price: lot.price,
       rarity: { lvl: lot.lvl, name: lot.rarityName, color: lot.color, glow: '#fff' },
       country: State.country, beauty: false, ts: Date.now()
     });
-    
     State.market = State.market.filter(m => m.id !== id);
     saveGame(true);
     Market.render();
@@ -1486,7 +1475,6 @@ const Trade = {
       if (sig !== expected) { toast('❌ Код подделан'); return; }
       const data = JSON.parse(decoded);
       if (!data.p || !Number.isFinite(data.pr) || data.pr < 0 || data.pr > CFG.MAX_PRICE) { toast('❌ Некорректные данные'); return; }
-      
       const rar = RARITIES.find(r => r.lvl === data.lvl) || RARITIES[1];
       State.inventory.push({
         id: uid(), plate: String(data.p).slice(0,20), region: String(data.r || '').slice(0,3),
@@ -1514,7 +1502,6 @@ const Stats = {
       ['В инвентаре', State.inventory.length],
     ];
     UI.els['stats-grid'].innerHTML = items.map(([l,v]) => `<div class="stat-box"><div class="stat-lbl">${l}</div><div class="stat-val">${v}</div></div>`).join('');
-    
     const coll = {};
     State.inventory.forEach(i => coll[i.rarity.lvl] = (coll[i.rarity.lvl]||0) + 1);
     UI.els['rarity-coll'].innerHTML = RARITIES.slice().reverse().map(r => {
@@ -1663,7 +1650,6 @@ const Admin = {
     const a = State.admin;
     const chances = this.sliderDraft || a.customChances || RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
     const totalChance = Object.values(chances).reduce((s, v) => s + v, 0);
-    const normFactor = totalChance > 0 ? 100 / totalChance : 0;
 
     const sliders = RARITIES.map(r => {
       const ch = chances[r.lvl] || 0;
