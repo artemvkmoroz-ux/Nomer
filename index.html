@@ -246,142 +246,121 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .garage-scene {
   width: 100%;
   height: 220px;
-  background: radial-gradient(ellipse at bottom, #1e293b 0%, #0f172a 70%, #020617 100%);
+  background: 
+    radial-gradient(ellipse at 50% 100%, rgba(255,255,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at top, #1e293b 0%, #0f172a 40%, #020617 100%);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,.1);
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.9);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 
-/* Пол */
-.garage-scene::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.8));
-  pointer-events: none;
-}
-
-/* Сетка на полу */
-.garage-scene::before {
-  content: '';
+.garage-floor {
   position: absolute;
   bottom: 0;
   left: -50%;
   right: -50%;
-  height: 60px;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  transform: perspective(200px) rotateX(60deg);
+  height: 80px;
+  background-image: 
+    linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  transform: perspective(150px) rotateX(60deg);
   transform-origin: bottom;
-  opacity: 0.3;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-/* Машина */
 .car-body {
-  width: 160px;
-  height: 80px;
+  width: 180px;
+  height: 90px;
   position: relative;
   z-index: 2;
   transition: transform .3s;
+  filter: drop-shadow(0 15px 15px rgba(0,0,0,0.7));
 }
-.car-body:hover {
-  transform: scale(1.05) translateY(-5px);
-}
+.car-body:hover { transform: scale(1.05) translateY(-5px); }
 
-/* Кузов */
 .car-chassis {
   width: 100%;
   height: 45px;
-  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
-  border-radius: 30px 40px 10px 10px;
   position: absolute;
-  bottom: 15px;
-  box-shadow: inset 0 -10px 15px rgba(0,0,0,0.5), inset 0 5px 10px rgba(255,255,255,0.3);
+  bottom: 18px;
+  border-radius: 20px 30px 8px 8px;
+  box-shadow: inset 0 -10px 15px rgba(0,0,0,0.6), inset 0 4px 8px rgba(255,255,255,0.3);
 }
 
-/* Кабина */
 .car-cabin {
-  width: 80px;
-  height: 35px;
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  border-radius: 20px 20px 0 0;
+  width: 90px;
+  height: 32px;
   position: absolute;
   bottom: 55px;
-  left: 40px;
-  border: 2px solid #b91c1c;
+  left: 45px;
+  border-radius: 15px 15px 0 0;
+  border: 2px solid rgba(0,0,0,0.5);
   box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
 }
 
-/* Стёкла */
 .car-window {
   width: 100%;
   height: 100%;
-  border-radius: 18px 18px 0 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+  border-radius: 13px 13px 0 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
 }
 
-/* Колёса */
 .car-wheel {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   background: #111;
   border-radius: 50%;
   position: absolute;
   bottom: 0;
-  box-shadow: inset 0 0 5px rgba(255,255,255,0.2), 0 5px 10px rgba(0,0,0,0.5);
-  border: 4px solid #334155;
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8);
+  border: 5px solid #334155;
 }
 .car-wheel::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
+  width: 8px; height: 8px;
   background: #94a3b8;
   border-radius: 50%;
 }
-.car-wheel.left { left: 15px; }
-.car-wheel.right { right: 15px; }
+.car-wheel.left { left: 20px; }
+.car-wheel.right { right: 20px; }
 
-/* Фары */
 .car-light {
-  width: 12px;
-  height: 8px;
+  width: 14px;
+  height: 10px;
   background: #fef08a;
   border-radius: 50%;
   position: absolute;
-  bottom: 25px;
-  box-shadow: 0 0 10px #fef08a, 0 0 20px #fef08a;
+  bottom: 30px;
+  box-shadow: 0 0 15px #fef08a, 0 0 30px #fef08a;
 }
-.car-light.left { left: 8px; }
-.car-light.right { right: 8px; }
+.car-light.left { left: 10px; }
+.car-light.right { right: 10px; }
 
-/* Номер на машине */
 .car-plate-mount {
   position: absolute;
-  bottom: 10px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
   color: #111;
   font-family: 'Arial Black';
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 3px;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
   border: 2px solid #111;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -389,12 +368,11 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 }
 .car-plate-mount .reg {
   border-left: 2px solid #111;
-  padding-left: 4px;
-  margin-left: 4px;
-  font-size: 8px;
+  padding-left: 5px;
+  margin-left: 5px;
+  font-size: 9px;
 }
 
-/* Выбор машины в магазине */
 .car-shop-card {
   background: rgba(255,255,255,.03);
   border: 1px solid var(--gb);
@@ -406,17 +384,14 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   margin-bottom: 12px;
 }
 .car-shop-preview {
-  width: 80px;
-  height: 50px;
-  background: #1e293b;
-  border-radius: 10px;
-  position: relative;
-  flex-shrink: 0;
-  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 32px;
+  flex-shrink: 0;
 }
 .car-shop-info { flex: 1; }
 </style>
@@ -569,19 +544,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
           Выпавшие номера попадают в инвентарь. Продавай их на бирже или вешай на машины в гараже!
         </div>
       </div>
-      <div class="s-block">
-        <div class="s-title lit">🏅 Редкости</div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:600;">
-          <div style="color:var(--trash)">🧦 МУСОР — дальние регионы</div>
-          <div style="color:var(--common)">🍬 ОБЫЧНЫЙ — обычные номера</div>
-          <div style="color:var(--uncommon)">🔔 НЕОБЫЧНЫЙ — красивая цифра</div>
-          <div style="color:var(--rare)">⛄ РЕДКИЙ — 777 или регион 77</div>
-          <div style="color:var(--epic)">🎄 ЭПИЧЕСКИЙ — ААА и топ-регион</div>
-          <div style="color:var(--legend)">🎅 ЛЕГЕНДАРНЫЙ — всё красивое</div>
-          <div style="color:var(--elite)">🌟 БЛАТНОЙ — О777ОО</div>
-          <div style="color:var(--god)">👑 БОЖЕСТВЕННЫЙ — идеал</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -667,8 +629,8 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 100, START: 500000, KEY: 'nomerix_garage_v14', VER: 15,
-  SECRET: 'nomerix_garage_secret_14', MAX_PRICE: 100_000_000_000,
+  COST: 100, START: 500000, KEY: 'nomerix_garage_v15', VER: 16,
+  SECRET: 'nomerix_garage_secret_15', MAX_PRICE: 100_000_000_000,
   TRADE_MAX_AGE: 30 * 24 * 3600 * 1000, SAVE_FILE_EXT: '.nomerix.json',
   ADMIN_PASSWORD: '3006',
 };
@@ -699,7 +661,7 @@ const BOOSTS = [
   { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 750000, maxLvl: 5, effect: 'cost' },
 ];
 
-/* Автомобили для гаража (с реалистичными визуальными параметрами) */
+/* Автомобили для гаража */
 const CARS = [
   { id: 'lada',    name: 'LADA Priora',   basePrice: 800000,    color: '#b91c1c', cabin: '#0f172a', bonus: 1.2, icon: '🚗', tier: 'A' },
   { id: 'bmw',     name: 'BMW M5',        basePrice: 15000000,  color: '#0f172a', cabin: '#1e293b', bonus: 1.5, icon: '🚙', tier: 'B' },
@@ -871,7 +833,7 @@ const State = {
   wheelLast: 0,
   market: [],
   boosts: {},
-  garage: [], // { id, carId, plate: {..} }
+  garage: [],
   admin: { unlocked: false, customChances: null, priceMultiplier: 1, spinCost: CFG.COST, startBalance: CFG.START, customPromos: {}, maxPriceLimit: 1_000_000_000_000 },
 };
 
@@ -1792,15 +1754,15 @@ const Garage = {
         const base = CARS.find(b => b.id === car.carId);
         if (!base) return;
         
-        // Считаем цену продажи
         let platePrice = 0;
         if (car.plate) platePrice = car.plate.price;
         const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus);
         
         html += `
           <div class="garage-scene">
-            <div class="car-body" style="--car-color: ${base.color}; --cabin-color: ${base.cabin};">
-              <div class="car-cabin">
+            <div class="garage-floor"></div>
+            <div class="car-body">
+              <div class="car-cabin" style="background: ${base.cabin} !important;">
                 <div class="car-window"></div>
               </div>
               <div class="car-chassis" style="background: linear-gradient(180deg, ${base.color} 0%, #000 100%) !important;"></div>
@@ -1886,7 +1848,6 @@ const Garage = {
       return;
     }
 
-    // Модалка выбора номера
     let listHtml = '';
     const sorted = [...State.inventory].sort((a,b) => b.price - a.price);
     sorted.forEach(item => {
@@ -1926,7 +1887,6 @@ const Garage = {
     const car = State.garage.find(c => c.id === carId);
     if (!car || !car.plate) return;
 
-    // Возвращаем номер в инвентарь
     State.inventory.push(car.plate);
     car.plate = null;
     
