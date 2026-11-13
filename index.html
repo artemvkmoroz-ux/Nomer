@@ -21,7 +21,6 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;}
-
 #app{width:100%;max-width:430px;height:100dvh;height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:10;}
 
 /* ВЕРХНЯЯ ПАНЕЛЬ */
@@ -33,165 +32,28 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 /* ГЛАВНЫЙ ЭКРАН */
 .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
-
-/* КАРТОЧКА РЕДКОСТИ И ЦЕНЫ */
-.rarity-price-bar {
-  background: rgba(15, 25, 35, 0.8);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 12px 16px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.rarity-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.rarity-name {
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--uncommon);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.dots {
-  display: flex;
-  gap: 4px;
-}
-.dot {
-  width: 16px;
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(255,255,255,0.1);
-  transition: all 0.3s;
-}
-.price-tag {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--uncommon);
-}
+.rarity-price-bar {background: rgba(15, 25, 35, 0.8);border: 1px solid rgba(255,255,255,0.1);border-radius: 16px;padding: 12px 16px;width: 100%;display: flex;justify-content: space-between;align-items: center;margin-bottom: 20px;backdrop-filter: blur(15px);box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+.rarity-info { display: flex; flex-direction: column; gap: 6px; }
+.rarity-name { font-size: 12px; font-weight: 800; color: var(--uncommon); text-transform: uppercase; letter-spacing: 1px; }
+.dots { display: flex; gap: 4px; }
+.dot { width: 14px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); transition: all 0.3s; }
+.price-tag { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--uncommon); white-space: nowrap; }
 
 /* ЗОНА НОМЕРА */
-.plate-zone {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.15s;
-}
-.plate-zone:active {
-  transform: scale(0.97);
-}
-
-/* СВЕЧЕНИЕ СЗАДИ */
-.ambient-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 150px;
-  background: var(--uncommon);
-  filter: blur(60px);
-  opacity: 0.4;
-  border-radius: 50%;
-  z-index: -1;
-  transition: all 0.5s;
-}
-
-/* НОМЕР */
-.plate {
-  display: flex;
-  background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
-  border-radius: 8px;
-  overflow: hidden;
-  height: 100px;
-  width: 100%;
-  max-width: 380px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.8);
-  border: 2px solid #94a3b8;
-  position: relative;
-}
-.plate-main {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.reels {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  will-change: transform;
-}
-.reel {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Arial Black', Impact, sans-serif;
-  font-size: 54px;
-  letter-spacing: 2px;
-  white-space: nowrap;
-  color: #050505;
-  text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
-}
-.plate-side {
-  width: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-left: 2px solid #94a3b8;
-}
-.region {
-  font-size: 32px;
-  font-weight: 900;
-  font-family: 'Arial Black', sans-serif;
-  line-height: 1;
-  color: #050505;
-}
-.flag-txt {
-  font-size: 10px;
-  font-weight: 900;
-  color: #050505;
-  margin-top: 2px;
-}
+.plate-zone { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.15s; }
+.plate-zone:active { transform: scale(0.97); }
+.ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 150px; background: var(--uncommon); filter: blur(60px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; }
+.plate { display: flex; background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%); border-radius: 8px; overflow: hidden; height: 100px; width: 100%; max-width: 380px; box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.8); border: 2px solid #94a3b8; position: relative; }
+.plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.reels { position: absolute; top: 0; width: 100%; will-change: transform; }
+.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'Arial Black', Impact, sans-serif; font-size: 54px; letter-spacing: 2px; white-space: nowrap; color: #050505; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
+.plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #94a3b8; }
+.region { font-size: 32px; font-weight: 900; font-family: 'Arial Black', sans-serif; line-height: 1; color: #050505; }
+.flag-txt { font-size: 10px; font-weight: 900; color: #050505; margin-top: 2px; }
 
 /* ПОДПИСЬ ПОД НОМЕРОМ */
-.description {
-  margin-top: 20px;
-  font-size: 13px;
-  color: var(--sub);
-  font-weight: 600;
-  text-align: center;
-}
-
-/* СТАТУС СНИЗУ (СТРАНА) */
-.bottom-status {
-  position: absolute;
-  bottom: calc(40px + var(--sb));
-  background: rgba(15,25,35,0.8);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 10px 20px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 800;
-  backdrop-filter: blur(10px);
-}
+.description { margin-top: 20px; font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; }
+.bottom-status { position: absolute; bottom: calc(40px + var(--sb)); background: rgba(15,25,35,0.8); border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; backdrop-filter: blur(10px); }
 
 /* ЭКРАНЫ */
 .screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(30px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
@@ -219,6 +81,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .btn-sm:active{transform:scale(.92)}
 .btn-sell{background:linear-gradient(135deg,#16a34a,#059669)}
 .btn-market{background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;}
+.btn-safe{background:linear-gradient(135deg,#3b82f6,#2563eb)}
 
 .empty{text-align:center;color:var(--sub);padding:80px 20px;font-size:15px;line-height:1.8;font-weight:600}
 .empty-ico{font-size:64px;margin-bottom:20px;opacity:.3}
@@ -227,7 +90,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .s-block{background:rgba(255,255,255,.03);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;}
 .s-title{font-weight:900;font-size:12px;text-transform:uppercase;color:var(--sub)}
 .s-title.lit{color:#fff}
-.s-hint{font-size:12px;color:var(--sub);line-height:1.6;font-weight:600}
 .input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif}
 .btn{border:none;padding:16px;border-radius:14px;font-weight:900;font-size:14px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:transform 0.15s;}
 .btn:active{transform:scale(.96);}
@@ -236,7 +98,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .btn-gold{background:linear-gradient(135deg,#fbbf24,#d97706);color:#000}
 .btn-red{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff}
 
-/* Стили для магазина/биржи */
 .market-tabs{display:flex;gap:10px;margin-bottom:16px;}
 .market-tab{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:900;font-size:13px;cursor:pointer;background:rgba(255,255,255,.03);border:1px solid var(--gb);color:var(--sub);transition:all .2s;}
 .market-tab.active{background:#fff;color:#000;border-color:#fff;}
@@ -245,14 +106,13 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .boost-name{font-weight:900;font-size:14px;color:#fff;margin-bottom:4px;}
 .boost-desc{font-size:11px;color:var(--sub);font-weight:600;}
 .boost-price{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--gold);}
-
 .car-shop-preview{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
 
-.wheel-container{position:relative;width:280px;height:280px;margin:20px auto;}
-.wheel{width:100%;height:100%;border-radius:50%;border:10px solid #1e293b;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.1,1);background:#0f172a;}
-.wheel-pointer{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:36px;z-index:10;color:#fff;}
-.wheel-item{position:absolute;width:50%;height:50%;transform-origin:100% 100%;border-left:1px solid rgba(255,255,255,0.05);}
-.wheel-text{position:absolute;top:25%;right:10%;font-weight:900;font-size:12px;color:#fff;transform:rotate(15deg);}
+/* СЕЙФ */
+.safe-list{display:grid;grid-template-columns:1fr;gap:12px;padding:0 20px 20px 20px;}
+.safe-slot{background:rgba(0,0,0,0.3);border:1px dashed rgba(255,255,255,0.2);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;min-height:80px;}
+.safe-slot.filled{border-style:solid;border-color:var(--gb);background:rgba(255,255,255,0.03);}
+.safe-empty-txt{font-size:13px;color:var(--sub);font-weight:600;}
 
 .garage-scene { width: 100%; height: 200px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px;}
 .car-body { width: 180px; height: 90px; position: relative; z-index: 2; }
@@ -262,6 +122,12 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .car-wheel.left { left: 20px; } .car-wheel.right { right: 20px; }
 .car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'Arial Black'; font-size: 11px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px;}
 .car-plate-mount .reg { font-size: 9px; }
+
+.wheel-container{position:relative;width:280px;height:280px;margin:20px auto;}
+.wheel{width:100%;height:100%;border-radius:50%;border:10px solid #1e293b;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.1,1);background:#0f172a;}
+.wheel-pointer{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:36px;z-index:10;color:#fff;}
+.wheel-item{position:absolute;width:50%;height:50%;transform-origin:100% 100%;border-left:1px solid rgba(255,255,255,0.05);}
+.wheel-text{position:absolute;top:25%;right:10%;font-weight:900;font-size:12px;color:#fff;transform:rotate(15deg);}
 
 /* Модалки */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
@@ -275,7 +141,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 #admin-modal .modal{max-width:420px;max-height:85vh;overflow-y:auto;text-align:left;}
 .admin-btn{padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(255,255,255,.05);color:#fff;font-weight:900;font-size:12px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;}
 .admin-btn:active{transform:scale(0.95);}
-.admin-btn.active{background:var(--gold);color:#000;border-color:var(--gold);}
 .admin-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:10px;color:#fff;font-size:12px;outline:none;}
 .admin-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.05)}
 .admin-section-title{color:#fff;font-weight:900;font-size:12px;margin-bottom:10px;text-transform:uppercase;}
@@ -332,10 +197,11 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
       <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div></div>
+      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div></div>
       <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div><div class="menu-txt">Гараж</div><div class="menu-sub">Машины</div></div></div>
-      <div class="menu-card" onclick="UI.open('wheel')"><div class="menu-ico">🎡</div><div><div class="menu-txt">Колесо</div><div class="menu-sub">Призы</div></div></div>
       <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div><div class="menu-txt">Биржа</div><div class="menu-sub">Купить/Продать</div></div></div>
       <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения</div></div></div>
+      <div class="menu-card" onclick="UI.open('changelog')"><div class="menu-ico">📜</div><div><div class="menu-txt">Обновления</div><div class="menu-sub">История версий</div></div></div>
       <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div></div>
     </div>
   </div>
@@ -345,18 +211,17 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     <div class="inv-list" id="inv-list"></div>
   </div>
 
+  <div id="scr-safe" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
+    <div class="settings" style="padding-bottom:0;">
+      <div class="s-hint">В сейфе надежно хранятся ваши лучшие номера. Они не пропадут.</div>
+    </div>
+    <div class="safe-list" id="safe-list"></div>
+  </div>
+
   <div id="scr-garage" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>ГАРАЖ</span></div>
     <div class="settings" id="garage-content"></div>
-  </div>
-
-  <div id="scr-wheel" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('wheel')">←</button><span>КОЛЕСО</span></div>
-    <div class="settings" style="align-items:center; text-align:center;">
-      <div class="wheel-container"><div class="wheel-pointer">▼</div><div class="wheel" id="wheel"></div></div>
-      <button class="btn btn-gold" id="wheel-btn" style="width:100%;margin-top:20px;" onclick="Wheel.spin()">КРУТИТЬ</button>
-      <div id="wheel-timer" style="margin-top:12px;font-weight:900;color:var(--sub);"></div>
-    </div>
   </div>
 
   <div id="scr-market" class="screen">
@@ -373,6 +238,11 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
     <div class="settings" id="shop-content"></div>
+  </div>
+
+  <div id="scr-changelog" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('changelog')">←</button><span>ОБНОВЛЕНИЯ</span></div>
+    <div class="settings" id="changelog-content"></div>
   </div>
 
   <div id="scr-settings" class="screen">
@@ -432,21 +302,21 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 500, START: 100000, KEY: 'nomerix_full_v21', VER: 22,
-  SECRET: 'nomerix_full_secret_21', MAX_PRICE: 1_000_000_000_000,
+  COST: 5000, START: 500000, KEY: 'nomerix_safe_v25', VER: 25,
+  SECRET: 'nomerix_secret_v25', MAX_PRICE: 10_000_000_000,
   ADMIN_PASSWORD: '3006',
-  BTC_PER_RUB: 1000000 // 1 биткоин = 1 000 000 рублей
+  BTC_PER_RUB: 1000000
 };
 
 const RARITIES = [
-  { lvl:1, name:'МУСОР',        color:'var(--trash)',    glow:'#475569', chance:14.0, min:500,        max:5_000,        tier:'trash' },
-  { lvl:2, name:'ОБЫЧНЫЙ',      color:'var(--common)',   glow:'#94a3b8', chance:35.0, min:10_000,     max:50_000,       tier:'common' },
-  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'var(--uncommon)', glow:'#10b981', chance:25.0, min:100_000,    max:500_000,      tier:'uncommon' },
-  { lvl:4, name:'РЕДКИЙ',       color:'var(--rare)',     glow:'#3b82f6', chance:15.0, min:1_000_000,  max:5_000_000,    tier:'rare' },
-  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'var(--epic)',     glow:'#a855f7', chance:7.0,  min:10_000_000, max:30_000_000,   tier:'epic' },
-  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'var(--legend)',   glow:'#f59e0b', chance:2.5,  min:50_000_000, max:150_000_000,  tier:'legend' },
-  { lvl:7, name:'БЛАТНОЙ',      color:'var(--elite)',    glow:'#ef4444', chance:1.0,  min:200_000_000,max:800_000_000,  tier:'elite' },
-  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'var(--god)',      glow:'#ec4899', chance:0.5,  min:1_000_000_000,max:5_000_000_000,tier:'god' },
+  { lvl:1, name:'МУСОР',        color:'var(--trash)',    glow:'#475569', chance:14.0, min:500,       max:5_000,        tier:'trash' },
+  { lvl:2, name:'ОБЫЧНЫЙ',      color:'var(--common)',   glow:'#94a3b8', chance:35.0, min:15_000,    max:80_000,       tier:'common' },
+  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'var(--uncommon)', glow:'#10b981', chance:25.0, min:100_000,   max:500_000,      tier:'uncommon' },
+  { lvl:4, name:'РЕДКИЙ',       color:'var(--rare)',     glow:'#3b82f6', chance:15.0, min:1_000_000, max:5_000_000,    tier:'rare' },
+  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'var(--epic)',     glow:'#a855f7', chance:7.0,  min:5_000_000, max:15_000_000,   tier:'epic' },
+  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'var(--legend)',   glow:'#f59e0b', chance:2.5,  min:15_000_000,max:50_000_000,   tier:'legend' },
+  { lvl:7, name:'БЛАТНОЙ',      color:'var(--elite)',    glow:'#ef4444', chance:1.0,  min:50_000_000,max:200_000_000,  tier:'elite' },
+  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'var(--god)',      glow:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
 ];
 
 const DEFAULT_PROMOS = { MONEY: 50000, BTC: 1, RICH: 1000000 };
@@ -463,71 +333,59 @@ const CARS = [
   { id: 'bugatti', name: 'Bugatti Chiron',basePrice: 500000000, color: '#1e40af', cabin: '#0f172a', bonus: 2.5, icon: '🏎️', tier: 'SS' },
 ];
 
+const CHANGELOG = [
+  { v: 'v25.0', date: 'Текущее', list: ['Добавлен Сейф для хранения номеров', 'Добавлен список обновлений', 'Исправлена генерация номеров'] },
+  { v: 'v24.0', date: 'Ранее', list: ['Уменьшен размер цены на экране', 'Реальные цены на номера', 'Оптимизация кода'] },
+  { v: 'v23.0', date: 'Ранее', list: ['Добавлены биткоины', 'Переход на рубли', 'Интерфейс как на фото'] },
+];
+
 const $ = id => document.getElementById(id);
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
 const fmtRub = n => Math.floor(n).toLocaleString('ru-RU') + ' ₽';
 const fmtBtc = n => (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
-const escapeHtml = s => { const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; };
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ (ТОЛЬКО РФ)
+   ГЕНЕРАЦИЯ НОМЕРОВ
    ============================================================ */
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_DIGITS = {
-  uncommon: ['001','002','010','020','100','200','500'],
-  rare:     ['001','002','003','007','010','100','200','300','500','777','888','999'],
-  epic:     ['001','007','100','200','300','500','777','888','999'],
-  legend:   ['001','007','777','888','999','100','200'],
-  elite:    ['001','007','777','888','100','200','300','500','999'],
-  god:      ['001','007','777'],
+  uncommon: ['001','002','010','020','100','200','500','007','300','400','600','700','800','900','111','222','333','444','555','666','999'],
+  rare:     ['001','002','003','007','010','100','200','300','500','777','888','999','123','321','456','654','789','987','111','222','333','444','555','666','070','090'],
+  epic:     ['001','007','100','200','300','500','777','888','999','123','456','789','555','333','111','222'],
+  legend:   ['001','007','777','888','999','100','200','500','300','123','555','333'],
+  elite:    ['001','007','777','888','100','200','300','500','999','555','333','111','222'],
+  god:      ['001','007','777','111','222','333','555'],
 };
-const MIRROR = ['010','020','101','111','121','131','202','212','303','313','404','505','606','707','808','909','222','333','444','555','666','777','888','999'];
+const MIRROR = ['010','020','101','111','121','131','202','212','303','313','404','505','606','707','808','909','222','333','444','555','666','777','888','999','131','232','343','454','565','676','787','898','909'];
 const PREMIUM_REGIONS = ['77','99','97','78','98','177','199','197','178','198'];
 const GOOD_REGIONS = [...PREMIUM_REGIONS, '50','90','150','750','790','47','23','61','34','36','16','02','52','63','64','66','72','74','86','89'];
 
 function pickLetter(pool = RU_LETTERS) { return pool[rnd(pool.length)]; }
 function pickBeautyLetter() { return pick(BEAUTY_TOP); }
+function randomDigit() { return String(rnd(10)); }
+function randomDigits3() { return randomDigit() + randomDigit() + randomDigit(); }
 
 function genRu(tier) {
   let firstLetters, lastLetters, digits, region, beauty = false, desc = 'Случайный номер';
   switch(tier) {
-    case 'trash': 
-      digits = String(rnd(900) + 100); firstLetters = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(150 + rnd(50)); 
-      desc = 'Дальний регион'; break;
-    case 'common': 
-      if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; desc = 'Красивые цифры'; } 
-      else { digits = String(rnd(900) + 100); desc = 'Обычный номер'; }
-      firstLetters = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(30 + rnd(120)); break;
-    case 'uncommon': 
-      if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); desc = 'Красивые цифры'; firstLetters = pickLetter(); lastLetters = pickLetter() + pickLetter(); } 
-      else { firstLetters = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); digits = String(rnd(900) + 100); desc = 'Хорошая буква'; } 
-      region = pick(GOOD_REGIONS); beauty = true; break;
-    case 'rare': 
-      digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); 
-      firstLetters = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); region = pick(PREMIUM_REGIONS); 
-      beauty = true; desc = 'Красивые цифры и регион'; break;
-    case 'epic': 
-      { const f = pickBeautyLetter(); firstLetters = f; if (Math.random() < 0.6) lastLetters = f + f; else lastLetters = f + pickBeautyLetter(); digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; desc = 'Повторяющиеся буквы'; break; }
-    case 'legend': 
-      { const f = pickBeautyLetter(); firstLetters = f; lastLetters = f + f; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; desc = 'Всё красивое'; break; }
-    case 'elite': 
-      { const f = pick(['О','Е','К','М','С','А','Т','Н']); firstLetters = f; if (Math.random() < 0.5) { const s = pick(['О','Е','К','М','С']); lastLetters = s + s; } else lastLetters = pickBeautyLetter() + pickBeautyLetter(); digits = pick(['001','007','777','888','100','200','300','999']); region = '77'; beauty = true; desc = 'Блатной номер (О777ОО)'; break; }
-    case 'god': 
-      { const l = pick(['О','А','Е','К','С','М']); firstLetters = l; lastLetters = l + l; digits = pick(['001','007','777']); region = '77'; beauty = true; desc = 'Идеальный номер'; break; }
+    case 'trash': digits = randomDigits3(); firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); region = String(150 + rnd(50)); break;
+    case 'common': if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; desc = 'Красивые цифры'; } else { digits = randomDigits3(); } firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); region = String(30 + rnd(120)); break;
+    case 'uncommon': if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); desc = 'Красивые цифры'; firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); } else { firstLetters = pickBeautyLetter()+pickBeautyLetter(); lastLetters = pickLetter()+pickLetter(); digits = randomDigits3(); desc = 'Хорошие буквы'; } region = pick(GOOD_REGIONS); beauty = true; break;
+    case 'rare': digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); firstLetters = pickBeautyLetter()+pickBeautyLetter(); lastLetters = pickLetter()+pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; desc = 'Красивые цифры и регион'; break;
+    case 'epic': { const f = pickBeautyLetter(); firstLetters = f+f; if (Math.random()<0.6) lastLetters = f+f; else lastLetters = f+pickBeautyLetter(); digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; desc = 'Повторяющиеся буквы'; break; }
+    case 'legend': { const f = pickBeautyLetter(); firstLetters = f+f; lastLetters = f+f; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; desc = 'Всё красивое'; break; }
+    case 'elite': { const f = pick(['О','Е','К','М','С','А','Т','Н']); firstLetters = f+f; if (Math.random()<0.5) { const s = pick(['О','Е','К','М','С']); lastLetters = s+s; } else lastLetters = pickBeautyLetter()+pickBeautyLetter(); digits = pick(['001','007','777','888','100','200','300','500','999','111','222','333','555']); region = '77'; beauty = true; desc = 'Блатной номер'; break; }
+    case 'god': { const l = pick(['О','А','Е','К','С','М','Т','Н']); firstLetters = l+l; lastLetters = l+l; digits = pick(['001','007','777','111','222','333']); region = '77'; beauty = true; desc = 'Идеальный номер'; break; }
   }
   return { text: `${firstLetters} ${digits} ${lastLetters}`, region, beauty, desc };
 }
-
-function genPlate(rarity) {
-  if (!rarity) rarity = RARITIES[1];
-  return genRu(rarity.tier || 'common');
-}
+function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
 /* ============================================================
-   ЗВУКИ / ВИБРАЦИЯ / TOAST
+   ЗВУКИ
    ============================================================ */
 const Sound = {
   ctx: null, enabled: true,
@@ -575,7 +433,7 @@ const Modal = {
    STATE & SAVE
    ============================================================ */
 const State = {
-  money: CFG.START, bitcoin: 0, inventory: [], maxRecord: 0, history: [], spinning: false,
+  money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false,
   stats: { spins:0, spent:0, earned:0, sold:0 },
   boosts: {}, garage: [], market: [],
   admin: { unlocked: false, customChances: null, priceMultiplier: 1 },
@@ -584,8 +442,9 @@ const State = {
 function saveGame() {
   try {
     localStorage.setItem(CFG.KEY, JSON.stringify({
-      money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, maxRecord: State.maxRecord,
-      stats: State.stats, boosts: State.boosts, garage: State.garage, market: State.market, admin: State.admin
+      money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe,
+      maxRecord: State.maxRecord, stats: State.stats, boosts: State.boosts,
+      garage: State.garage, market: State.market, admin: State.admin
     }));
   } catch(e) {}
 }
@@ -598,6 +457,7 @@ function loadGame() {
     State.money = d.money || CFG.START;
     State.bitcoin = d.bitcoin || 0;
     State.inventory = d.inventory || [];
+    State.safe = d.safe || [null, null, null];
     State.maxRecord = d.maxRecord || 0;
     State.stats = d.stats || { spins:0, spent:0, earned:0, sold:0 };
     State.boosts = d.boosts || {};
@@ -611,10 +471,10 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) saveG
 const SaveFile = {
   export() {
     try {
-      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, garage: State.garage, boosts: State.boosts, market: State.market };
+      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `nomerix_real_${Date.now()}.json`;
+      const a = document.createElement('a'); a.href = url; a.download = `nomerix_save_${Date.now()}.json`;
       a.click(); URL.revokeObjectURL(url); toast('✅ Сохранение скачано');
     } catch(e) { toast('⚠ Ошибка'); }
   },
@@ -627,7 +487,7 @@ const SaveFile = {
         const d = JSON.parse(e.target.result);
         if (d.app === 'NomerixReal') {
           State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory;
-          State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
+          State.safe = d.safe || [null, null, null]; State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
           saveGame(); UI.updateMoney(); toast('✅ Загружено'); UI.close('settings');
         } else toast('❌ Неверный файл');
       } catch(err) { toast('❌ Ошибка'); }
@@ -642,7 +502,7 @@ const SaveFile = {
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','wheel','wheel-btn','wheel-timer','market-content','shop-content','garage-content','promo-input'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','wheel','wheel-btn','wheel-timer','market-content','shop-content','garage-content','changelog-content','promo-input'].forEach(id => this.els[id] = $(id));
   },
   open(name) {
     if (State.spinning) return;
@@ -650,10 +510,11 @@ const UI = {
     const el = $('scr-' + name);
     if (el) el.classList.add('active');
     if (name === 'inventory') Inventory.render();
+    if (name === 'safe') Safe.render();
     if (name === 'market') Market.render();
     if (name === 'shop') Shop.render();
     if (name === 'garage') Garage.render();
-    if (name === 'wheel') Wheel.render();
+    if (name === 'changelog') Changelog.render();
   },
   close(name) {
     const el = $('scr-' + name); if (el) el.classList.remove('active');
@@ -671,16 +532,8 @@ const UI = {
       this.els.description.style.color = 'var(--sub)';
     }
   },
-  getSpinCost() {
-    let base = CFG.COST;
-    const disc = State.boosts.discount || 0;
-    return Math.floor(base * (1 - disc * 0.1));
-  },
-  getPriceMultiplier() {
-    let mult = State.admin.priceMultiplier || 1;
-    const bMult = State.boosts.multiplier || 0;
-    return mult * Math.pow(2, bMult);
-  },
+  getSpinCost() { return Math.floor(CFG.COST * (1 - (State.boosts.discount || 0) * 0.1)); },
+  getPriceMultiplier() { return (State.admin.priceMultiplier || 1) * Math.pow(2, State.boosts.multiplier || 0); },
   setRarity(win) {
     this.els['rarity-name'].textContent = win.name;
     this.els['rarity-name'].style.color = win.color;
@@ -708,21 +561,13 @@ function spawnParticles(color, count = 28) {
   arr.forEach(p => {
     const a = Math.random()*Math.PI*2;
     const v = 100 + Math.random()*200;
-    p.animate([
-      { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
-      { transform:`translate(calc(-50% + ${Math.cos(a)*v}px), calc(-50% + ${Math.sin(a)*v}px)) scale(0)`, opacity:0 }
-    ], { duration: 800 + Math.random()*400 }).onfinish = () => p.remove();
+    p.animate([{ transform:'translate(-50%,-50%) scale(1)', opacity:1 }, { transform:`translate(calc(-50% + ${Math.cos(a)*v}px), calc(-50% + ${Math.sin(a)*v}px)) scale(0)`, opacity:0 }], { duration: 800 + Math.random()*400 }).onfinish = () => p.remove();
   });
 }
 
 function rollRarity() {
   let chances = State.admin.customChances || RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
-  const lucky = State.boosts.lucky || 0;
-  if (lucky > 0) {
-    let mod = { ...chances };
-    for (let k in mod) mod[k] = Math.max(0, mod[k] + (k >= 4 ? lucky : -lucky/2));
-    chances = mod;
-  }
+  if (State.boosts.lucky) { let mod = { ...chances }; for (let k in mod) mod[k] = Math.max(0, mod[k] + (k >= 4 ? State.boosts.lucky : -State.boosts.lucky/2)); chances = mod; }
   let total = 0; for (const r of RARITIES) total += chances[r.lvl];
   let rand = Math.random() * total, cum = 0;
   for (const r of RARITIES) { cum += chances[r.lvl]; if (rand <= cum) return r; }
@@ -737,38 +582,26 @@ const Game = {
     const cost = UI.getSpinCost();
     if (State.spinning || State.money < cost) return;
     State.spinning = true; State.money -= cost; State.stats.spent += cost;
-    UI.updateMoney();
-    Sound.tone(200, .1, 'sawtooth', .05);
-    Haptic.buzz(15);
+    UI.updateMoney(); Sound.tone(200, .1, 'sawtooth', .05); Haptic.buzz(15);
 
     const win = rollRarity();
     const generated = genPlate(win);
-    const beautyBonus = generated.beauty ? 1.3 : 1.0;
-    const basePrice = rnd(win.max - win.min) + win.min;
-    const finalPrice = Math.floor(basePrice * beautyBonus * UI.getPriceMultiplier());
+    const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * (generated.beauty ? 1.3 : 1.0) * UI.getPriceMultiplier());
 
-    UI.els['rarity-name'].textContent = 'КРУТИМ...';
-    UI.els['rarity-name'].style.color = 'var(--sub)';
-    UI.els.price.textContent = '...';
-    UI.els.price.style.color = 'var(--sub)';
-    UI.els.glow.style.background = '#fff';
-    UI.els.glow.style.opacity = '0.2';
+    UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = 'var(--sub)';
+    UI.els.price.textContent = '...'; UI.els.price.style.color = 'var(--sub)';
+    UI.els.glow.style.background = '#fff'; UI.els.glow.style.opacity = '0.2';
 
-    const reels = UI.els.reels;
-    reels.innerHTML = '';
+    const reels = UI.els.reels; reels.innerHTML = '';
     const frag = document.createDocumentFragment();
-    for (let i = 0; i < 20; i++) {
-      const d = document.createElement('div'); d.className = 'reel'; d.textContent = genPlate(RARITIES[1]).text; frag.appendChild(d);
-    }
+    for (let i = 0; i < 20; i++) { const d = document.createElement('div'); d.className = 'reel'; d.textContent = genPlate(RARITIES[1]).text; frag.appendChild(d); }
     const finalDiv = document.createElement('div'); finalDiv.className = 'reel'; finalDiv.textContent = generated.text;
     frag.appendChild(finalDiv); reels.appendChild(frag);
     reels.style.transition = 'none'; reels.style.transform = 'translateY(0px)';
     
     setTimeout(() => {
-      reels.style.transition = 'transform 3s cubic-bezier(.15,.85,.2,1)';
-      reels.style.transform = `translateY(-2000px)`;
+      reels.style.transition = 'transform 3s cubic-bezier(.15,.85,.2,1)'; reels.style.transform = `translateY(-2000px)`;
       let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = Math.floor(Math.random()*199)+1; }, 60);
-
       setTimeout(() => {
         clearInterval(rTimer);
         if (UI.els.region) UI.els.region.textContent = generated.region;
@@ -776,49 +609,28 @@ const Game = {
       }, 3100);
     }, 50);
   },
-
   reveal(win, generated, price) {
-    UI.setRarity(win);
-    UI.els.description.textContent = generated.desc;
-    UI.els.price.textContent = fmtRub(price);
-    
-    if (win.lvl >= 4) {
-      spawnParticles(win.glow, win.lvl >= 6 ? 50 : 25);
-      Sound.win(win.lvl); Haptic.buzz([30, 50, 80]);
-    } else Sound.win(2);
-
+    UI.setRarity(win); UI.els.description.textContent = generated.desc; UI.els.price.textContent = fmtRub(price);
+    if (win.lvl >= 4) { spawnParticles(win.glow, win.lvl >= 6 ? 50 : 25); Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
     Game.animatePrice(price, win, () => {
-      Game.addToInventory(generated, price, win);
-      State.spinning = false;
-      UI.updateMoney();
+      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
+      if (price > State.maxRecord) State.maxRecord = price;
+      saveGame(); State.spinning = false; UI.updateMoney();
     });
   },
-
   animatePrice(target, win, cb) {
-    const start = performance.now();
-    const el = UI.els.price;
+    const start = performance.now(); const el = UI.els.price;
     function frame(now) {
       const prog = Math.min((now - start) / 1000, 1);
       el.textContent = fmtRub(target * (1 - Math.pow(1 - prog, 3)));
-      if (prog < 1) requestAnimationFrame(frame);
-      else { el.textContent = fmtRub(target); cb(); }
+      if (prog < 1) requestAnimationFrame(frame); else { el.textContent = fmtRub(target); cb(); }
     }
     requestAnimationFrame(frame);
-  },
-
-  addToInventory(generated, price, rarity) {
-    State.inventory.push({
-      id: uid(), plate: generated.text, region: generated.region, price: price,
-      rarity: { lvl: rarity.lvl, name: rarity.name, color: rarity.color, glow: rarity.glow },
-      beauty: !!generated.beauty, ts: Date.now(),
-    });
-    if (price > State.maxRecord) State.maxRecord = price;
-    saveGame();
   }
 };
 
 /* ============================================================
-   INVENTORY & MARKET & SHOP & GARAGE
+   INVENTORY & SAFE
    ============================================================ */
 const Inventory = {
   render() {
@@ -835,7 +647,7 @@ const Inventory = {
             <div style="font-size:10px; color:var(--sub); font-weight:800; margin-top:2px;">${item.rarity.name}</div>
           </div>
           <div class="inv-actions">
-            <button class="btn-sm btn-market" onclick="Market.listItem('${item.id}')">Биржа</button>
+            <button class="btn-sm btn-safe" onclick="Safe.deposit('${item.id}')">В Сейф</button>
             <button class="btn-sm btn-sell" onclick="Inventory.sell('${item.id}')">Продать</button>
           </div>
         </div>`;
@@ -845,180 +657,107 @@ const Inventory = {
   sell(id) {
     const idx = State.inventory.findIndex(i => i.id === id);
     if (idx < 0) return;
-    const item = State.inventory[idx];
-    State.money += item.price; State.stats.earned += item.price;
-    State.inventory.splice(idx, 1);
-    UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(item.price)}`);
+    State.money += State.inventory[idx].price; State.stats.earned += State.inventory[idx].price;
+    State.inventory.splice(idx, 1); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(State.money)}`);
   }
 };
 
+const Safe = {
+  render() {
+    const list = UI.els['safe-list'];
+    let html = '';
+    for(let i=0; i<3; i++) {
+      const item = State.safe[i];
+      if (item) {
+        html += `<div class="safe-slot filled">
+          <div><div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div><div class="inv-price" style="color:${item.rarity.color}">${fmtRub(item.price)}</div></div>
+          <button class="btn-sm btn-sell" onclick="Safe.withdraw(${i})">Забрать</button>
+        </div>`;
+      } else {
+        html += `<div class="safe-slot"><div class="safe-empty-txt">Слот ${i+1} пуст</div></div>`;
+      }
+    }
+    list.innerHTML = html;
+  },
+  deposit(id) {
+    const slot = State.safe.indexOf(null);
+    if (slot === -1) return toast('❌ Сейф заполнен');
+    const idx = State.inventory.findIndex(i => i.id === id);
+    if (idx < 0) return;
+    State.safe[slot] = State.inventory[idx];
+    State.inventory.splice(idx, 1);
+    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в сейфе');
+  },
+  withdraw(slot) {
+    if (!State.safe[slot]) return;
+    State.inventory.push(State.safe[slot]);
+    State.safe[slot] = null;
+    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в инвентаре');
+  }
+};
+
+/* ============================================================
+   CHANGELOG
+   ============================================================ */
+const Changelog = {
+  render() {
+    const content = UI.els['changelog-content'];
+    let html = '';
+    CHANGELOG.forEach((log, idx) => {
+      html += `<div class="s-block" style="margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div class="s-title lit" style="font-size:14px;">${log.v}</div>
+          <div style="font-size:10px; color:var(--sub);">${log.date}</div>
+        </div>
+        <ul style="font-size:12px; color:#fff; padding-left:16px; line-height:1.8;">
+          ${log.list.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>`;
+    });
+    content.innerHTML = html;
+  }
+};
+
+/* ============================================================
+   MARKET & SHOP & GARAGE
+   ============================================================ */
 const Market = {
   tab: 'buy',
-  setTab(t, el) {
-    this.tab = t;
-    document.querySelectorAll('#scr-market .market-tab').forEach(b => b.classList.remove('active'));
-    el.classList.add('active'); this.render();
-  },
+  setTab(t, el) { this.tab = t; document.querySelectorAll('#scr-market .market-tab').forEach(b => b.classList.remove('active')); el.classList.add('active'); this.render(); },
   render() {
     const content = UI.els['market-content'];
     if (this.tab === 'buy') {
       if (State.market.length === 0) this.generateBots();
       let html = '';
       State.market.filter(m => !m.isPlayer).forEach(lot => {
-        html += `
-          <div class="inv-item" style="margin-bottom:12px;">
-            <div style="flex:1">
-              <div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div>
-              <div class="inv-price" style="color:${lot.color}">${fmtRub(lot.price)}</div>
-            </div>
-            <button class="btn-sm btn-sell" onclick="Market.buy('${lot.id}')">Купить</button>
-          </div>`;
+        html += `<div class="inv-item" style="margin-bottom:12px;"><div style="flex:1"><div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div><div class="inv-price" style="color:${lot.color}">${fmtRub(lot.price)}</div></div><button class="btn-sm btn-sell" onclick="Market.buy('${lot.id}')">Купить</button></div>`;
       });
       content.innerHTML = html || `<div class="empty">Нет лотов</div>`;
     } else {
       let html = '';
       State.market.filter(m => m.isPlayer).forEach(lot => {
-        html += `
-          <div class="inv-item" style="margin-bottom:12px;">
-            <div style="flex:1">
-              <div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div>
-              <div class="inv-price" style="color:${lot.color}">${fmtRub(lot.price)}</div>
-            </div>
-            <button class="btn-sm btn-red" onclick="Market.cancel('${lot.id}')">Снять</button>
-          </div>`;
+        html += `<div class="inv-item" style="margin-bottom:12px;"><div style="flex:1"><div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div><div class="inv-price" style="color:${lot.color}">${fmtRub(lot.price)}</div></div><button class="btn-sm btn-red" onclick="Market.cancel('${lot.id}')">Снять</button></div>`;
       });
       content.innerHTML = html || `<div class="empty">У вас нет лотов</div>`;
     }
   },
-  generateBots() {
-    for (let i = 0; i < 4; i++) {
-      const rar = pick(RARITIES.slice(1)); const gen = genPlate(rar);
-      State.market.push({ id: uid(), plate: gen.text, region: gen.region, price: Math.floor((rar.min + rar.max) / 2), color: rar.color, lvl: rar.lvl, name: rar.name, isPlayer: false });
-    }
-  },
-  listItem(id) {
-    const item = State.inventory.find(i => i.id === id);
-    if (!item) return;
-    Modal.show('Выставить на биржу', `Цена: ${fmtRub(item.price)}`, 'Выставить', () => {
-      State.market.push({ ...item, isPlayer: true, color: item.rarity.color, lvl: item.rarity.lvl, name: item.rarity.name });
-      State.inventory = State.inventory.filter(i => i.id !== id);
-      UI.updateMoney(); saveGame(); this.render();
-    });
-  },
-  buy(id) {
-    const lot = State.market.find(m => m.id === id);
-    if (State.money < lot.price) return toast('❌ Мало денег');
-    State.money -= lot.price;
-    State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false });
-    State.market = State.market.filter(m => m.id !== id);
-    UI.updateMoney(); saveGame(); this.render(); toast('✅ Куплено!');
-  },
-  cancel(id) {
-    const lot = State.market.find(m => m.id === id);
-    State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false });
-    State.market = State.market.filter(m => m.id !== id);
-    saveGame(); this.render(); toast('Лот снят');
-  }
+  generateBots() { for (let i = 0; i < 4; i++) { const rar = pick(RARITIES.slice(1)); const gen = genPlate(rar); State.market.push({ id: uid(), plate: gen.text, region: gen.region, price: Math.floor((rar.min + rar.max) / 2), color: rar.color, lvl: rar.lvl, name: rar.name, isPlayer: false }); } },
+  listItem(id) { const item = State.inventory.find(i => i.id === id); if (!item) return; Modal.show('Выставить на биржу', `Цена: ${fmtRub(item.price)}`, 'Выставить', () => { State.market.push({ ...item, isPlayer: true, color: item.rarity.color, lvl: item.rarity.lvl, name: item.rarity.name }); State.inventory = State.inventory.filter(i => i.id !== id); UI.updateMoney(); saveGame(); this.render(); }); },
+  buy(id) { const lot = State.market.find(m => m.id === id); if (State.money < lot.price) return toast('❌ Мало денег'); State.money -= lot.price; State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false }); State.market = State.market.filter(m => m.id !== id); UI.updateMoney(); saveGame(); this.render(); toast('✅ Куплено!'); },
+  cancel(id) { const lot = State.market.find(m => m.id === id); State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false }); State.market = State.market.filter(m => m.id !== id); saveGame(); this.render(); toast('Лот снят'); }
 };
 
 const Shop = {
-  render() {
-    const content = UI.els['shop-content'];
-    let html = `<div class="s-block"><div class="s-title lit">Улучшения</div>`;
-    BOOSTS.forEach(b => {
-      const lvl = State.boosts[b.id] || 0; const price = b.basePrice * Math.pow(2, lvl);
-      html += `
-        <div class="boost-card">
-          <div class="boost-info">
-            <div class="boost-name">${b.name} <span style="color:var(--gold);font-size:11px">Ур. ${lvl}/${b.maxLvl}</span></div>
-            <div class="boost-desc">${b.desc}</div>
-            <div class="boost-price">${fmtRub(price)}</div>
-          </div>
-          <button class="btn-sm btn-sell" ${State.money < price || lvl >= b.maxLvl ? 'disabled style="opacity:0.5"' : ''} onclick="Shop.buy('${b.id}')">Купить</button>
-        </div>`;
-    });
-    content.innerHTML = html + `</div>`;
-  },
-  buy(id) {
-    const b = BOOSTS.find(x => x.id === id); const lvl = State.boosts[id] || 0;
-    const price = b.basePrice * Math.pow(2, lvl);
-    if (State.money < price || lvl >= b.maxLvl) return;
-    State.money -= price; State.boosts[id] = lvl + 1;
-    UI.updateMoney(); this.render(); saveGame(); toast('✅ Улучшено!');
-  }
+  render() { const content = UI.els['shop-content']; let html = `<div class="s-block"><div class="s-title lit">Улучшения</div>`; BOOSTS.forEach(b => { const lvl = State.boosts[b.id] || 0; const price = b.basePrice * Math.pow(2, lvl); html += `<div class="boost-card"><div class="boost-info"><div class="boost-name">${b.name} <span style="color:var(--gold);font-size:11px">Ур. ${lvl}/${b.maxLvl}</span></div><div class="boost-desc">${b.desc}</div><div class="boost-price">${fmtRub(price)}</div></div><button class="btn-sm btn-sell" ${State.money < price || lvl >= b.maxLvl ? 'disabled style="opacity:0.5"' : ''} onclick="Shop.buy('${b.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
+  buy(id) { const b = BOOSTS.find(x => x.id === id); const lvl = State.boosts[id] || 0; const price = b.basePrice * Math.pow(2, lvl); if (State.money < price || lvl >= b.maxLvl) return; State.money -= price; State.boosts[id] = lvl + 1; UI.updateMoney(); this.render(); saveGame(); toast('✅ Улучшено!'); }
 };
 
 const Garage = {
-  render() {
-    const content = UI.els['garage-content'];
-    let html = `<div class="s-block"><div class="s-title lit">Ваш Гараж</div>`;
-    if (State.garage.length === 0) html += `<div class="empty">Нет машин</div>`;
-    else {
-      State.garage.forEach(car => {
-        const base = CARS.find(c => c.id === car.carId);
-        let platePrice = car.plate ? car.plate.price : 0;
-        const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus);
-        html += `
-          <div class="garage-scene">
-            <div class="car-body">
-              <div class="car-cabin" style="background:${base.cabin}"></div>
-              <div class="car-chassis" style="background:${base.color}"></div>
-              <div class="car-wheel left"></div><div class="car-wheel right"></div>
-              ${car.plate ? `<div class="car-plate-mount">${car.plate.plate} <span class="reg">${car.plate.region}</span></div>` : ''}
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; margin-bottom:12px;">
-            ${car.plate ? `<button class="btn-sm btn-market" style="flex:1" onclick="Garage.removePlate('${car.id}')">Снять</button>` : `<button class="btn-sm btn-blue" style="flex:1" onclick="Garage.attach('${car.id}')">Установить</button>`}
-            <button class="btn-sm btn-sell" style="flex:1" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать за ${fmtRub(finalPrice)}</button>
-          </div>
-        `;
-      });
-    }
-    html += `</div><div class="s-block"><div class="s-title lit">Купить машину</div>`;
-    CARS.forEach(c => {
-      html += `
-        <div class="car-shop-card">
-          <div class="car-shop-preview" style="background:${c.color}40">${c.icon}</div>
-          <div class="car-shop-info">
-            <div style="font-weight:900;color:#fff">${c.name}</div>
-            <div style="color:var(--gold);font-family:Orbitron">${fmtRub(c.basePrice)}</div>
-          </div>
-          <button class="btn-sm btn-sell" ${State.money < c.basePrice ? 'disabled style="opacity:0.5"' : ''} onclick="Garage.buy('${c.id}')">Купить</button>
-        </div>`;
-    });
-    content.innerHTML = html + `</div>`;
-  },
-  buy(id) {
-    const base = CARS.find(c => c.id === id); if (State.money < base.basePrice) return;
-    State.money -= base.basePrice; State.garage.push({ id: uid(), carId: id, plate: null });
-    UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!');
-  },
-  attach(carId) {
-    if (!State.inventory.length) return toast('❌ Нет номеров');
-    const car = State.garage.find(c => c.id === carId);
-    const best = [...State.inventory].sort((a,b) => b.price - a.price)[0];
-    car.plate = best;
-    State.inventory = State.inventory.filter(i => i.id !== best.id);
-    saveGame(); this.render(); toast('✅ Номер установлен!');
-  },
-  removePlate(carId) {
-    const car = State.garage.find(c => c.id === carId);
-    if (!car || !car.plate) return;
-    State.inventory.push(car.plate); car.plate = null;
-    saveGame(); this.render(); toast('Номер снят');
-  },
-  sell(carId, price) {
-    State.money += price; State.garage = State.garage.filter(c => c.id !== carId);
-    UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`);
-  }
-};
-
-/* ============================================================
-   WHEEL & SETTINGS & ADMIN
-   ============================================================ */
-const Wheel = {
-  render() { UI.els['wheel-btn'].onclick = () => { Wheel.spin(); }; },
-  spin() { toast('Колесо в разработке'); }
+  render() { const content = UI.els['garage-content']; let html = `<div class="s-block"><div class="s-title lit">Ваш Гараж</div>`; if (State.garage.length === 0) html += `<div class="empty">Нет машин</div>`; else { State.garage.forEach(car => { const base = CARS.find(c => c.id === car.carId); let platePrice = car.plate ? car.plate.price : 0; const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus); html += `<div class="garage-scene"><div class="car-body"><div class="car-cabin" style="background:${base.cabin}"></div><div class="car-chassis" style="background:${base.color}"></div><div class="car-wheel left"></div><div class="car-wheel right"></div>${car.plate ? `<div class="car-plate-mount">${car.plate.plate} <span class="reg">${car.plate.region}</span></div>` : ''}</div></div><div style="display:flex; gap:8px; margin-bottom:12px;">${car.plate ? `<button class="btn-sm btn-market" style="flex:1" onclick="Garage.removePlate('${car.id}')">Снять</button>` : `<button class="btn-sm btn-blue" style="flex:1" onclick="Garage.attach('${car.id}')">Установить</button>`}<button class="btn-sm btn-sell" style="flex:1" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать за ${fmtRub(finalPrice)}</button></div>`; }); } html += `</div><div class="s-block"><div class="s-title lit">Купить машину</div>`; CARS.forEach(c => { html += `<div class="car-shop-card"><div class="car-shop-preview" style="background:${c.color}40">${c.icon}</div><div class="car-shop-info"><div style="font-weight:900;color:#fff">${c.name}</div><div style="color:var(--gold);font-family:Orbitron">${fmtRub(c.basePrice)}</div></div><button class="btn-sm btn-sell" ${State.money < c.basePrice ? 'disabled style="opacity:0.5"' : ''} onclick="Garage.buy('${c.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
+  buy(id) { const base = CARS.find(c => c.id === id); if (State.money < base.basePrice) return; State.money -= base.basePrice; State.garage.push({ id: uid(), carId: id, plate: null }); UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!'); },
+  attach(carId) { if (!State.inventory.length) return toast('❌ Нет номеров'); const car = State.garage.find(c => c.id === carId); const best = [...State.inventory].sort((a,b) => b.price - a.price)[0]; car.plate = best; State.inventory = State.inventory.filter(i => i.id !== best.id); saveGame(); this.render(); toast('✅ Номер установлен!'); },
+  removePlate(carId) { const car = State.garage.find(c => c.id === carId); if (!car || !car.plate) return; State.inventory.push(car.plate); car.plate = null; saveGame(); this.render(); toast('Номер снят'); },
+  sell(carId, price) { State.money += price; State.garage = State.garage.filter(c => c.id !== carId); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`); }
 };
 
 const Settings = {
@@ -1026,79 +765,34 @@ const Settings = {
     const code = UI.els['promo-input'].value.trim().toUpperCase();
     if (code === 'MOROZIMKA') { UI.els['promo-input'].value = ''; Admin.openPassword(); return; }
     if (DEFAULT_PROMOS[code]) {
-      if (code === 'BTC') State.bitcoin += DEFAULT_PROMOS[code];
-      else State.money += DEFAULT_PROMOS[code];
+      if (code === 'BTC') State.bitcoin += DEFAULT_PROMOS[code]; else State.money += DEFAULT_PROMOS[code];
       UI.updateMoney(); toast('✅ Промокод активирован!');
-    } else { toast('❌ Неверный код'); }
+    } else toast('❌ Неверный код');
     UI.els['promo-input'].value = '';
   },
   reset() { if(confirm('Сбросить прогресс?')) { localStorage.removeItem(CFG.KEY); location.reload(); } }
 };
 
 const Admin = {
-  PASSWORD: CFG.ADMIN_PASSWORD,
-  sliderDraft: null,
+  PASSWORD: CFG.ADMIN_PASSWORD, sliderDraft: null,
   openPassword() { $('admin-password-input').value = ''; $('password-modal').classList.add('show'); },
   cancelPassword() { $('password-modal').classList.remove('show'); },
-  checkPassword() {
-    if ($('admin-password-input').value === this.PASSWORD) {
-      State.admin.unlocked = true; this.cancelPassword(); this.open();
-    } else toast('❌ Неверный пароль');
-  },
+  checkPassword() { if ($('admin-password-input').value === this.PASSWORD) { State.admin.unlocked = true; this.cancelPassword(); this.open(); } else toast('❌ Неверный пароль'); },
   close() { $('admin-modal').classList.remove('show'); },
   open() {
     if (!State.admin.unlocked) return this.openPassword();
     const chances = this.sliderDraft || State.admin.customChances || RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
-    const sliders = RARITIES.map(r => {
-      const ch = chances[r.lvl] || 0;
-      return `
-        <div style="margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;">
-            <span style="color:${r.color}">${r.name}</span><span>${ch.toFixed(1)}%</span>
-          </div>
-          <input type="range" min="0" max="100" step="0.5" value="${ch}" data-rarity="${r.lvl}" class="admin-slider">
-        </div>`;
-    }).join('');
-
-    $('admin-content').innerHTML = `
-      <div class="admin-section">
-        <div class="admin-section-title">Выдать валюту</div>
-        <div style="display:flex;gap:6px;margin-bottom:6px;">
-          <button class="admin-btn" onclick="State.money += 1000000; UI.updateMoney()">+1M ₽</button>
-          <button class="admin-btn" onclick="State.bitcoin += 1; UI.updateMoney()">+1 ₿</button>
-        </div>
-        <div style="display:flex;gap:6px;">
-          <input type="number" id="admin-money-input" class="admin-input" placeholder="Сумма" style="flex:1;">
-          <button class="admin-btn" onclick="Admin.addMoneyInput()">SET</button>
-        </div>
-      </div>
-      <div class="admin-section">
-        <div class="admin-section-title">Шансы</div>
-        ${sliders}
-        <button class="admin-btn" style="width:100%;margin-top:6px;" onclick="Admin.applyChances()">ПРИМЕНИТЬ</button>
-      </div>
-    `;
-    $('admin-content').querySelectorAll('.admin-slider').forEach(s => {
-      s.addEventListener('input', e => {
-        const lvl = parseInt(e.target.dataset.rarity);
-        if (!this.sliderDraft) this.sliderDraft = { ...chances };
-        this.sliderDraft[lvl] = parseFloat(e.target.value);
-      });
-    });
+    const sliders = RARITIES.map(r => { const ch = chances[r.lvl] || 0; return `<div style="margin-bottom:8px;"><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;"><span style="color:${r.color}">${r.name}</span><span>${ch.toFixed(1)}%</span></div><input type="range" min="0" max="100" step="0.5" value="${ch}" data-rarity="${r.lvl}" class="admin-slider"></div>`; }).join('');
+    $('admin-content').innerHTML = `<div class="admin-section"><div class="admin-section-title">Выдать валюту</div><div style="display:flex;gap:6px;margin-bottom:6px;"><button class="admin-btn" onclick="State.money += 1000000; UI.updateMoney()">+1M ₽</button><button class="admin-btn" onclick="State.bitcoin += 1; UI.updateMoney()">+1 ₿</button></div><div style="display:flex;gap:6px;"><input type="number" id="admin-money-input" class="admin-input" placeholder="Сумма" style="flex:1;"><button class="admin-btn" onclick="Admin.addMoneyInput()">SET</button></div></div><div class="admin-section"><div class="admin-section-title">Шансы</div>${sliders}<button class="admin-btn" style="width:100%;margin-top:6px;" onclick="Admin.applyChances()">ПРИМЕНИТЬ</button></div>`;
+    $('admin-content').querySelectorAll('.admin-slider').forEach(s => { s.addEventListener('input', e => { const lvl = parseInt(e.target.dataset.rarity); if (!this.sliderDraft) this.sliderDraft = { ...chances }; this.sliderDraft[lvl] = parseFloat(e.target.value); }); });
     $('admin-modal').classList.add('show');
   },
-  addMoneyInput() {
-    const v = parseInt($('admin-money-input').value);
-    if (Number.isFinite(v)) { State.money += v; UI.updateMoney(); saveGame(); toast('✅ Начислено'); }
-  },
-  applyChances() {
-    if (this.sliderDraft) { State.admin.customChances = this.sliderDraft; this.sliderDraft = null; saveGame(); toast('✅ Шансы применены'); this.close(); }
-  }
+  addMoneyInput() { const v = parseInt($('admin-money-input').value); if (Number.isFinite(v)) { State.money += v; UI.updateMoney(); saveGame(); toast('✅ Начислено'); } },
+  applyChances() { if (this.sliderDraft) { State.admin.customChances = this.sliderDraft; this.sliderDraft = null; saveGame(); toast('✅ Шансы применены'); this.close(); } }
 };
 
 function init() {
-  loadGame(); UI.init(); Modal.init();
-  UI.updateMoney(); UI.els.region.textContent = "77";
+  loadGame(); UI.init(); Modal.init(); UI.updateMoney(); UI.els.region.textContent = "77";
   document.addEventListener('click', function once() { Sound.init(); document.removeEventListener('click', once); }, { once: true });
 }
 document.addEventListener('DOMContentLoaded', init);
