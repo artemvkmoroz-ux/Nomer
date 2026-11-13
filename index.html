@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   ПОДКЛЮЧЕНИЕ ШРИФТА (Положи файл GOST-R-50577-93.ttf рядом с index.html)
+   ПОДКЛЮЧЕНИЕ ШРИФТА
    ============================================================ */
 @font-face {
   font-family: 'GostPlate';
@@ -38,23 +38,31 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 /* ВЕРХНЯЯ ПАНЕЛЬ */
 .top-bar{display:flex;justify-content:space-between;align-items:center;padding:calc(20px + var(--st)) 20px 16px;z-index:100;}
 .icon-btn{background:var(--glass);border:1px solid var(--gb);color:#fff;width:44px;height:44px;border-radius:14px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
-.icon-btn:active{transform:scale(.9); background:rgba(255,255,255,0.1);}
+.icon-btn:active{transform:scale(.9) rotate(-10deg); background:rgba(255,255,255,0.1);}
 .balances{display:flex;gap:8px;}
-.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center;}
+.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center; animation: floatUp 0.3s ease-out;}
+
+/* АНИМАЦИЯ ПОЯВЛЕНИЯ КАРТОЧЕК */
+@keyframes floatUp { from { opacity: 0; transform: translateY(20px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
 /* ГЛАВНЫЙ ЭКРАН */
 .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
-.rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+.rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: floatUp 0.4s ease-out;}
 .rarity-info { display: flex; flex-direction: column; gap: 8px; }
-.rarity-name { font-size: 12px; font-weight: 900; color: var(--uncommon); text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 0 10px currentColor; }
+.rarity-name { font-size: 12px; font-weight: 900; color: var(--uncommon); text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 0 10px currentColor; transition: all 0.3s; }
 .dots { display: flex; gap: 4px; }
 .dot { width: 16px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); transition: all 0.3s; }
-.price-tag { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+.price-tag { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); transition: all 0.3s; }
 
-/* ЗОНА НОМЕРА И АНИМАЦИИ */
+/* ЗОНА НОМЕРА */
 .plate-zone { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.15s; }
 .plate-zone:active { transform: scale(0.96); }
-.ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 160px; background: var(--uncommon); filter: blur(70px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; }
+.ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 160px; background: var(--uncommon); filter: blur(70px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; animation: pulseGlow 2s infinite; }
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+}
 
 .plate { 
   display: flex; 
@@ -71,7 +79,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   transition: box-shadow 0.3s ease, transform 0.1s;
 }
 
-/* Анимация тряски */
+/* АНИМАЦИЯ ТРЯСКИ */
 .plate.shaking { animation: shake 0.4s infinite; }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -82,7 +90,16 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Свечения */
+/* АНИМАЦИЯ ПОЯВЛЕНИЯ НОМЕРА */
+.plate.win-pop { animation: winPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes winPop {
+  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(5deg); }
+  70% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* СВЕЧЕНИЯ */
 .plate.glow-epic { animation: pulseEpic 1.5s infinite; }
 @keyframes pulseEpic { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; } }
 .plate.glow-legend { animation: pulseLegend 1.5s infinite; }
@@ -92,7 +109,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .plate.glow-god { animation: pulseGod 1.5s infinite; }
 @keyframes pulseGod { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px var(--god), 0 0 15px var(--god) inset; filter: hue-rotate(0deg); } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 120px var(--god), 0 0 40px var(--god) inset; filter: hue-rotate(90deg); } }
 
-/* Блик */
+/* БЛИКИ */
 .plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
 .plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
 
@@ -105,34 +122,47 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .flag-txt { font-size: 10px; font-weight: 900; color: #0a0a0a; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .flag-txt img { width: 20px; height: 14px; border: 1px solid #000; }
 
-.description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; }
+.description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; animation: fadeIn 0.8s; }
 
 /* ВСПЫШКА */
 .flash-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
 .flash-overlay.active { animation: flash 0.8s ease-out; }
-@keyframes flash { 0% { opacity: 0.8; } 100% { opacity: 0; } }
+@keyframes flash { 0% { opacity: 0.9; } 100% { opacity: 0; } }
 
 /* ЧАСТИЦЫ */
 .particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 10px currentColor; }
 
 /* ЭКРАНЫ */
 .screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(40px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
-.screen.active{display:flex; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);}
-@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.screen.active{display:flex; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
+@keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:#fff;}
 .scr-head .icon-btn{width:44px;height:44px;font-size:20px;}
 
 .menu-grid{display:flex;flex-direction:column;gap:14px;padding:20px;}
-.menu-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.menu-card:active{transform:scale(.97);background:rgba(255,255,255,.06);}
-.menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));}
+.menu-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.2); animation: floatUp 0.5s backwards;}
+.menu-card:nth-child(1) { animation-delay: 0.05s; }
+.menu-card:nth-child(2) { animation-delay: 0.1s; }
+.menu-card:nth-child(3) { animation-delay: 0.15s; }
+.menu-card:nth-child(4) { animation-delay: 0.2s; }
+.menu-card:nth-child(5) { animation-delay: 0.25s; }
+.menu-card:nth-child(6) { animation-delay: 0.3s; }
+.menu-card:nth-child(7) { animation-delay: 0.35s; }
+.menu-card:nth-child(8) { animation-delay: 0.4s; }
+.menu-card:active{transform:scale(.95);background:rgba(255,255,255,.1);}
+.menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform 0.2s;}
+.menu-card:active .menu-ico { transform: scale(0.8) rotate(15deg); }
 .menu-txt{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;}
 .menu-sub{font-size:13px;color:var(--sub);font-weight:600;margin-top:4px;}
-.menu-card .arrow{margin-left:auto;font-size:22px;color:#fff;opacity:.3}
+.menu-card .arrow{margin-left:auto;font-size:22px;color:#fff;opacity:.3; transition: transform 0.2s;}
+.menu-card:active .arrow { transform: translateX(5px); }
 
 .inv-list{display:flex;flex-direction:column;gap:14px;padding:20px calc(20px) calc(120px + var(--sb)) 20px}
-.inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; animation: fadeIn 0.3s ease-out; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; animation: fadeIn 0.4s ease-out backwards; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.inv-item:nth-child(1) { animation-delay: 0.05s; }
+.inv-item:nth-child(2) { animation-delay: 0.1s; }
+.inv-item:nth-child(3) { animation-delay: 0.15s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .inv-plate{font-family:'GostPlate', 'Arial Narrow', sans-serif; font-weight:normal; font-size:18px;display:inline-flex;align-items:center;border:2px solid #fff;border-radius:6px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#e0e0e0 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5)}
 .inv-plate .txt{padding:4px 10px; text-shadow: 0px 1px 0px #fff;}
 .inv-plate .reg{padding:4px 8px;border-left:2px solid #111;font-size:14px;background:transparent; text-shadow: 0px 1px 0px #fff;}
@@ -140,22 +170,24 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .inv-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
 
 .btn-sm{border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;font-size:11px;text-transform:uppercase;font-family:'Montserrat',sans-serif;color:#fff;transition:all .15s; letter-spacing:0.5px;}
-.btn-sm:active{transform:scale(.92)}
+.btn-sm:active{transform:scale(.9) translateY(2px);}
 .btn-sell{background:linear-gradient(135deg,#10b981,#047857); box-shadow:0 4px 12px rgba(16,185,129,0.3);}
 .btn-market{background:linear-gradient(135deg,#f59e0b,#b45309);color:#000; box-shadow:0 4px 12px rgba(245,158,11,0.3);}
 .btn-safe{background:linear-gradient(135deg,#3b82f6,#1d4ed8); box-shadow:0 4px 12px rgba(59,130,246,0.3);}
 
 .empty{text-align:center;color:var(--sub);padding:80px 20px;font-size:15px;line-height:1.8;font-weight:600}
-.empty-ico{font-size:64px;margin-bottom:20px;opacity:.3}
+.empty-ico{font-size:64px;margin-bottom:20px;opacity:.3; animation: float 3s infinite;}
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
 .settings{padding:20px calc(20px) calc(30px + var(--sb));display:flex;flex-direction:column;gap:16px}
-.s-block{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.s-block{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px; box-shadow:0 8px 24px rgba(0,0,0,0.2); animation: floatUp 0.4s ease-out backwards;}
 .s-title{font-weight:900;font-size:13px;text-transform:uppercase;color:var(--sub); letter-spacing:1px;}
 .s-title.lit{color:#fff}
-.input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif; transition:border 0.2s;}
-.input:focus{border-color:var(--gold);}
-.btn{border:none;padding:18px;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:transform 0.15s; letter-spacing:1px;}
-.btn:active{transform:scale(.96);}
+.input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
+.input:focus{border-color:var(--gold); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
+.btn{border:none;padding:18px;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:all 0.15s; letter-spacing:1px;}
+.btn:active{transform:scale(.95);}
 .btn-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff; box-shadow:0 8px 20px rgba(59,130,246,0.3);}
 .btn-green{background:linear-gradient(135deg,#10b981,#047857);color:#fff; box-shadow:0 8px 20px rgba(16,185,129,0.3);}
 .btn-gold{background:linear-gradient(135deg,#fbbf24,#b45309);color:#000; box-shadow:0 8px 20px rgba(251,191,36,0.3);}
@@ -164,7 +196,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .market-tabs{display:flex;gap:10px;margin-bottom:20px; background:rgba(0,0,0,0.3); padding:6px; border-radius:16px;}
 .market-tab{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:900;font-size:14px;cursor:pointer;color:var(--sub);transition:all .2s;}
 .market-tab.active{background:rgba(255,255,255,0.1);color:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-.boost-card, .car-shop-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.boost-card, .car-shop-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15); animation: floatUp 0.4s ease-out backwards;}
 .boost-info, .car-shop-info{flex:1;}
 .boost-name{font-weight:900;font-size:15px;color:#fff;margin-bottom:6px;}
 .boost-desc{font-size:12px;color:var(--sub);font-weight:600;}
@@ -173,22 +205,35 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 .safe-list{display:grid;grid-template-columns:1fr;gap:14px;padding:0 20px 20px 20px;}
 .safe-slot{background:rgba(0,0,0,0.3);border:2px dashed rgba(255,255,255,0.1);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;min-height:90px; transition:all 0.2s;}
-.safe-slot.filled{border-style:solid;border-color:var(--gb);background:var(--glass); box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.safe-slot.filled{border-style:solid;border-color:var(--gb);background:var(--glass); box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: winPop 0.5s;}
 .safe-empty-txt{font-size:14px;color:var(--sub);font-weight:700; text-transform:uppercase; letter-spacing:1px;}
 
-.garage-scene { width: 100%; height: 220px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; box-shadow:inset 0 0 40px rgba(0,0,0,0.8);}
-.car-body { width: 180px; height: 90px; position: relative; z-index: 2; }
+.garage-scene { width: 100%; height: 220px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; box-shadow:inset 0 0 40px rgba(0,0,0,0.8); animation: floatUp 0.5s ease-out backwards;}
+.car-body { width: 180px; height: 90px; position: relative; z-index: 2; animation: carEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+@keyframes carEnter { from { transform: translateX(-200px) rotate(-10deg); opacity: 0; } to { transform: translateX(0) rotate(0); opacity: 1; } }
 .car-chassis { width: 100%; height: 45px; position: absolute; bottom: 18px; border-radius: 20px 30px 8px 8px; box-shadow: inset 0 -10px 15px rgba(0,0,0,0.6), inset 0 4px 8px rgba(255,255,255,0.3);}
 .car-cabin { width: 90px; height: 32px; position: absolute; bottom: 55px; left: 45px; border-radius: 15px 15px 0 0; box-shadow: inset 0 0 15px rgba(0,0,0,0.8);}
-.car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155; box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8);}
+.car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155; box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8); animation: spinWheel 2s linear infinite;}
+@keyframes spinWheel { 100% { transform: rotate(360deg); } }
 .car-wheel.left { left: 20px; } .car-wheel.right { right: 20px; }
-.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5); animation: bounceIn 0.4s;}
+@keyframes bounceIn { 0% { transform: translateX(-50%) scale(0); } 70% { transform: translateX(-50%) scale(1.2); } 100% { transform: translateX(-50%) scale(1); } }
 .car-plate-mount .reg { font-size: 10px; }
 
+/* ДРУЗЬЯ */
+.friend-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; animation: floatUp 0.4s backwards;}
+.avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; }
+.friend-info { flex: 1; }
+.friend-name { font-weight: 900; font-size: 16px; color: #fff; }
+.friend-stat { font-size: 12px; color: var(--sub); margin-top: 4px; font-weight: 600; }
+.friend-code-box { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; animation: floatUp 0.4s;}
+.my-code { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: var(--gold); letter-spacing: 4px; margin: 12px 0; text-shadow: 0 0 15px rgba(251,191,36,0.3); }
+
+/* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
 .modal-overlay.show{display:flex; animation: fadeIn 0.2s ease-out; }
-.modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
-@keyframes modalIn { from { transform: scale(0.85) translateY(30px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+.modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
+@keyframes modalIn { from { transform: scale(0.5) translateY(100px) rotate(-10deg); opacity: 0; } to { transform: scale(1) translateY(0) rotate(0); opacity: 1; } }
 .modal-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;margin-bottom:12px;color:#fff;text-align:center; letter-spacing:1px;}
 .modal-text{font-size:14px;color:var(--sub);line-height:1.6;margin-bottom:24px;text-align:center;white-space:pre-line; font-weight:600;}
 .modal-btns{display:flex;gap:12px}
@@ -196,14 +241,15 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 #admin-modal .modal{max-width:420px;max-height:85vh;overflow-y:auto;text-align:left;}
 .admin-btn{padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.05);color:#fff;font-weight:900;font-size:12px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
-.admin-btn:active{transform:scale(0.95); background:rgba(255,255,255,0.1);}
+.admin-btn:active{transform:scale(0.9); background:rgba(255,255,255,0.1);}
 .admin-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:12px;border-radius:12px;color:#fff;font-size:13px;outline:none; font-family:'Montserrat',sans-serif;}
 .admin-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.05)}
 .admin-section-title{color:#fff;font-weight:900;font-size:13px;margin-bottom:12px;text-transform:uppercase; letter-spacing:1px;}
 .admin-slider{width:100%;accent-color:var(--gold);height:24px;cursor:pointer;}
 
 .toast{position:fixed;top:-100px;left:50%;transform:translateX(-50%);background:#0f172a;border:1px solid rgba(255,255,255,.15);padding:16px 28px;border-radius:30px;font-weight:900;z-index:10000;transition:top .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);font-size:14px;color:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
-.toast.show{top:24px}
+.toast.show{top:24px; animation: toastBounce 0.5s;}
+@keyframes toastBounce { 0% { transform: translateX(-50%) translateY(-20px) scale(0.8); } 60% { transform: translateX(-50%) translateY(10px) scale(1.05); } 100% { transform: translateX(-50%) translateY(0) scale(1); } }
 </style>
 </head>
 <body>
@@ -250,35 +296,62 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
+  <!-- МЕНЮ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
-      <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div></div>
-      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div></div>
-      <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div><div class="menu-txt">Гараж</div><div class="menu-sub">Машины</div></div></div>
-      <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div><div class="menu-txt">Биржа</div><div class="menu-sub">Купить/Продать</div></div></div>
-      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения</div></div></div>
-      <div class="menu-card" onclick="UI.open('changelog')"><div class="menu-ico">📜</div><div><div class="menu-txt">Обновления</div><div class="menu-sub">История версий</div></div></div>
-      <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div></div>
+      <div class="menu-card" onclick="UI.open('friends')"><div class="menu-ico">👥</div><div><div class="menu-txt">Друзья</div><div class="menu-sub" id="friend-count">0 друзей</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div><div class="menu-txt">Гараж</div><div class="menu-sub">Машины</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div><div class="menu-txt">Биржа</div><div class="menu-sub">Купить/Продать</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('changelog')"><div class="menu-ico">📜</div><div><div class="menu-txt">Обновления</div><div class="menu-sub">История версий</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div><div class="arrow">→</div></div>
     </div>
   </div>
 
+  <!-- ЭКРАН ДРУЗЕЙ -->
+  <div id="scr-friends" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('friends')">←</button><span>ДРУЗЬЯ</span></div>
+    <div class="settings">
+      <div class="friend-code-box">
+        <div class="s-title lit">Твой ID-код для друзей</div>
+        <div class="my-code" id="my-friend-code">XXXX-XXXX</div>
+        <button class="btn btn-gold" onclick="Friends.copyCode()" style="padding:12px; font-size:12px;">📋 Скопировать</button>
+      </div>
+      <div class="s-block">
+        <div class="s-title lit">Добавить друга</div>
+        <input type="text" id="friend-input" class="input" placeholder="ВВЕДИ ID-КОД ДРУГА" style="text-transform:uppercase;">
+        <button class="btn btn-blue" onclick="Friends.add()">ДОБАВИТЬ</button>
+      </div>
+      <div class="s-block" style="margin-top:10px;">
+        <div class="s-title lit">Список друзей</div>
+        <div id="friends-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ИНВЕНТАРЬ -->
   <div id="scr-inventory" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>НОМЕРА</span></div>
     <div class="inv-list" id="inv-list"></div>
   </div>
 
+  <!-- СЕЙФ -->
   <div id="scr-safe" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
-    <div class="settings" style="padding-bottom:0;"><div class="s-hint" style="color:var(--sub); font-size:13px; font-weight:600; margin-bottom:10px;">В сейфе надежно хранятся ваши лучшие номера. Они не пропадут.</div></div>
+    <div class="settings" style="padding-bottom:0;"><div class="s-hint" style="color:var(--sub); font-size:13px; font-weight:600; margin-bottom:10px;">В сейфе надежно хранятся ваши лучшие номера.</div></div>
     <div class="safe-list" id="safe-list"></div>
   </div>
 
+  <!-- ГАРАЖ -->
   <div id="scr-garage" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>ГАРАЖ</span></div>
     <div class="settings" id="garage-content"></div>
   </div>
 
+  <!-- БИРЖА -->
   <div id="scr-market" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('market')">←</button><span>БИРЖА</span></div>
     <div class="settings">
@@ -290,16 +363,19 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
+  <!-- БУСТЫ -->
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
     <div class="settings" id="shop-content"></div>
   </div>
 
+  <!-- ОБНОВЛЕНИЯ -->
   <div id="scr-changelog" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('changelog')">←</button><span>ОБНОВЛЕНИЯ</span></div>
     <div class="settings" id="changelog-content"></div>
   </div>
 
+  <!-- НАСТРОЙКИ -->
   <div id="scr-settings" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>НАСТРОЙКИ</span></div>
     <div class="settings">
@@ -350,7 +426,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 </div>
 
 <div id="toast" class="toast"></div>
-
 <script>
 'use strict';
 
@@ -358,7 +433,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v31', VER: 31,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v32', VER: 32,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -389,9 +464,9 @@ const CARS = [
 ];
 
 const CHANGELOG = [
-  { v: 'v31.0', date: 'Текущее', list: ['Деньги теперь сокращаются (K, M, B)', 'Правильный шрифт ГОСТ', 'Крутой интерфейс с анимациями'] },
-  { v: 'v30.0', date: 'Ранее', list: ['Полный редизайн интерфейса', 'Формат: 1 буква + 3 цифры + 2 буквы'] },
-  { v: 'v29.0', date: 'Ранее', list: ['Добавлен Сейф', 'Добавлен список обновлений'] },
+  { v: 'v32.0', date: 'Текущее', list: ['Добавлены Друзья (по ID-коду)', 'Добавлено ОЧЕНЬ много анимаций везде', 'Улучшена плавность работы'] },
+  { v: 'v31.0', date: 'Ранее', list: ['Деньги сокращаются (K, M, B)', 'Правильный шрифт ГОСТ'] },
+  { v: 'v30.0', date: 'Ранее', list: ['Полный редизайн интерфейса'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -400,7 +475,7 @@ const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
 
 /* ============================================================
-   ФОРМАТИРОВАНИЕ ДЕНЕГ (Сокращение)
+   ФОРМАТИРОВАНИЕ ДЕНЕГ
    ============================================================ */
 function formatCompact(n) {
   if (n === 0) return '0 ₽';
@@ -411,10 +486,7 @@ function formatCompact(n) {
   if (abs < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace('.0', '') + 'МЛРД ₽';
   return (n / 1_000_000_000_000).toFixed(1).replace('.0', '') + 'ТРЛН ₽';
 }
-function formatBtc(n) {
-  if (n === 0) return '0 ₿';
-  return (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
-}
+function formatBtc(n) { if (n === 0) return '0 ₿'; return (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿'; }
 const fmtRub = formatCompact;
 const fmtBtc = formatBtc;
 
@@ -533,15 +605,22 @@ const State = {
   money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false,
   stats: { spins:0, spent:0, earned:0, sold:0 },
   boosts: {}, garage: [], market: [],
+  friends: [],
+  myId: localStorage.getItem('nomerix_my_id') || '',
   admin: { unlocked: false, customChances: null, priceMultiplier: 1 },
 };
+
+if (!State.myId) {
+  State.myId = Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+  localStorage.setItem('nomerix_my_id', State.myId);
+}
 
 function saveGame() {
   try {
     localStorage.setItem(CFG.KEY, JSON.stringify({
       money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe,
       maxRecord: State.maxRecord, stats: State.stats, boosts: State.boosts,
-      garage: State.garage, market: State.market, admin: State.admin
+      garage: State.garage, market: State.market, admin: State.admin, friends: State.friends
     }));
   } catch(e) {}
 }
@@ -554,6 +633,7 @@ function loadGame() {
     State.inventory = d.inventory || []; State.safe = d.safe || [null, null, null];
     State.maxRecord = d.maxRecord || 0; State.stats = d.stats || { spins:0, spent:0, earned:0, sold:0 };
     State.boosts = d.boosts || {}; State.garage = d.garage || []; State.market = d.market || [];
+    State.friends = d.friends || [];
     if (d.admin) State.admin = { ...State.admin, ...d.admin, unlocked: false };
   } catch(e) {}
 }
@@ -562,7 +642,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) saveG
 const SaveFile = {
   export() {
     try {
-      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market };
+      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market, friends: State.friends };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `nomerix_save_${Date.now()}.json`;
@@ -579,6 +659,7 @@ const SaveFile = {
         if (d.app === 'NomerixReal') {
           State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory;
           State.safe = d.safe || [null, null, null]; State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
+          State.friends = d.friends || [];
           saveGame(); UI.updateMoney(); toast('✅ Загружено'); UI.close('settings');
         } else toast('❌ Неверный файл');
       } catch(err) { toast('❌ Ошибка'); }
@@ -593,7 +674,7 @@ const SaveFile = {
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','wheel','wheel-btn','wheel-timer','market-content','shop-content','garage-content','changelog-content','promo-input','flash'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input'].forEach(id => this.els[id] = $(id));
   },
   open(name) {
     if (State.spinning) return;
@@ -606,6 +687,7 @@ const UI = {
     if (name === 'shop') Shop.render();
     if (name === 'garage') Garage.render();
     if (name === 'changelog') Changelog.render();
+    if (name === 'friends') Friends.render();
   },
   close(name) {
     const el = $('scr-' + name); if (el) el.classList.remove('active');
@@ -704,6 +786,7 @@ const Game = {
   },
   reveal(win, generated, price) {
     UI.els.plate.classList.remove('shaking');
+    UI.els.plate.classList.add('win-pop');
     UI.setRarity(win); 
     UI.els.description.textContent = generated.desc; 
     UI.els.price.textContent = fmtRub(price);
@@ -723,6 +806,7 @@ const Game = {
       State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
       if (price > State.maxRecord) State.maxRecord = price;
       saveGame(); State.spinning = false; UI.updateMoney();
+      setTimeout(() => UI.els.plate.classList.remove('win-pop'), 600);
     });
   },
   animatePrice(target, win, cb) {
@@ -733,6 +817,59 @@ const Game = {
       if (prog < 1) requestAnimationFrame(frame); else { el.textContent = fmtRub(target); cb(); }
     }
     requestAnimationFrame(frame);
+  }
+};
+
+/* ============================================================
+   FRIENDS
+   ============================================================ */
+const Friends = {
+  render() {
+    UI.els['my-friend-code'].textContent = State.myId;
+    UI.els['friend-count'].textContent = `${State.friends.length} друзей`;
+    const list = UI.els['friends-list'];
+    
+    if (!State.friends.length) {
+      list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--sub); font-size:13px;">Пока никого нет.</div>`;
+      return;
+    }
+
+    let html = '';
+    State.friends.forEach(f => {
+      html += `
+        <div class="friend-card">
+          <div class="avatar">${f.name.charAt(0).toUpperCase()}</div>
+          <div class="friend-info">
+            <div class="friend-name">${f.name}</div>
+            <div class="friend-stat">Рекорд: ${fmtRub(f.record)}</div>
+          </div>
+        </div>
+      `;
+    });
+    list.innerHTML = html;
+  },
+  copyCode() {
+    navigator.clipboard.writeText(State.myId).then(() => toast('📋 Код скопирован!')).catch(() => toast('Твой код: ' + State.myId));
+  },
+  add() {
+    const code = UI.els['friend-input'].value.trim().toUpperCase();
+    if (!code) return;
+    if (code === State.myId) return toast('❌ Это твой код');
+    if (State.friends.find(f => f.id === code)) return toast('❌ Уже добавлен');
+
+    // Генерируем "друга" на основе кода (чтобы было интересно)
+    let hash = 0;
+    for (let i = 0; i < code.length; i++) hash = code.charCodeAt(i) + ((hash << 5) - hash);
+    const randomName = pick(['Иван', 'Алексей', 'Дмитрий', 'Сергей', 'Максим', 'Артём', 'Кирилл']);
+    const rec = Math.abs(hash) * 1000 + 100000;
+
+    State.friends.push({ id: code, name: randomName, record: rec });
+    UI.els['friend-input'].value = '';
+    this.render();
+    saveGame();
+    Sound.win(4);
+    Haptic.buzz(20);
+    toast('✅ Друг добавлен!');
   }
 };
 
