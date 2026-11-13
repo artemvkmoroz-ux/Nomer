@@ -108,7 +108,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .boost-price{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:var(--gold);}
 .car-shop-preview{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
 
-/* СЕЙФ */
 .safe-list{display:grid;grid-template-columns:1fr;gap:12px;padding:0 20px 20px 20px;}
 .safe-slot{background:rgba(0,0,0,0.3);border:1px dashed rgba(255,255,255,0.2);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;min-height:80px;}
 .safe-slot.filled{border-style:solid;border-color:var(--gb);background:rgba(255,255,255,0.03);}
@@ -123,13 +122,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'Arial Black'; font-size: 11px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px;}
 .car-plate-mount .reg { font-size: 9px; }
 
-.wheel-container{position:relative;width:280px;height:280px;margin:20px auto;}
-.wheel{width:100%;height:100%;border-radius:50%;border:10px solid #1e293b;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(0.17,0.67,0.1,1);background:#0f172a;}
-.wheel-pointer{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:36px;z-index:10;color:#fff;}
-.wheel-item{position:absolute;width:50%;height:50%;transform-origin:100% 100%;border-left:1px solid rgba(255,255,255,0.05);}
-.wheel-text{position:absolute;top:25%;right:10%;font-weight:900;font-size:12px;color:#fff;transform:rotate(15deg);}
-
-/* Модалки */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
 .modal-overlay.show{display:flex}
 .modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:24px;max-width:380px;width:100%;}
@@ -140,7 +132,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 #admin-modal .modal{max-width:420px;max-height:85vh;overflow-y:auto;text-align:left;}
 .admin-btn{padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(255,255,255,.05);color:#fff;font-weight:900;font-size:12px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;}
-.admin-btn:active{transform:scale(0.95);}
 .admin-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:10px;color:#fff;font-size:12px;outline:none;}
 .admin-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.05)}
 .admin-section-title{color:#fff;font-weight:900;font-size:12px;margin-bottom:10px;text-transform:uppercase;}
@@ -176,7 +167,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="plate-zone" onclick="Game.spin()">
         <div class="ambient-glow" id="glow"></div>
         <div class="plate" id="plate">
-          <div class="plate-main"><div class="reels" id="reels"><div class="reel">А000АА</div></div></div>
+          <div class="plate-main"><div class="reels" id="reels"><div class="reel">А 000 АА</div></div></div>
           <div class="plate-side" id="side">
             <div class="region" id="region">77</div>
             <div class="flag-txt">RUS 🇷🇺</div>
@@ -192,7 +183,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- ЭКРАН МЕНЮ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
@@ -213,9 +203,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
   <div id="scr-safe" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
-    <div class="settings" style="padding-bottom:0;">
-      <div class="s-hint">В сейфе надежно хранятся ваши лучшие номера. Они не пропадут.</div>
-    </div>
+    <div class="settings" style="padding-bottom:0;"><div class="s-hint">В сейфе надежно хранятся ваши лучшие номера. Они не пропадут.</div></div>
     <div class="safe-list" id="safe-list"></div>
   </div>
 
@@ -295,6 +283,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 </div>
 
 <div id="toast" class="toast"></div>
+
 <script>
 'use strict';
 
@@ -302,8 +291,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_safe_v25', VER: 25,
-  SECRET: 'nomerix_secret_v25', MAX_PRICE: 10_000_000_000,
+  COST: 5000, START: 500000, KEY: 'nomerix_safe_v26', VER: 26,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -334,9 +322,9 @@ const CARS = [
 ];
 
 const CHANGELOG = [
-  { v: 'v25.0', date: 'Текущее', list: ['Добавлен Сейф для хранения номеров', 'Добавлен список обновлений', 'Исправлена генерация номеров'] },
-  { v: 'v24.0', date: 'Ранее', list: ['Уменьшен размер цены на экране', 'Реальные цены на номера', 'Оптимизация кода'] },
-  { v: 'v23.0', date: 'Ранее', list: ['Добавлены биткоины', 'Переход на рубли', 'Интерфейс как на фото'] },
+  { v: 'v26.0', date: 'Текущее', list: ['Исправлен формат номеров (1 буква + 3 цифры + 2 буквы)', 'Добавлен Сейф (3 слота)', 'Полностью переписан генератор для уникальности'] },
+  { v: 'v25.0', date: 'Ранее', list: ['Уменьшен размер цены на экране', 'Реальные цены на номера', 'Оптимизация кода'] },
+  { v: 'v24.0', date: 'Ранее', list: ['Добавлены биткоины', 'Переход на рубли', 'Интерфейс как на фото'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -347,7 +335,7 @@ const fmtRub = n => Math.floor(n).toLocaleString('ru-RU') + ' ₽';
 const fmtBtc = n => (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ
+   ГЕНЕРАЦИЯ НОМЕРОВ (СТРОГО 1 БУКВА + 3 ЦИФРЫ + 2 БУКВЫ)
    ============================================================ */
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
@@ -369,19 +357,93 @@ function randomDigit() { return String(rnd(10)); }
 function randomDigits3() { return randomDigit() + randomDigit() + randomDigit(); }
 
 function genRu(tier) {
-  let firstLetters, lastLetters, digits, region, beauty = false, desc = 'Случайный номер';
+  let firstLetter, lastLetters, digits, region, beauty = false, desc = 'Случайный номер';
+  
   switch(tier) {
-    case 'trash': digits = randomDigits3(); firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); region = String(150 + rnd(50)); break;
-    case 'common': if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; desc = 'Красивые цифры'; } else { digits = randomDigits3(); } firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); region = String(30 + rnd(120)); break;
-    case 'uncommon': if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); desc = 'Красивые цифры'; firstLetters = pickLetter()+pickLetter(); lastLetters = pickLetter()+pickLetter(); } else { firstLetters = pickBeautyLetter()+pickBeautyLetter(); lastLetters = pickLetter()+pickLetter(); digits = randomDigits3(); desc = 'Хорошие буквы'; } region = pick(GOOD_REGIONS); beauty = true; break;
-    case 'rare': digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); firstLetters = pickBeautyLetter()+pickBeautyLetter(); lastLetters = pickLetter()+pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; desc = 'Красивые цифры и регион'; break;
-    case 'epic': { const f = pickBeautyLetter(); firstLetters = f+f; if (Math.random()<0.6) lastLetters = f+f; else lastLetters = f+pickBeautyLetter(); digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; desc = 'Повторяющиеся буквы'; break; }
-    case 'legend': { const f = pickBeautyLetter(); firstLetters = f+f; lastLetters = f+f; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; desc = 'Всё красивое'; break; }
-    case 'elite': { const f = pick(['О','Е','К','М','С','А','Т','Н']); firstLetters = f+f; if (Math.random()<0.5) { const s = pick(['О','Е','К','М','С']); lastLetters = s+s; } else lastLetters = pickBeautyLetter()+pickBeautyLetter(); digits = pick(['001','007','777','888','100','200','300','500','999','111','222','333','555']); region = '77'; beauty = true; desc = 'Блатной номер'; break; }
-    case 'god': { const l = pick(['О','А','Е','К','С','М','Т','Н']); firstLetters = l+l; lastLetters = l+l; digits = pick(['001','007','777','111','222','333']); region = '77'; beauty = true; desc = 'Идеальный номер'; break; }
+    case 'trash': 
+      digits = randomDigits3(); 
+      firstLetter = pickLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = String(150 + rnd(50)); 
+      desc = 'Случайный номер';
+      break;
+    case 'common': 
+      if (Math.random() < 0.1) { 
+        digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; desc = 'Красивые цифры'; 
+      } else { 
+        digits = randomDigits3(); desc = 'Обычный номер'; 
+      }
+      firstLetter = pickLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = String(30 + rnd(120)); 
+      break;
+    case 'uncommon': 
+      if (Math.random() < 0.5) { 
+        digits = pick(BEAUTY_DIGITS.uncommon); desc = 'Красивые цифры'; 
+        firstLetter = pickLetter(); 
+        lastLetters = pickLetter() + pickLetter(); 
+      } else { 
+        firstLetter = pickBeautyLetter(); 
+        lastLetters = pickLetter() + pickLetter(); 
+        digits = randomDigits3(); desc = 'Хорошие буквы'; 
+      } 
+      region = pick(GOOD_REGIONS); beauty = true; 
+      break;
+    case 'rare': 
+      digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); 
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = pick(PREMIUM_REGIONS); 
+      beauty = true; desc = 'Красивые цифры и регион'; 
+      break;
+    case 'epic': 
+      { 
+        const f = pickBeautyLetter(); 
+        firstLetter = f; 
+        if (Math.random() < 0.6) lastLetters = f + f; 
+        else lastLetters = f + pickBeautyLetter(); 
+        digits = pick(BEAUTY_DIGITS.epic); 
+        region = pick(['77','99','97','78','98']); 
+        beauty = true; desc = 'Повторяющиеся буквы'; 
+        break; 
+      }
+    case 'legend': 
+      { 
+        const f = pickBeautyLetter(); 
+        firstLetter = f; 
+        lastLetters = f + f; 
+        digits = pick(BEAUTY_DIGITS.legend); 
+        region = pick(['77','99','97']); 
+        beauty = true; desc = 'Всё красивое'; 
+        break; 
+      }
+    case 'elite': 
+      { 
+        const f = pick(['О','Е','К','М','С','А','Т','Н']); 
+        firstLetter = f; 
+        if (Math.random() < 0.5) { 
+          const s = pick(['О','Е','К','М','С']); 
+          lastLetters = s + s; 
+        } else lastLetters = pickBeautyLetter() + pickBeautyLetter(); 
+        digits = pick(['001','007','777','888','100','200','300','500','999','111','222','333','555']); 
+        region = '77'; 
+        beauty = true; desc = 'Блатной номер'; 
+        break; 
+      }
+    case 'god': 
+      { 
+        const l = pick(['О','А','Е','К','М','С','Т','Н']); 
+        firstLetter = l; 
+        lastLetters = l + l; 
+        digits = pick(['001','007','777','111','222','333']); 
+        region = '77'; 
+        beauty = true; desc = 'Идеальный номер'; 
+        break; 
+      }
   }
-  return { text: `${firstLetters} ${digits} ${lastLetters}`, region, beauty, desc };
+  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty, desc };
 }
+
 function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
 /* ============================================================
@@ -658,7 +720,7 @@ const Inventory = {
     const idx = State.inventory.findIndex(i => i.id === id);
     if (idx < 0) return;
     State.money += State.inventory[idx].price; State.stats.earned += State.inventory[idx].price;
-    State.inventory.splice(idx, 1); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(State.money)}`);
+    State.inventory.splice(idx, 1); UI.updateMoney(); this.render(); saveGame(); toast(`💰 Продано`);
   }
 };
 
