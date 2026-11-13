@@ -9,6 +9,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   ПОДКЛЮЧЕНИЕ ЛОКАЛЬНОГО ШРИФТА (положи файл рядом с index.html)
+   ============================================================ */
+@font-face {
+  font-family: 'GostPlate';
+  src: url('GOST-R-50577-93.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Шрифт загрузится в фоне, не блокируя игру */
+}
+
 :root{
   --bg:#050a14; --bg-g:radial-gradient(circle at 50% 40%,#132a1c 0%,#050a14 70%);
   --glass:rgba(20,30,40,.6); --gb:rgba(255,255,255,.08); --gh:rgba(255,255,255,.15);
@@ -43,13 +54,61 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .plate-zone { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.15s; }
 .plate-zone:active { transform: scale(0.97); }
 .ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 150px; background: var(--uncommon); filter: blur(60px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; }
-.plate { display: flex; background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%); border-radius: 8px; overflow: hidden; height: 100px; width: 100%; max-width: 380px; box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.8); border: 2px solid #94a3b8; position: relative; }
+
+/* РЕАЛИСТИЧНЫЙ НОМЕР */
+.plate { 
+  display: flex; 
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 70%, #d4d4d4 100%); 
+  border-radius: 4px; 
+  overflow: hidden; 
+  height: 90px; 
+  width: 100%; 
+  max-width: 380px; 
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,1), inset 0 -3px 8px rgba(0,0,0,0.2); 
+  border: 2px solid #fff; 
+  position: relative; 
+  font-family: 'GostPlate', 'Arial Narrow', sans-serif;
+}
+/* Блик на металле */
+.plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+/* Рамка вокруг номера */
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 10;
+}
+
 .plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'Arial Black', Impact, sans-serif; font-size: 54px; letter-spacing: 2px; white-space: nowrap; color: #050505; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
-.plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #94a3b8; }
-.region { font-size: 32px; font-weight: 900; font-family: 'Arial Black', sans-serif; line-height: 1; color: #050505; }
-.flag-txt { font-size: 10px; font-weight: 900; color: #050505; margin-top: 2px; }
+.reel { 
+  height: 90px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-family: 'GostPlate', 'Arial Narrow', sans-serif; 
+  font-weight: normal;
+  font-size: 58px; 
+  letter-spacing: 2px; 
+  white-space: nowrap; 
+  color: #0a0a0a; 
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.8); 
+}
+
+.plate-side { width: 75px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #0a0a0a; z-index: 11; }
+.region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 32px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
+.flag-txt { font-size: 9px; font-weight: 900; color: #0a0a0a; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.flag-txt img { width: 18px; height: 12px; border: 1px solid #000; }
 
 /* ПОДПИСЬ ПОД НОМЕРОМ */
 .description { margin-top: 20px; font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; }
@@ -71,9 +130,9 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 .inv-list{display:flex;flex-direction:column;gap:14px;padding:20px calc(20px) calc(120px + var(--sb)) 20px}
 .inv-item{background:rgba(255,255,255,.03);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
-.inv-plate{font-family:'Arial Black',sans-serif;font-size:17px;display:inline-flex;align-items:center;border:2px solid #94a3b8;border-radius:6px;overflow:hidden;background:linear-gradient(180deg,#e2e8f0 0%,#cbd5e1 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-.inv-plate .txt{padding:4px 10px;}
-.inv-plate .reg{padding:4px 8px;border-left:2px solid #111;font-size:13px;background:#e2e8f0}
+.inv-plate{font-family:'GostPlate', 'Arial Narrow', sans-serif; font-weight:normal; font-size:17px;display:inline-flex;align-items:center;border:2px solid #fff;border-radius:4px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#e0e0e0 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.inv-plate .txt{padding:4px 10px; text-shadow: 0px 1px 0px #fff;}
+.inv-plate .reg{padding:4px 8px;border-left:2px solid #111;font-size:13px;background:transparent; text-shadow: 0px 1px 0px #fff;}
 .inv-price{font-weight:900;margin-top:10px;font-size:16px;font-family:'Orbitron',sans-serif;color:#fff;}
 .inv-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
 
@@ -119,7 +178,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .car-cabin { width: 90px; height: 32px; position: absolute; bottom: 55px; left: 45px; border-radius: 15px 15px 0 0; }
 .car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155;}
 .car-wheel.left { left: 20px; } .car-wheel.right { right: 20px; }
-.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'Arial Black'; font-size: 11px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px;}
+.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 11px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px;}
 .car-plate-mount .reg { font-size: 9px; }
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
@@ -170,7 +229,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
           <div class="plate-main"><div class="reels" id="reels"><div class="reel">А 000 АА</div></div></div>
           <div class="plate-side" id="side">
             <div class="region" id="region">77</div>
-            <div class="flag-txt">RUS 🇷🇺</div>
+            <div class="flag-txt"><span>RUS</span><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'><rect width='9' height='2' fill='white'/><rect y='2' width='9' height='2' fill='blue'/><rect y='4' width='9' height='2' fill='red'/></svg>"></div>
           </div>
         </div>
       </div>
@@ -291,7 +350,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_safe_v26', VER: 26,
+  COST: 5000, START: 500000, KEY: 'nomerix_gost_v29', VER: 29,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -322,9 +381,9 @@ const CARS = [
 ];
 
 const CHANGELOG = [
-  { v: 'v26.0', date: 'Текущее', list: ['Исправлен формат номеров (1 буква + 3 цифры + 2 буквы)', 'Добавлен Сейф (3 слота)', 'Полностью переписан генератор для уникальности'] },
-  { v: 'v25.0', date: 'Ранее', list: ['Уменьшен размер цены на экране', 'Реальные цены на номера', 'Оптимизация кода'] },
-  { v: 'v24.0', date: 'Ранее', list: ['Добавлены биткоины', 'Переход на рубли', 'Интерфейс как на фото'] },
+  { v: 'v29.0', date: 'Текущее', list: ['Использован реальный шрифт ГОСТ из открытого репозитория', 'Формат номеров: 1 буква + 3 цифры + 2 буквы', 'Добавлен флаг РФ (SVG)'] },
+  { v: 'v28.0', date: 'Ранее', list: ['Подключен шрифт RoadNumbers', 'Добавлена реалистичная текстура металла'] },
+  { v: 'v27.0', date: 'Ранее', list: ['Исправлен баг с дублированием букв', 'Добавлен Сейф'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -335,7 +394,7 @@ const fmtRub = n => Math.floor(n).toLocaleString('ru-RU') + ' ₽';
 const fmtBtc = n => (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ (СТРОГО 1 БУКВА + 3 ЦИФРЫ + 2 БУКВЫ)
+   ГЕНЕРАЦИЯ НОМЕРОВ (1 БУКВА + 3 ЦИФРЫ + 2 БУКВЫ)
    ============================================================ */
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
@@ -365,13 +424,12 @@ function genRu(tier) {
       firstLetter = pickLetter(); 
       lastLetters = pickLetter() + pickLetter(); 
       region = String(150 + rnd(50)); 
-      desc = 'Случайный номер';
       break;
     case 'common': 
       if (Math.random() < 0.1) { 
-        digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; desc = 'Красивые цифры'; 
+        digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; 
       } else { 
-        digits = randomDigits3(); desc = 'Обычный номер'; 
+        digits = randomDigits3(); 
       }
       firstLetter = pickLetter(); 
       lastLetters = pickLetter() + pickLetter(); 
@@ -379,14 +437,13 @@ function genRu(tier) {
       break;
     case 'uncommon': 
       if (Math.random() < 0.5) { 
-        digits = pick(BEAUTY_DIGITS.uncommon); desc = 'Красивые цифры'; 
+        digits = pick(BEAUTY_DIGITS.uncommon); 
         firstLetter = pickLetter(); 
-        lastLetters = pickLetter() + pickLetter(); 
       } else { 
         firstLetter = pickBeautyLetter(); 
-        lastLetters = pickLetter() + pickLetter(); 
-        digits = randomDigits3(); desc = 'Хорошие буквы'; 
+        digits = randomDigits3(); 
       } 
+      lastLetters = pickLetter() + pickLetter(); 
       region = pick(GOOD_REGIONS); beauty = true; 
       break;
     case 'rare': 
@@ -394,53 +451,38 @@ function genRu(tier) {
       firstLetter = pickBeautyLetter(); 
       lastLetters = pickLetter() + pickLetter(); 
       region = pick(PREMIUM_REGIONS); 
-      beauty = true; desc = 'Красивые цифры и регион'; 
+      beauty = true; 
       break;
     case 'epic': 
-      { 
-        const f = pickBeautyLetter(); 
-        firstLetter = f; 
-        if (Math.random() < 0.6) lastLetters = f + f; 
-        else lastLetters = f + pickBeautyLetter(); 
-        digits = pick(BEAUTY_DIGITS.epic); 
-        region = pick(['77','99','97','78','98']); 
-        beauty = true; desc = 'Повторяющиеся буквы'; 
-        break; 
-      }
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
+      digits = pick(BEAUTY_DIGITS.epic); 
+      region = pick(['77','99','97','78','98']); 
+      beauty = true; 
+      break;
     case 'legend': 
-      { 
-        const f = pickBeautyLetter(); 
-        firstLetter = f; 
-        lastLetters = f + f; 
-        digits = pick(BEAUTY_DIGITS.legend); 
-        region = pick(['77','99','97']); 
-        beauty = true; desc = 'Всё красивое'; 
-        break; 
-      }
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = firstLetter + firstLetter; 
+      digits = pick(BEAUTY_DIGITS.legend); 
+      region = pick(['77','99','97']); 
+      beauty = true; 
+      break;
     case 'elite': 
-      { 
-        const f = pick(['О','Е','К','М','С','А','Т','Н']); 
-        firstLetter = f; 
-        if (Math.random() < 0.5) { 
-          const s = pick(['О','Е','К','М','С']); 
-          lastLetters = s + s; 
-        } else lastLetters = pickBeautyLetter() + pickBeautyLetter(); 
-        digits = pick(['001','007','777','888','100','200','300','500','999','111','222','333','555']); 
-        region = '77'; 
-        beauty = true; desc = 'Блатной номер'; 
-        break; 
-      }
+      firstLetter = pick(['О','Е','К','М','С','А','Т','Н']); 
+      lastLetters = Math.random() < 0.5 ? (pick(['О','Е','К','М','С']) + pick(['О','Е','К','М','С'])) : (pickBeautyLetter() + pickBeautyLetter());
+      digits = pick(['001','007','777','888','100','200','300','500','999']); 
+      region = '77'; 
+      beauty = true; 
+      break;
     case 'god': 
-      { 
-        const l = pick(['О','А','Е','К','М','С','Т','Н']); 
-        firstLetter = l; 
-        lastLetters = l + l; 
-        digits = pick(['001','007','777','111','222','333']); 
-        region = '77'; 
-        beauty = true; desc = 'Идеальный номер'; 
-        break; 
-      }
+      firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); 
+      lastLetters = firstLetter + firstLetter; 
+      digits = pick(['001','007','777','111','222','333']); 
+      region = '77'; 
+      beauty = true; 
+      break;
   }
+  
   return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty, desc };
 }
 
@@ -536,7 +578,7 @@ const SaveFile = {
       const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `nomerix_save_${Date.now()}.json`;
+      const a = document.createElement('a'); a.href = url; a.download = `nomerix_gost_${Date.now()}.json`;
       a.click(); URL.revokeObjectURL(url); toast('✅ Сохранение скачано');
     } catch(e) { toast('⚠ Ошибка'); }
   },
@@ -662,7 +704,7 @@ const Game = {
     reels.style.transition = 'none'; reels.style.transform = 'translateY(0px)';
     
     setTimeout(() => {
-      reels.style.transition = 'transform 3s cubic-bezier(.15,.85,.2,1)'; reels.style.transform = `translateY(-2000px)`;
+      reels.style.transition = 'transform 3s cubic-bezier(.15,.85,.2,1)'; reels.style.transform = `translateY(-1800px)`;
       let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = Math.floor(Math.random()*199)+1; }, 60);
       setTimeout(() => {
         clearInterval(rTimer);
