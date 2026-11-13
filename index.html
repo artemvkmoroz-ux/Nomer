@@ -40,7 +40,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .icon-btn{background:var(--glass);border:1px solid var(--gb);color:#fff;width:44px;height:44px;border-radius:14px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
 .icon-btn:active{transform:scale(.9); background:rgba(255,255,255,0.1);}
 .balances{display:flex;gap:8px;}
-.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center;}
 
 /* ГЛАВНЫЙ ЭКРАН */
 .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
@@ -71,7 +71,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   transition: box-shadow 0.3s ease, transform 0.1s;
 }
 
-/* Анимация тряски при прокрутке */
+/* Анимация тряски */
 .plate.shaking { animation: shake 0.4s infinite; }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -82,48 +82,23 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* Анимация пульсации и свечения для редких номеров */
+/* Свечения */
 .plate.glow-epic { animation: pulseEpic 1.5s infinite; }
-@keyframes pulseEpic {
-  0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; }
-  50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; }
-}
+@keyframes pulseEpic { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; } }
 .plate.glow-legend { animation: pulseLegend 1.5s infinite; }
-@keyframes pulseLegend {
-  0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--legend), 0 0 10px var(--legend) inset; }
-  50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 80px var(--legend), 0 0 30px var(--legend) inset; }
-}
+@keyframes pulseLegend { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--legend), 0 0 10px var(--legend) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 80px var(--legend), 0 0 30px var(--legend) inset; } }
 .plate.glow-elite { animation: pulseElite 1.5s infinite; }
-@keyframes pulseElite {
-  0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--elite), 0 0 10px var(--elite) inset; }
-  50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 90px var(--elite), 0 0 30px var(--elite) inset; }
-}
+@keyframes pulseElite { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--elite), 0 0 10px var(--elite) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 90px var(--elite), 0 0 30px var(--elite) inset; } }
 .plate.glow-god { animation: pulseGod 1.5s infinite; }
-@keyframes pulseGod {
-  0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px var(--god), 0 0 15px var(--god) inset; filter: hue-rotate(0deg); }
-  50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 120px var(--god), 0 0 40px var(--god) inset; filter: hue-rotate(90deg); }
-}
+@keyframes pulseGod { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px var(--god), 0 0 15px var(--god) inset; filter: hue-rotate(0deg); } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 120px var(--god), 0 0 40px var(--god) inset; filter: hue-rotate(90deg); } }
 
-/* Блик на металле */
-.plate::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%);
-  pointer-events: none; z-index: 10;
-}
-.plate::after {
-  content: ''; position: absolute; inset: 2px;
-  border: 1px solid rgba(0,0,0,0.2); border-radius: 4px;
-  pointer-events: none; z-index: 10;
-}
+/* Блик */
+.plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
+.plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
 
 .plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { 
-  height: 100px; display: flex; align-items: center; justify-content: center; 
-  font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal;
-  font-size: 62px; letter-spacing: 2px; white-space: nowrap; color: #0a0a0a; 
-  text-shadow: 0px 1px 0px rgba(255,255,255,0.8); 
-}
+.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 62px; letter-spacing: 2px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); }
 
 .plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #0a0a0a; z-index: 11; }
 .region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 34px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
@@ -132,7 +107,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 .description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; }
 
-/* ВСПЫШКА ФОНА */
+/* ВСПЫШКА */
 .flash-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
 .flash-overlay.active { animation: flash 0.8s ease-out; }
 @keyframes flash { 0% { opacity: 0.8; } 100% { opacity: 0; } }
@@ -210,7 +185,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5);}
 .car-plate-mount .reg { font-size: 10px; }
 
-/* Модалки */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
 .modal-overlay.show{display:flex; animation: fadeIn 0.2s ease-out; }
 .modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
@@ -376,6 +350,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 </div>
 
 <div id="toast" class="toast"></div>
+
 <script>
 'use strict';
 
@@ -383,7 +358,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v30', VER: 30,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v31', VER: 31,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -414,17 +389,34 @@ const CARS = [
 ];
 
 const CHANGELOG = [
-  { v: 'v30.0', date: 'Текущее', list: ['Полный редизайн интерфейса (стекло, анимации)', 'Исправлен шрифт (GOST-R-50577)', 'Формат: 1 буква + 3 цифры + 2 буквы'] },
+  { v: 'v31.0', date: 'Текущее', list: ['Деньги теперь сокращаются (K, M, B)', 'Правильный шрифт ГОСТ', 'Крутой интерфейс с анимациями'] },
+  { v: 'v30.0', date: 'Ранее', list: ['Полный редизайн интерфейса', 'Формат: 1 буква + 3 цифры + 2 буквы'] },
   { v: 'v29.0', date: 'Ранее', list: ['Добавлен Сейф', 'Добавлен список обновлений'] },
-  { v: 'v28.0', date: 'Ранее', list: ['Переход на рубли и биткоины'] },
 ];
 
 const $ = id => document.getElementById(id);
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
-const fmtRub = n => Math.floor(n).toLocaleString('ru-RU') + ' ₽';
-const fmtBtc = n => (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
+
+/* ============================================================
+   ФОРМАТИРОВАНИЕ ДЕНЕГ (Сокращение)
+   ============================================================ */
+function formatCompact(n) {
+  if (n === 0) return '0 ₽';
+  const abs = Math.abs(n);
+  if (abs < 1000) return Math.floor(n) + ' ₽';
+  if (abs < 1_000_000) return (n / 1000).toFixed(1).replace('.0', '') + 'K ₽';
+  if (abs < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace('.0', '') + 'M ₽';
+  if (abs < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace('.0', '') + 'МЛРД ₽';
+  return (n / 1_000_000_000_000).toFixed(1).replace('.0', '') + 'ТРЛН ₽';
+}
+function formatBtc(n) {
+  if (n === 0) return '0 ₿';
+  return (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
+}
+const fmtRub = formatCompact;
+const fmtBtc = formatBtc;
 
 /* ============================================================
    ГЕНЕРАЦИЯ НОМЕРОВ (1 БУКВА + 3 ЦИФРЫ + 2 БУКВЫ)
@@ -453,19 +445,14 @@ function genRu(tier) {
   
   switch(tier) {
     case 'trash': 
-      digits = randomDigits3(); 
-      firstLetter = pickLetter(); 
-      lastLetters = pickLetter() + pickLetter(); 
-      region = String(150 + rnd(50)); 
+      digits = randomDigits3(); firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(150 + rnd(50)); 
       break;
     case 'common': 
-      if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; } 
-      else { digits = randomDigits3(); }
+      if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; } else { digits = randomDigits3(); }
       firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(30 + rnd(120)); 
       break;
     case 'uncommon': 
-      if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pickLetter(); } 
-      else { firstLetter = pickBeautyLetter(); digits = randomDigits3(); } 
+      if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pickLetter(); } else { firstLetter = pickBeautyLetter(); digits = randomDigits3(); } 
       lastLetters = pickLetter() + pickLetter(); region = pick(GOOD_REGIONS); beauty = true; 
       break;
     case 'rare': 
@@ -473,8 +460,7 @@ function genRu(tier) {
       firstLetter = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; 
       break;
     case 'epic': 
-      firstLetter = pickBeautyLetter(); 
-      lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
+      firstLetter = pickBeautyLetter(); lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
       digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; 
       break;
     case 'legend': 
@@ -694,7 +680,6 @@ const Game = {
     const generated = genPlate(win);
     const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * (generated.beauty ? 1.3 : 1.0) * UI.getPriceMultiplier());
 
-    // Сброс стилей
     UI.els.plate.className = 'plate shaking';
     UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = 'var(--sub)';
     UI.els.price.textContent = '...'; UI.els.price.style.color = 'var(--sub)';
@@ -723,22 +708,16 @@ const Game = {
     UI.els.description.textContent = generated.desc; 
     UI.els.price.textContent = fmtRub(price);
 
-    // Добавляем класс свечения в зависимости от редкости
     if (win.lvl === 5) UI.els.plate.classList.add('glow-epic');
     if (win.lvl === 6) UI.els.plate.classList.add('glow-legend');
     if (win.lvl === 7) UI.els.plate.classList.add('glow-elite');
     if (win.lvl === 8) {
       UI.els.plate.classList.add('glow-god');
-      // Вспышка экрана для Божественного
       UI.els.flash.classList.add('active');
       setTimeout(() => UI.els.flash.classList.remove('active'), 800);
     }
 
-    if (win.lvl >= 4) { 
-      spawnParticles(win.glow, win.lvl >= 6 ? 60 : 30); 
-      Sound.win(win.lvl); 
-      Haptic.buzz([30, 50, 80]); 
-    } else Sound.win(2);
+    if (win.lvl >= 4) { spawnParticles(win.glow, win.lvl >= 6 ? 60 : 30); Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
 
     Game.animatePrice(price, win, () => {
       State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
