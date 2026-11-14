@@ -3,233 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0a1628">
-<title>🎄 Nomerix ∞ Новогодний</title>
+<meta name="theme-color" content="#f8f9fa">
+<title>Nomerix (Real)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'GostPlate';
-  src: url('GOST-R-50577-93.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+:root {
+  --bg: #f8f9fa; 
+  --panel-bg: #ffffff;
+  --text: #000000;
+  --sub: #8e8e93;
+  --border: #e5e5ea;
+  --shadow: 0 2px 10px rgba(0,0,0,0.05);
+  --gold: #d4af37;
+  --god: #a855f7;
+  --elite: #ef4444;
+  --sb: env(safe-area-inset-bottom, 0px);
+  --st: env(safe-area-inset-top, 0px);
 }
 
-:root{
-  --bg:#050a14; --bg-g:radial-gradient(circle at 50% 40%,#0a1c2e 0%,#050a14 80%);
-  --glass:rgba(15,25,40,.6); --gb:rgba(255,255,255,.08); --gh:rgba(255,255,255,.15);
-  --txt:#f8fafc; --sub:#94a3b8;
-  --trash:#475569; --common:#94a3b8; --uncommon:#10b981; --rare:#3b82f6;
-  --epic:#a855f7; --legend:#f59e0b; --elite:#ef4444; --god:#ec4899;
-  --blue:#3b82f6; --red:#ef4444; --green:#10b981; --gold:#fbbf24;
-  --xmas-red:#dc2626; --xmas-green:#16a34a; --xmas-gold:#fbbf24;
-  --sb:env(safe-area-inset-bottom,0px); --st:env(safe-area-inset-top,0px);
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;overscroll-behavior:none}
-body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; }
 
-#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
-.snowflake{position:absolute;top:-10px;color:var(--xmas-gold);opacity:.8;user-select:none;pointer-events:none;animation:snowfall linear infinite;will-change:transform;text-shadow: 0 0 5px rgba(251,191,36,0.5);}
-@keyframes snowfall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(100vh) translateX(var(--drift,30px)) rotate(360deg);opacity:0}}
+#app { width: 100%; max-width: 430px; height: 100dvh; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
 
-#garland{position:fixed;top:0;left:0;right:0;height:50px;pointer-events:none;z-index:2;display:flex;justify-content:space-around;padding:0 10px}
-.bulb{width:12px;height:12px;border-radius:50%;margin-top:8px;position:relative;animation:twinkle 2s ease-in-out infinite}
-.bulb::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:2px;height:10px;background:rgba(255,255,255,.3)}
-.bulb:nth-child(odd){animation-delay:.3s}.bulb:nth-child(3n){animation-delay:.6s}.bulb:nth-child(4n){animation-delay:.9s}
-@keyframes twinkle{0%,100%{box-shadow:0 0 12px currentColor,0 0 24px currentColor;opacity:1}50%{box-shadow:0 0 4px currentColor;opacity:.6}}
+/* ВЕРХНЯЯ ПАНЕЛЬ */
+.top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: calc(16px + var(--st)) 20px 16px; z-index: 100; }
+.balances { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
+.bal-box { background: var(--panel-bg); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--border); text-align: center; }
+.icon-btn { background: var(--panel-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); }
 
-#app{width:100%;max-width:430px;height:100dvh;height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:10;}
+/* ГЛАВНЫЙ ЭКРАН */
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; }
 
-.top-bar{display:flex;justify-content:space-between;align-items:center;padding:calc(20px + var(--st)) 20px 16px;z-index:100;}
-.icon-btn{background:var(--glass);border:1px solid var(--gb);color:#fff;width:44px;height:44px;border-radius:14px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
-.icon-btn:active{transform:scale(.9) rotate(-10deg); background:rgba(255,255,255,0.1);}
-.balances{display:flex;gap:8px;}
-.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center;}
+/* ПЛАШКА СТАТУСА */
+.status-bar { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; box-shadow: var(--shadow); }
+.rarity-info { display: flex; flex-direction: column; gap: 4px; }
+.rarity-name { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #333; }
+.dots { display: flex; gap: 3px; }
+.dot { width: 8px; height: 4px; border-radius: 2px; background: #e5e5ea; }
+.price-tag { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #333; }
 
-.main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
-.rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-.rarity-info { display: flex; flex-direction: column; gap: 8px; }
-.rarity-name { font-size: 12px; font-weight: 900; color: var(--uncommon); text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 0 10px currentColor; transition: all 0.3s; }
-.dots { display: flex; gap: 4px; }
-.dot { width: 16px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); transition: all 0.3s; }
-.price-tag { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); transition: all 0.3s; }
-
-.plate-zone { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.15s; }
-.plate-zone:active { transform: scale(0.96); }
-.ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 160px; background: var(--uncommon); filter: blur(70px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; animation: pulseGlow 2s infinite; }
-
-@keyframes pulseGlow { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
+/* =========================================
+   ИДЕАЛЬНЫЙ НОМЕР (ИСПОЛЬЗУЕМ ФОТОГРАФИЮ ПЛАСТИНЫ)
+   ========================================= */
+.plate-zone { width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.1s; margin-bottom: 24px; }
+.plate-zone:active { transform: scale(0.97); }
 
 .plate { 
   display: flex; 
-  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 70%, #d4d4d4 100%); 
+  /* Ставим фотографию реального номера как фон */
+  background: url('https://i.ibb.co/3W2wXG5/plate-bg.jpg') no-repeat center center; 
+  background-size: cover;
   border-radius: 6px; 
   overflow: hidden; 
   height: 100px; 
   width: 100%; 
   max-width: 380px; 
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,1), inset 0 -3px 8px rgba(0,0,0,0.2); 
-  border: 2px solid #fff; 
+  /* Тень, чтобы номер выделялся на фоне */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
   position: relative; 
-  font-family: 'GostPlate', 'Arial Narrow', sans-serif;
-  transition: box-shadow 0.3s ease, transform 0.1s;
+  font-family: 'Arial Black', Impact, sans-serif;
 }
 
-.plate.shaking { animation: shake 0.4s infinite; }
-@keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-2px, 0px) rotate(-1deg); } 40% { transform: translate(2px, 2px) rotate(1deg); } 60% { transform: translate(-1px, -1px) rotate(0deg); } 80% { transform: translate(1px, 2px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+.plate-main { 
+  flex: 1; 
+  position: relative; 
+  overflow: hidden; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
 
-.plate.win-pop { animation: winPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes winPop { 0% { transform: scale(0.5) rotate(-10deg); opacity: 0; } 50% { transform: scale(1.1) rotate(5deg); } 70% { transform: scale(0.95) rotate(-2deg); } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+.reels { 
+  position: absolute; 
+  top: 0; 
+  width: 100%; 
+  will-change: transform; 
+}
 
-.plate.glow-epic { animation: pulseEpic 1.5s infinite; }
-@keyframes pulseEpic { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; } }
-.plate.glow-legend { animation: pulseLegend 1.5s infinite; }
-@keyframes pulseLegend { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--legend), 0 0 10px var(--legend) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 80px var(--legend), 0 0 30px var(--legend) inset; } }
-.plate.glow-elite { animation: pulseElite 1.5s infinite; }
-@keyframes pulseElite { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--elite), 0 0 10px var(--elite) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 90px var(--elite), 0 0 30px var(--elite) inset; } }
-.plate.glow-god { animation: pulseGod 1.5s infinite; }
-@keyframes pulseGod { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px var(--god), 0 0 15px var(--god) inset; filter: hue-rotate(0deg); } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 120px var(--god), 0 0 40px var(--god) inset; filter: hue-rotate(90deg); } }
+.reel { 
+  height: 100px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-family: 'Arial Black', Impact, sans-serif; 
+  font-size: 64px; 
+  letter-spacing: 2px; 
+  white-space: nowrap; 
+  color: #111; 
+}
 
-.plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
-.plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
+/* Правая часть (Регион и флаг) */
+.plate-side { 
+  width: 85px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  /* Оставляем линию, так как она есть на фото */
+  border-left: 2px solid #222; 
+  padding-top: 4px;
+  background: rgba(255,255,255,0.4); /* Легкая заливка, чтобы текст читался */
+}
 
-.plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 54px; letter-spacing: 1px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); padding: 0 10px; }
+.region { 
+  font-family: 'Arial Black', Impact, sans-serif; 
+  font-size: 38px; 
+  line-height: 1; 
+  color: #111; 
+  margin-top: -2px;
+}
 
-.plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #0a0a0a; z-index: 11; }
-.region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 32px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
-.flag-txt { font-size: 10px; font-weight: 900; color: #0a0a0a; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.flag-txt img { width: 20px; height: 14px; border: 1px solid #000; }
+.flag-box {
+  display: flex;
+  align-items: center; 
+  gap: 4px;
+  margin-top: 2px;
+}
 
-.description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; }
+.rus-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  color: #111;
+}
 
-.flash-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
-.flash-overlay.active { animation: flash 0.8s ease-out; }
-@keyframes flash { 0% { opacity: 0.9; } 100% { opacity: 0; } }
-.particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 10px currentColor; }
+.flag-icon {
+  width: 22px;
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #111; 
+}
 
-/* ОСТАЛЬНОЙ CSS (ЭКРАНЫ, МЕНЮ, ИНВЕНТАРЬ И Т.Д.) */
-.screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(40px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
-.screen.active{display:flex; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
-@keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:var(--xmas-gold);}
-.scr-head .icon-btn{width:44px;height:44px;font-size:20px;}
+.flag-white { flex: 1; background: #fff; }
+.flag-blue { flex: 1; background: #0039a6; }
+.flag-red { flex: 1; background: #d52b1e; }
 
-.menu-grid{display:flex;flex-direction:column;gap:14px;padding:20px;}
-.menu-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.menu-card:active{transform:scale(.95);background:rgba(255,255,255,.1);}
-.menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));}
-.menu-txt{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;}
-.menu-sub{font-size:13px;color:var(--sub);font-weight:600;margin-top:4px;}
-.menu-card .arrow{margin-left:auto;font-size:22px;color:var(--xmas-gold);opacity:.8;}
+.description { font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; margin-bottom: 40px; }
 
-.inv-list{display:flex;flex-direction:column;gap:14px;padding:20px calc(20px) calc(120px + var(--sb)) 20px}
-.inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.inv-plate{font-family:'GostPlate', 'Arial Narrow', sans-serif; font-weight:normal; font-size:18px;display:inline-flex;align-items:center;border:2px solid #fff;border-radius:6px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#e0e0e0 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5); max-width: 100%;}
-.inv-plate .txt{padding:4px 10px; text-shadow: 0px 1px 0px #fff; white-space: nowrap;}
-.inv-plate .reg{padding:4px 8px;border-left:2px solid #111;font-size:14px;background:transparent; text-shadow: 0px 1px 0px #fff;}
-.inv-price{font-weight:900;margin-top:10px;font-size:16px;font-family:'Orbitron',sans-serif;color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.2);}
-.inv-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+/* НИЖНИЕ КНОПКИ */
+.bottom-controls { position: absolute; bottom: calc(20px + var(--sb)); width: 100%; padding: 0 20px; display: flex; justify-content: space-between; }
+.bottom-btn { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
 
-.btn-sm{border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;font-size:11px;text-transform:uppercase;font-family:'Montserrat',sans-serif;color:#fff;transition:all .15s; letter-spacing:0.5px;}
-.btn-sm:active{transform:scale(.9) translateY(2px);}
-.btn-sell{background:linear-gradient(135deg,#16a34a,#047857); box-shadow:0 4px 12px rgba(22,163,74,0.3);}
-.btn-market{background:linear-gradient(135deg,#f59e0b,#b45309);color:#000; box-shadow:0 4px 12px rgba(245,158,11,0.3);}
-.btn-safe{background:linear-gradient(135deg,#3b82f6,#1d4ed8); box-shadow:0 4px 12px rgba(59,130,246,0.3);}
-.btn-event{background:linear-gradient(135deg,#dc2626,#991b1b); box-shadow:0 4px 12px rgba(220,38,38,0.3);}
+/* ЭКРАНЫ */
+.screen { display: none; flex-direction: column; height: 100%; background: var(--bg); position: absolute; inset: 0; z-index: 200; overflow-y: auto; }
+.screen.active { display: flex; animation: slideUp 0.3s ease-out; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.scr-head { display: flex; align-items: center; gap: 16px; padding: calc(16px + var(--st)) 20px 16px; font-size: 18px; font-weight: 800; position: sticky; top: 0; background: rgba(248,249,250,0.9); backdrop-filter: blur(10px); z-index: 10; border-bottom: 1px solid var(--border); }
+.menu-grid { display: flex; flex-direction: column; gap: 10px; padding: 20px; }
+.menu-card { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); font-size: 16px; font-weight: 700; }
+.menu-ico { font-size: 24px; }
 
-.empty{text-align:center;color:var(--sub);padding:80px 20px;font-size:15px;line-height:1.8;font-weight:600}
-.empty-ico{font-size:64px;margin-bottom:20px;opacity:.3;}
-
-.settings{padding:20px calc(20px) calc(30px + var(--sb));display:flex;flex-direction:column;gap:16px}
-.s-block{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.s-title{font-weight:900;font-size:13px;text-transform:uppercase;color:var(--sub); letter-spacing:1px;}
-.s-title.lit{color:#fff}
-.input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
-.input:focus{border-color:var(--xmas-gold); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
-.btn{border:none;padding:18px;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:all 0.15s; letter-spacing:1px;}
-.btn:active{transform:scale(.95);}
-.btn-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff; box-shadow:0 8px 20px rgba(59,130,246,0.3);}
-.btn-green{background:linear-gradient(135deg,#16a34a,#047857);color:#fff; box-shadow:0 8px 20px rgba(22,163,74,0.3);}
-.btn-gold{background:linear-gradient(135deg,#fbbf24,#b45309);color:#000; box-shadow:0 8px 20px rgba(251,191,36,0.3);}
-.btn-red{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff; box-shadow:0 8px 20px rgba(239,68,68,0.3);}
-
-.market-tabs{display:flex;gap:10px;margin-bottom:20px; background:rgba(0,0,0,0.3); padding:6px; border-radius:16px;}
-.market-tab{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:900;font-size:14px;cursor:pointer;color:var(--sub);transition:all .2s;}
-.market-tab.active{background:rgba(255,255,255,0.1);color:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-.boost-card, .car-shop-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15);}
-.boost-info, .car-shop-info{flex:1;}
-.boost-name{font-weight:900;font-size:15px;color:#fff;margin-bottom:6px;}
-.boost-desc{font-size:12px;color:var(--sub);font-weight:600;}
-.boost-price{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--gold); margin-top:6px;}
-.car-shop-preview{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0; box-shadow:inset 0 0 10px rgba(0,0,0,0.5);}
-
-.safe-list{display:grid;grid-template-columns:1fr;gap:14px;padding:0 20px 20px 20px;}
-.safe-slot{background:rgba(0,0,0,0.3);border:2px dashed rgba(255,255,255,0.1);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;min-height:90px; transition:all 0.2s;}
-.safe-slot.filled{border-style:solid;border-color:var(--gb);background:var(--glass); box-shadow:0 4px 12px rgba(0,0,0,0.2);}
-.safe-empty-txt{font-size:14px;color:var(--sub);font-weight:700; text-transform:uppercase; letter-spacing:1px;}
-
-.garage-scene { width: 100%; height: 220px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; box-shadow:inset 0 0 40px rgba(0,0,0,0.8);}
-.car-body { width: 180px; height: 90px; position: relative; z-index: 2; }
-.car-chassis { width: 100%; height: 45px; position: absolute; bottom: 18px; border-radius: 20px 30px 8px 8px; box-shadow: inset 0 -10px 15px rgba(0,0,0,0.6), inset 0 4px 8px rgba(255,255,255,0.3);}
-.car-cabin { width: 90px; height: 32px; position: absolute; bottom: 55px; left: 45px; border-radius: 15px 15px 0 0; box-shadow: inset 0 0 15px rgba(0,0,0,0.8);}
-.car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155; box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8);}
-.car-wheel.left { left: 20px; } .car-wheel.right { right: 20px; }
-.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5);}
-.car-plate-mount .reg { font-size: 10px; }
-
-.friend-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px;}
-.avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; }
-.friend-info { flex: 1; }
-.friend-name { font-weight: 900; font-size: 16px; color: #fff; }
-.friend-stat { font-size: 12px; color: var(--sub); margin-top: 4px; font-weight: 600; }
-.friend-code-box { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;}
-.my-code { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: var(--gold); letter-spacing: 4px; margin: 12px 0; text-shadow: 0 0 15px rgba(251,191,36,0.3); }
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
-.modal-overlay.show{display:flex;}
-.modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
-@keyframes modalIn { from { transform: scale(0.5) translateY(100px) rotate(-10deg); opacity: 0; } to { transform: scale(1) translateY(0) rotate(0); opacity: 1; } }
-.modal-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;margin-bottom:12px;color:#fff;text-align:center; letter-spacing:1px;}
-.modal-text{font-size:14px;color:var(--sub);line-height:1.6;margin-bottom:24px;text-align:center;white-space:pre-line; font-weight:600;}
-.modal-btns{display:flex;gap:12px}
-.modal-btns .btn{flex:1; padding:16px; font-size:14px;}
-
-#admin-modal .modal{max-width:420px;max-height:85vh;overflow-y:auto;text-align:left;}
-.admin-btn{padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.05);color:#fff;font-weight:900;font-size:12px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
-.admin-btn:active{transform:scale(0.9); background:rgba(255,255,255,0.1);}
-.admin-input{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:12px;border-radius:12px;color:#fff;font-size:13px;outline:none; font-family:'Montserrat',sans-serif;}
-.admin-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.05)}
-.admin-section-title{color:#fff;font-weight:900;font-size:13px;margin-bottom:12px;text-transform:uppercase; letter-spacing:1px;}
-.admin-slider{width:100%;accent-color:var(--gold);height:24px;cursor:pointer;}
-
-.toast{position:fixed;top:-100px;left:50%;transform:translateX(-50%);background:#0f172a;border:1px solid rgba(255,255,255,.15);padding:16px 28px;border-radius:30px;font-weight:900;z-index:10000;transition:top .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);font-size:14px;color:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
-.toast.show{top:24px;}
+.toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 10000; transition: top 0.3s; }
+.toast.show { top: 40px; }
 </style>
 </head>
 <body>
 
-<div id="snow-container"></div>
-<div id="garland"></div>
-
 <div id="app">
-  <div class="flash-overlay" id="flash"></div>
-  
   <div id="game" style="height:100%;display:flex;flex-direction:column">
+    
     <div class="top-bar">
       <button class="icon-btn" onclick="UI.open('menu')">☰</button>
       <div class="balances">
         <div class="bal-box" id="money">0 ₽</div>
-        <div class="bal-box" id="bitcoin">0 ₿</div>
+        <div class="bal-box" id="bitcoin" style="font-size:11px; color:#8e8e93;">0 ₿</div>
       </div>
     </div>
 
     <div class="main">
-      <div class="rarity-price-bar">
+      <div class="status-bar">
         <div class="rarity-info">
           <div class="rarity-name" id="rarity-name">ОБЫЧНЫЙ</div>
           <div class="dots" id="dots">
@@ -240,12 +186,22 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       </div>
 
       <div class="plate-zone" onclick="Game.spin()">
-        <div class="ambient-glow" id="glow"></div>
         <div class="plate" id="plate">
-          <div class="plate-main"><div class="reels" id="reels"><div class="reel">А 000 АА</div></div></div>
+          <div class="plate-main">
+            <div class="reels" id="reels">
+              <div class="reel">Е 695 КО</div>
+            </div>
+          </div>
           <div class="plate-side" id="side">
-            <div class="region" id="region">77</div>
-            <div class="flag-txt"><span>RUS</span><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'><rect width='9' height='2' fill='white'/><rect y='2' width='9' height='2' fill='blue'/><rect y='4' width='9' height='2' fill='red'/></svg>"></div>
+            <div class="region" id="region">82</div>
+            <div class="flag-box">
+              <span class="rus-text">RUS</span>
+              <div class="flag-icon">
+                <div class="flag-white"></div>
+                <div class="flag-blue"></div>
+                <div class="flag-red"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -253,139 +209,51 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="description" id="description">Коснись номера, чтобы крутить</div>
     </div>
 
-    <div class="bottom-status">
-      <span>🇷🇺</span> Россия 1 тип
+    <div class="bottom-controls">
+      <div class="bottom-btn"><span>🇷🇺</span> Россия 5 типов</div>
+      <div class="bottom-btn">Авто 1/с</div>
     </div>
   </div>
 
+  <!-- МЕНЮ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
-      <div class="menu-card" onclick="UI.open('event')"><div class="menu-ico">🎄</div><div><div class="menu-txt">Новогоднее событие</div><div class="menu-sub">Укрась номера и машины</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('friends')"><div class="menu-ico">👥</div><div><div class="menu-txt">Друзья</div><div class="menu-sub" id="friend-count">0 друзей</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div><div class="menu-txt">Гараж</div><div class="menu-sub">Машины</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div><div class="menu-txt">Биржа</div><div class="menu-sub">Купить/Продать</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения (за ₿)</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div>Инвентарь</div></div>
+      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div>Бусты (за ₿)</div></div>
+      <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div>Настройки</div></div>
     </div>
   </div>
 
-  <div id="scr-event" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('event')">←</button><span>🎄 СОБЫТИЕ</span></div>
-    <div class="settings">
-      <div class="s-block">
-        <div class="s-title" style="color:var(--xmas-gold);">Украшение номеров</div>
-        <div class="s-hint" style="margin-bottom:10px; color:var(--sub); font-size:12px; font-weight:600;">Выбери номер из инвентаря и повесь на него новогодний декор. Цена номера вырастет!</div>
-        <button class="btn btn-gold" onclick="Event.openNumDecor()">Выбрать номер</button>
-      </div>
-      <div class="s-block">
-        <div class="s-title" style="color:var(--xmas-gold);">Украшение машин</div>
-        <div class="s-hint" style="margin-bottom:10px; color:var(--sub); font-size:12px; font-weight:600;">Укрась свою машину в гараже. Продать её можно будет дороже!</div>
-        <button class="btn btn-gold" onclick="Event.openCarDecor()">Выбрать машину</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="scr-friends" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('friends')">←</button><span>ДРУЗЬЯ</span></div>
-    <div class="settings">
-      <div class="friend-code-box">
-        <div class="s-title lit">Твой ID-код для друзей</div>
-        <div class="my-code" id="my-friend-code">XXXX-XXXX</div>
-        <button class="btn btn-gold" onclick="Friends.copyCode()" style="padding:12px; font-size:12px;">📋 Скопировать</button>
-      </div>
-      <div class="s-block">
-        <div class="s-title lit">Добавить друга</div>
-        <input type="text" id="friend-input" class="input" placeholder="ВВЕДИ ID-КОД ДРУГА" style="text-transform:uppercase;">
-        <button class="btn btn-blue" onclick="Friends.add()">ДОБАВИТЬ</button>
-      </div>
-      <div class="s-block" style="margin-top:10px;">
-        <div class="s-title lit">Список друзей</div>
-        <div id="friends-list"></div>
-      </div>
-    </div>
-  </div>
-
+  <!-- ИНВЕНТАРЬ -->
   <div id="scr-inventory" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>НОМЕРА</span></div>
-    <div class="inv-list" id="inv-list"></div>
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>ИНВЕНТАРЬ</span></div>
+    <div id="inv-list" style="padding:20px; display:flex; flex-direction:column; gap:10px;"></div>
   </div>
 
-  <div id="scr-safe" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
-    <div class="settings" style="padding-bottom:0;"><div class="s-hint" style="color:var(--sub); font-size:13px; font-weight:600; margin-bottom:10px;">В сейфе надежно хранятся ваши лучшие номера.</div></div>
-    <div class="safe-list" id="safe-list"></div>
-  </div>
-
-  <div id="scr-garage" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>ГАРАЖ</span></div>
-    <div class="settings" id="garage-content"></div>
-  </div>
-
-  <div id="scr-market" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('market')">←</button><span>БИРЖА</span></div>
-    <div class="settings">
-      <div class="market-tabs">
-        <div class="market-tab active" onclick="Market.setTab('buy', this)">Купить</div>
-        <div class="market-tab" onclick="Market.setTab('sell', this)">Мои лоты</div>
-      </div>
-      <div id="market-content"></div>
-    </div>
-  </div>
-
+  <!-- БУСТЫ -->
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
-    <div class="settings" id="shop-content"></div>
+    <div id="shop-content" style="padding:20px;"></div>
   </div>
 
+  <!-- НАСТРОЙКИ -->
   <div id="scr-settings" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>НАСТРОЙКИ</span></div>
-    <div class="settings">
-      <div class="s-block">
-        <div class="s-title lit">Промокод</div>
-        <input type="text" id="promo-input" class="input" placeholder="ВВЕДИ КОД">
-        <button class="btn btn-gold" onclick="Settings.promo()">АКТИВИРОВАТЬ</button>
+    <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+      <div class="menu-card" style="flex-direction:column; align-items:flex-start; gap:10px;">
+        <div>Промокод</div>
+        <input type="text" id="promo-input" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc; font-size:14px;" placeholder="ВВЕДИ КОД">
+        <button style="width:100%; padding:12px; background:#007aff; color:#fff; border:none; border-radius:10px; font-weight:700;" onclick="Settings.promo()">АКТИВИРОВАТЬ</button>
       </div>
-      <div class="s-block">
-        <div class="s-title lit">Сохранение</div>
-        <button class="btn btn-blue" onclick="SaveFile.export()">📤 Экспорт</button>
-        <button class="btn btn-green" onclick="SaveFile.import()">📥 Импорт</button>
+      <div class="menu-card" style="flex-direction:column; align-items:flex-start; gap:10px;">
+        <div>Сохранение</div>
+        <button style="width:100%; padding:12px; background:#34c759; color:#fff; border:none; border-radius:10px; font-weight:700;" onclick="SaveFile.export()">📤 Экспорт</button>
+        <button style="width:100%; padding:12px; background:#ff9500; color:#fff; border:none; border-radius:10px; font-weight:700;" onclick="SaveFile.import()">📥 Импорт</button>
         <input type="file" id="file-input" style="display:none" onchange="SaveFile.handleFile(event)">
       </div>
-      <button class="btn btn-red" onclick="Settings.reset()">СБРОСИТЬ ПРОГРЕСС</button>
+      <button style="width:100%; padding:12px; background:#ff3b30; color:#fff; border:none; border-radius:10px; font-weight:700;" onclick="Settings.reset()">СБРОСИТЬ</button>
     </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-title" id="modal-title">Заголовок</div>
-    <div class="modal-text" id="modal-text">Текст</div>
-    <div class="modal-btns">
-      <button class="btn btn-red" id="modal-cancel">Отмена</button>
-      <button class="btn btn-green" id="modal-ok">OK</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="password-modal">
-  <div class="modal" style="max-width:340px">
-    <div class="modal-title">🔐 Введите пароль</div>
-    <input type="password" id="admin-password-input" class="input" placeholder="••••" style="text-align:center;font-size:22px;letter-spacing:8px;margin-bottom:16px">
-    <div class="modal-btns">
-      <button class="btn btn-red" onclick="Admin.cancelPassword()">Отмена</button>
-      <button class="btn btn-green" onclick="Admin.checkPassword()">Войти</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="admin-modal">
-  <div class="modal">
-    <div class="modal-title">👑 АДМИН-ПАНЕЛЬ</div>
-    <div id="admin-content"></div>
-    <button class="btn btn-red" style="width:100%;margin-top:20px" onclick="Admin.close()">ЗАКРЫТЬ</button>
   </div>
 </div>
 
@@ -397,76 +265,35 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v35', VER: 35,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v36', VER: 36,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
 
 const RARITIES = [
-  { lvl:1, name:'МУСОР',        color:'var(--trash)',    glow:'#475569', chance:14.0, min:500,       max:5_000,        tier:'trash' },
-  { lvl:2, name:'ОБЫЧНЫЙ',      color:'var(--common)',   glow:'#94a3b8', chance:35.0, min:15_000,    max:80_000,       tier:'common' },
-  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'var(--uncommon)', glow:'#10b981', chance:25.0, min:100_000,   max:500_000,      tier:'uncommon' },
-  { lvl:4, name:'РЕДКИЙ',       color:'var(--rare)',     glow:'#3b82f6', chance:15.0, min:1_000_000, max:5_000_000,    tier:'rare' },
-  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'var(--epic)',     glow:'#a855f7', chance:7.0,  min:5_000_000, max:15_000_000,   tier:'epic' },
-  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'var(--legend)',   glow:'#f59e0b', chance:2.5,  min:15_000_000,max:50_000_000,   tier:'legend' },
-  { lvl:7, name:'БЛАТНОЙ',      color:'var(--elite)',    glow:'#ef4444', chance:1.0,  min:50_000_000,max:200_000_000,  tier:'elite' },
-  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'var(--god)',      glow:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
+  { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5_000,        tier:'trash' },
+  { lvl:2, name:'ОБЫЧНЫЙ',      color:'#94a3b8', chance:35.0, min:15_000,    max:80_000,       tier:'common' },
+  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'#10b981', chance:25.0, min:100_000,   max:500_000,      tier:'uncommon' },
+  { lvl:4, name:'РЕДКИЙ',       color:'#3b82f6', chance:15.0, min:1_000_000, max:5_000_000,    tier:'rare' },
+  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'#a855f7', chance:7.0,  min:5_000_000, max:15_000_000,   tier:'epic' },
+  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'#f59e0b', chance:2.5,  min:15_000_000,max:50_000_000,   tier:'legend' },
+  { lvl:7, name:'БЛАТНОЙ',      color:'#ef4444', chance:1.0,  min:50_000_000,max:200_000_000,  tier:'elite' },
+  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
 ];
 
 /* ============================================================
    СКРЫТЫЕ ПРОМОКОДЫ (Base64)
    ============================================================ */
-// Список кодов зашифрован, чтобы их нельзя было найти поиском по файлу.
-// Чтобы добавить новый код, создай объект { "CODE": value } и зашифруй в base64.
+// Список зашифрован, чтобы их не нашли поиском в коде.
 const _P = "eyJNT05FWTUwMCI6NTAwLCJNT05FWTUwMCI6NTAwLCJNT05FWTEwMDAiOjEwMDAsIk1PTkVZNTAwMCI6NTAwMCwiTU9ORVkxMDAwMCI6MTAwMDAsIk1PTkVZNTAwMDAiOjUwMDAwLCJNT05FWTEwMDAwMCI6MTAwMDAwLCJNT05FWTEwMDAwMDAiOjEwMDAwMDAsIk1PTkVZMU0iOjEwMDAwMDAsIk1PTkVZNU0iOjUwMDAwMDAsIk1PTkVZMTBNIjoxMDAwMDAwMCwiTU9ORVk1ME0iOjUwMDAwMDAwLCJNT05FWTEwME0iOjEwMDAwMDAwMCwiTU9ORVk1MDBNIjo1MDAwMDAwMDAsIk1PTkVZMEJCIjoxMDAwMDAwMDAwLCJQT09SIjoxMDAsIlNUQVJUIjoxMDAwMCwiSEVMTE8iOjEwMDAsIk5FV0JJRSI6NTAwMCwiUFJPIjoyNTAwMCwiVE9QIjozMDAwMCwiR09EIjo1MDAwLCJCVE0iOiJCVENfMSIsIkJUQzIiOiJCVENfMiIsIkJUQzMiOiJCVENfMyIsIkJUQzUiOiJCVENfNSIsIkJUQzEwIjoiQlRDXzEwIiwiQlRDMTUiOiJCVENfMTUiLCJCVE0iOiJCVENfMjAiLCJCVE0iOiJCVENfNTAiLCJCVEMxMDAiOiJCVENfMTAwIiwiQ1JZUFRPIjoiQlRDXzMiLCJNT09OIjoiQlRDXzE1IiwiTkVXWUVBUiI6MTAwMDAwLCJYTUFTIjoxMDAwMCwiU0FOVEEiOjIwMjUwLCJTTk9XIjo3Nzc3LCJHSUZUIjoxNTAwMCwiSEFQUFkiOjUwMDAsIkxVQ0NZIjozMDAwLCI3NzciOjc3NzcsIjg4OCI6ODg4OCwiOTk5Ijo5OTk5LCIxOTkiOjE5OTAwMCwiMTIzIjoxMjMwLCI0NTYiOjQ1NjAsIjc4OSI6Nzg5MCwiNzc3NyI6Nzc3NzcsIjg4ODgiOjg4ODg4LCI5OTk5Ijo5OTk5OSwiMTIzNCI6MTIzNDAsIjQzMjEiOjQzMjEwLCIwMDAxIjoxMDAwLCIxMDAwIjoxMDAwMDAsIjUwMDAiOjUwMDAwLCJNSVRST0ZBTiI6MTAwMDAwMCwiTk9NRVJJWCI6MjUwMDAsIkdJVEhVQiI6NTAwMDAsIkFETUlOIjoiQURNSU5fMzAwNiIsIlJJQ0giOjEwMDAwMDAsIkJPR1MiOjUwMDAwMDAsIktJTkciOjEwMDAwMDAwLCJMT1JEIjo1MDAwMDAwMCwiSEVSTyI6MTAwMDAwLCJMRUdFTkQiOjUwMDAwMDAsIk1ZVEgiOjEwMDAwMDAwLCJFUElDIjoxMDAwMDAwMCwiVUxUUkEiOjUwMDAwMDAwLCJNRU1BIjoxMDAwMDAwMDAsIlNVUEVSIjoxMDAwMDAwMDAsIlNUQVIiOjUwMDAwMCwiU1VOIjoxMDAwMDAwLCJNT09OTElHSFQiOjUwMDAwMDAsIkRBUksiOjEwMDAwMDAsIkxJR0hUIjoxMDAwMDAwMDAsIlNBVE9TSEkiOiJCVENfMSIsIkhBTFZJTkciOiJCVENfMiIsIkxFREdFUiI6IkJUQ18xMCIsIldBTExFVCI6IkJUQ181IiwiQkxPQ0tDSEFJTiI6IkJUQ18yMCIsIk1JTkVSIjoiQlRDXzUiLCJERUZJIjoiQlRDXzMiLCJORlQiOiJCVENfMTAiLCJBSVJEUk9QIjoiQlRDXzUwIiwiTU9ST1pJTUtBIjoiQURNSU5fMzAwNiIsIk1JVE9TRkFOMjAyNCI6MTAwMDAwMCwiTk9NRVJJWDIwMjQiOjUwMDAwMDAsIkdJVEhVQjIwMjQiOjEwMDAwMDAwLCJIRUxMT1dPUkxEIjoxMDAwMDAwLCJCSUdNT05FWSI6NTAwMDAwMDB9";
 const DEFAULT_PROMOS = JSON.parse(atob(_P));
 
 const BOOSTS = [
-  { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 1, maxLvl: 5 }, // 1 ₿
-  { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1.5, maxLvl: 5 }, // 1.5 ₿
-  { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 0.5, maxLvl: 5 }, // 0.5 ₿
-];
-const CARS = [
-  { id: 'lada',    name: 'LADA Priora',   basePrice: 800000,    color: '#b91c1c', cabin: '#0f172a', bonus: 1.2, icon: '🚗', tier: 'A' },
-  { id: 'bmw',     name: 'BMW M5',        basePrice: 15000000,  color: '#0f172a', cabin: '#1e293b', bonus: 1.5, icon: '🚙', tier: 'B' },
-  { id: 'audi',    name: 'Audi RS7',      basePrice: 35000000,  color: '#475569', cabin: '#1e293b', bonus: 1.7, icon: '🚘', tier: 'S' },
-  { id: 'ferrari', name: 'Ferrari F8',    basePrice: 150000000, color: '#ef4444', cabin: '#1e293b', bonus: 2.0, icon: '🏎️', tier: 'S+' },
-  { id: 'bugatti', name: 'Bugatti Chiron',basePrice: 500000000, color: '#1e40af', cabin: '#0f172a', bonus: 2.5, icon: '🏎️', tier: 'SS' },
+  { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 1, maxLvl: 5 }, 
+  { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1.5, maxLvl: 5 }, 
+  { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 0.5, maxLvl: 5 },
 ];
 
-const DECORS = [
-  { id: 'tree', name: '🎄 Ёлка', price: 100000, bonus: 0.3 },
-  { id: 'gift', name: '🎁 Подарок', price: 150000, bonus: 0.4 },
-  { id: 'santa', name: '🎅 Дед Мороз', price: 250000, bonus: 0.5 },
-  { id: 'snow', name: '❄️ Снежинка', price: 50000, bonus: 0.2 },
-  { id: 'star', name: '⭐ Звезда', price: 500000, bonus: 0.8 },
-  { id: 'garland', name: '✨ Гирлянда', price: 1000000, bonus: 1.0 },
-];
-
-const $ = id => document.getElementById(id);
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-const rnd = n => Math.floor(Math.random() * n);
-const pick = arr => arr[rnd(arr.length)];
-
-/* ============================================================
-   ФОРМАТИРОВАНИЕ ДЕНЕГ
-   ============================================================ */
-function formatCompact(n) {
-  if (n === 0) return '0 ₽';
-  const abs = Math.abs(n);
-  if (abs < 1000) return Math.floor(n) + ' ₽';
-  if (abs < 1_000_000) return (n / 1000).toFixed(1).replace('.0', '') + 'K ₽';
-  if (abs < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace('.0', '') + 'M ₽';
-  if (abs < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace('.0', '') + 'МЛРД ₽';
-  return (n / 1_000_000_000_000).toFixed(1).replace('.0', '') + 'ТРЛН ₽';
-}
-function formatBtc(n) { if (n === 0) return '0 ₿'; return (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿'; }
-const fmtRub = formatCompact;
-const fmtBtc = formatBtc;
-
-/* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ
-   ============================================================ */
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const BEAUTY_DIGITS = {
@@ -480,6 +307,24 @@ const BEAUTY_DIGITS = {
 const MIRROR = ['010','020','101','111','121','131','202','212','303','313','404','505','606','707','808','909','222','333','444','555','666','777','888','999','131','232','343','454','565','676','787','898','909'];
 const PREMIUM_REGIONS = ['77','99','97','78','98','177','199','197','178','198'];
 const GOOD_REGIONS = [...PREMIUM_REGIONS, '50','90','150','750','790','47','23','61','34','36','16','02','52','63','64','66','72','74','86','89'];
+
+const $ = id => document.getElementById(id);
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+const rnd = n => Math.floor(Math.random() * n);
+const pick = arr => arr[rnd(arr.length)];
+
+function formatCompact(n) {
+  if (n === 0) return '0 ₽';
+  const abs = Math.abs(n);
+  if (abs < 1000) return Math.floor(n) + ' ₽';
+  if (abs < 1_000_000) return (n / 1000).toFixed(1).replace('.0', '') + 'K ₽';
+  if (abs < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace('.0', '') + 'M ₽';
+  if (abs < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace('.0', '') + 'МЛРД ₽';
+  return (n / 1_000_000_000_000).toFixed(1).replace('.0', '') + 'ТРЛН ₽';
+}
+function formatBtc(n) { if (n === 0) return '0 ₿'; return (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿'; }
+const fmtRub = formatCompact;
+const fmtBtc = formatBtc;
 
 function pickLetter(pool = RU_LETTERS) { return pool[rnd(pool.length)]; }
 function pickBeautyLetter() { return pick(BEAUTY_TOP); }
@@ -501,9 +346,6 @@ function genRu(tier) {
 }
 function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
-/* ============================================================
-   ЗВУКИ / ВИБРАЦИЯ / TOAST
-   ============================================================ */
 const Sound = {
   ctx: null, enabled: true,
   init() { if (!this.ctx) { try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){} } },
@@ -533,43 +375,16 @@ function toast(msg, ms = 2500) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), ms);
 }
 
-const Modal = {
-  cb: null,
-  show(title, text, okText='OK', onOk) {
-    $('modal-title').textContent = title; $('modal-text').textContent = text; $('modal-ok').textContent = okText;
-    this.cb = onOk; $('modal').classList.add('show');
-  },
-  close() { $('modal').classList.remove('show'); this.cb = null; },
-  init() {
-    $('modal-cancel').onclick = () => this.close();
-    $('modal-ok').onclick = () => { const cb = this.cb; this.close(); if (cb) cb(); };
-  }
-};
-
-/* ============================================================
-   STATE & SAVE
-   ============================================================ */
 const State = {
-  money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false,
-  stats: { spins:0, spent:0, earned:0, sold:0 },
-  boosts: {}, garage: [], market: [],
-  friends: [], seenRarities: [],
-  myId: localStorage.getItem('nomerix_my_id') || '',
-  admin: { unlocked: false, customChances: null, priceMultiplier: 1 },
+  money: CFG.START, bitcoin: 0, inventory: [], maxRecord: 0, spinning: false,
+  boosts: {},
 };
-
-if (!State.myId) {
-  State.myId = Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-  localStorage.setItem('nomerix_my_id', State.myId);
-}
 
 function saveGame() {
   try {
     localStorage.setItem(CFG.KEY, JSON.stringify({
-      money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe,
-      maxRecord: State.maxRecord, stats: State.stats, boosts: State.boosts,
-      garage: State.garage, market: State.market, admin: State.admin, friends: State.friends,
-      seenRarities: State.seenRarities
+      money: State.money, bitcoin: State.bitcoin, inventory: State.inventory,
+      maxRecord: State.maxRecord, boosts: State.boosts
     }));
   } catch(e) {}
 }
@@ -579,11 +394,8 @@ function loadGame() {
   try {
     const d = JSON.parse(raw);
     State.money = d.money || CFG.START; State.bitcoin = d.bitcoin || 0;
-    State.inventory = d.inventory || []; State.safe = d.safe || [null, null, null];
-    State.maxRecord = d.maxRecord || 0; State.stats = d.stats || { spins:0, spent:0, earned:0, sold:0 };
-    State.boosts = d.boosts || {}; State.garage = d.garage || []; State.market = d.market || [];
-    State.friends = d.friends || []; State.seenRarities = d.seenRarities || [];
-    if (d.admin) State.admin = { ...State.admin, ...d.admin, unlocked: false };
+    State.inventory = d.inventory || []; State.maxRecord = d.maxRecord || 0;
+    State.boosts = d.boosts || {};
   } catch(e) {}
 }
 document.addEventListener('visibilitychange', () => { if (document.hidden) saveGame(); });
@@ -591,7 +403,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) saveG
 const SaveFile = {
   export() {
     try {
-      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market, friends: State.friends, seenRarities: State.seenRarities };
+      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, boosts: State.boosts };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `nomerix_save_${Date.now()}.json`;
@@ -607,8 +419,7 @@ const SaveFile = {
         const d = JSON.parse(e.target.result);
         if (d.app === 'NomerixReal') {
           State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory;
-          State.safe = d.safe || [null, null, null]; State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
-          State.friends = d.friends || []; State.seenRarities = d.seenRarities || [];
+          State.boosts = d.boosts;
           saveGame(); UI.updateMoney(); toast('✅ Загружено'); UI.close('settings');
         } else toast('❌ Неверный файл');
       } catch(err) { toast('❌ Ошибка'); }
@@ -617,13 +428,10 @@ const SaveFile = {
   }
 };
 
-/* ============================================================
-   UI
-   ============================================================ */
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','plate','side','price','rarity-name','dots','inv-list','description','shop-content','promo-input'].forEach(id => this.els[id] = $(id));
   },
   open(name) {
     if (State.spinning) return;
@@ -631,11 +439,7 @@ const UI = {
     const el = $('scr-' + name);
     if (el) el.classList.add('active');
     if (name === 'inventory') Inventory.render();
-    if (name === 'safe') Safe.render();
-    if (name === 'market') Market.render();
     if (name === 'shop') Shop.render();
-    if (name === 'garage') Garage.render();
-    if (name === 'friends') Friends.render();
   },
   close(name) {
     const el = $('scr-' + name); if (el) el.classList.remove('active');
@@ -647,48 +451,28 @@ const UI = {
     const cost = this.getSpinCost();
     if (State.money < cost && !State.spinning) {
       this.els.description.textContent = 'НЕ ХВАТАЕТ ДЕНЕГ';
-      this.els.description.style.color = 'var(--elite)';
+      this.els.description.style.color = '#ff3b30';
     } else if (!State.spinning) {
       this.els.description.textContent = 'Коснись номера, чтобы крутить';
-      this.els.description.style.color = 'var(--sub)';
+      this.els.description.style.color = '#8e8e93';
     }
   },
   getSpinCost() { return Math.floor(CFG.COST * (1 - (State.boosts.discount || 0) * 0.1)); },
-  getPriceMultiplier() { return (State.admin.priceMultiplier || 1) * Math.pow(2, State.boosts.multiplier || 0); },
+  getPriceMultiplier() { return Math.pow(2, State.boosts.multiplier || 0); },
   setRarity(win) {
     this.els['rarity-name'].textContent = win.name;
     this.els['rarity-name'].style.color = win.color;
     this.els.price.style.color = win.color;
-    this.els.glow.style.background = win.glow;
-    this.els.glow.style.opacity = '0.5';
     const dots = this.els.dots.children;
     for (let i = 0; i < dots.length; i++) {
-      if (i < win.lvl) { dots[i].style.background = win.color; dots[i].style.boxShadow = `0 0 10px ${win.glow}`; }
-      else { dots[i].style.background = 'rgba(255,255,255,.1)'; dots[i].style.boxShadow = 'none'; }
+      if (i < win.lvl) { dots[i].style.background = win.color; }
+      else { dots[i].style.background = '#e5e5ea'; }
     }
   }
 };
 
-function spawnParticles(color, count = 28) {
-  const rect = UI.els.plate.getBoundingClientRect();
-  const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
-  const arr = [];
-  for (let i = 0; i < count; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const s = 4 + Math.random()*10;
-    Object.assign(p.style, { background: color, color, width: s+'px', height: s+'px', left: cx+'px', top: cy+'px', position: 'fixed', borderRadius: '50%', zIndex: 9999, boxShadow: `0 0 15px ${color}` });
-    document.body.appendChild(p); arr.push(p);
-  }
-  arr.forEach(p => {
-    const a = Math.random()*Math.PI*2;
-    const v = 100 + Math.random()*300;
-    p.animate([{ transform:'translate(-50%,-50%) scale(1)', opacity:1 }, { transform:`translate(calc(-50% + ${Math.cos(a)*v}px), calc(-50% + ${Math.sin(a)*v}px)) scale(0)`, opacity:0 }], { duration: 800 + Math.random()*600, easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)' }).onfinish = () => p.remove();
-  });
-}
-
 function rollRarity() {
-  let chances = State.admin.customChances || RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
+  let chances = RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
   if (State.boosts.lucky) { let mod = { ...chances }; for (let k in mod) mod[k] = Math.max(0, mod[k] + (k >= 4 ? State.boosts.lucky : -State.boosts.lucky/2)); chances = mod; }
   let total = 0; for (const r of RARITIES) total += chances[r.lvl];
   let rand = Math.random() * total, cum = 0;
@@ -696,24 +480,19 @@ function rollRarity() {
   return RARITIES[1];
 }
 
-/* ============================================================
-   GAME
-   ============================================================ */
 const Game = {
   spin() {
     const cost = UI.getSpinCost();
     if (State.spinning || State.money < cost) return;
-    State.spinning = true; State.money -= cost; State.stats.spent += cost;
+    State.spinning = true; State.money -= cost;
     UI.updateMoney(); Sound.tone(200, .1, 'sawtooth', .05); Haptic.buzz(15);
 
     const win = rollRarity();
     const generated = genPlate(win);
     const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * (generated.beauty ? 1.3 : 1.0) * UI.getPriceMultiplier());
 
-    UI.els.plate.className = 'plate shaking';
-    UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = 'var(--sub)';
-    UI.els.price.textContent = '...'; UI.els.price.style.color = 'var(--sub)';
-    UI.els.glow.style.background = '#fff'; UI.els.glow.style.opacity = '0.2';
+    UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = '#8e8e93';
+    UI.els.price.textContent = '...'; UI.els.price.style.color = '#8e8e93';
 
     const reels = UI.els.reels; reels.innerHTML = '';
     const frag = document.createDocumentFragment();
@@ -733,28 +512,16 @@ const Game = {
     }, 50);
   },
   reveal(win, generated, price) {
-    UI.els.plate.classList.remove('shaking');
-    UI.els.plate.classList.add('win-pop');
     UI.setRarity(win); 
     UI.els.description.textContent = 'Номер выпал!'; 
     UI.els.price.textContent = fmtRub(price);
 
-    if (win.lvl === 5) UI.els.plate.classList.add('glow-epic');
-    if (win.lvl === 6) UI.els.plate.classList.add('glow-legend');
-    if (win.lvl === 7) UI.els.plate.classList.add('glow-elite');
-    if (win.lvl === 8) {
-      UI.els.plate.classList.add('glow-god');
-      UI.els.flash.classList.add('active');
-      setTimeout(() => UI.els.flash.classList.remove('active'), 800);
-    }
-
-    if (win.lvl >= 4) { spawnParticles(win.glow, win.lvl >= 6 ? 60 : 30); Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
+    if (win.lvl >= 4) { Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
 
     Game.animatePrice(price, win, () => {
-      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty, decor: null });
+      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
       if (price > State.maxRecord) State.maxRecord = price;
       saveGame(); State.spinning = false; UI.updateMoney();
-      setTimeout(() => UI.els.plate.classList.remove('win-pop'), 600);
     });
   },
   animatePrice(target, win, cb) {
@@ -768,136 +535,19 @@ const Game = {
   }
 };
 
-/* ============================================================
-   EVENT (НОВОГОДНЕЕ СОБЫТИЕ)
-   ============================================================ */
-const Event = {
-  openNumDecor() {
-    if (!State.inventory.length) return toast('❌ Нет номеров в инвентаре');
-    let html = '<div style="max-height:300px; overflow-y:auto;">';
-    State.inventory.forEach(item => {
-      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.selectDecor('num', '${item.id}')">
-        <div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div>
-        <div style="flex:1; font-size:12px; color:#fff;">${item.decor ? item.decor.name : 'Без декора'}</div>
-      </div>`;
-    });
-    html += '</div>';
-    Modal.show('Выбери номер', '', 'Отмена');
-    $('modal-text').innerHTML = html;
-    $('modal-ok').style.display = 'none';
-  },
-  openCarDecor() {
-    if (!State.garage.length) return toast('❌ У тебя нет машин');
-    let html = '<div style="max-height:300px; overflow-y:auto;">';
-    State.garage.forEach(car => {
-      const base = CARS.find(c => c.id === car.carId);
-      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.selectDecor('car', '${car.id}')">
-        <div style="font-size:24px;">${base.icon}</div>
-        <div style="flex:1; font-size:12px; color:#fff;">${base.name} ${car.decor ? '| ' + car.decor.name : ''}</div>
-      </div>`;
-    });
-    html += '</div>';
-    Modal.show('Выбери машину', '', 'Отмена');
-    $('modal-text').innerHTML = html;
-    $('modal-ok').style.display = 'none';
-  },
-  selectDecor(type, id) {
-    let html = '<div style="max-height:300px; overflow-y:auto;">';
-    DECORS.forEach(d => {
-      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.applyDecor('${type}', '${id}', '${d.id}')">
-        <div style="font-size:24px;">${d.name.split(' ')[0]}</div>
-        <div style="flex:1; font-size:12px; color:#fff;">${d.name} <br><span style="color:var(--gold)">+${d.bonus * 100}% | ${fmtRub(d.price)}</span></div>
-      </div>`;
-    });
-    html += '</div>';
-    Modal.show('Выбери декор', '', 'Отмена');
-    $('modal-text').innerHTML = html;
-    $('modal-ok').style.display = 'none';
-  },
-  applyDecor(type, targetId, decorId) {
-    const decor = DECORS.find(d => d.id === decorId);
-    if (!decor) return;
-    if (State.money < decor.price) return toast('❌ Мало денег на декор');
-    
-    State.money -= decor.price;
-    
-    if (type === 'num') {
-      const item = State.inventory.find(i => i.id === targetId);
-      if (item) {
-        if (item.decor) {
-          // Убираем старый бонус перед добавлением нового (упрощенно)
-          item.price = Math.floor(item.price / (1 + item.decor.bonus));
-        }
-        item.decor = decor;
-        item.price = Math.floor(item.price * (1 + decor.bonus));
-      }
-    } else if (type === 'car') {
-      const car = State.garage.find(c => c.id === targetId);
-      if (car) {
-        car.decor = decor;
-      }
-    }
-    
-    UI.updateMoney();
-    saveGame();
-    Modal.close();
-    toast(`✅ Декор "${decor.name}" установлен!`);
-    Sound.win(4);
-  }
-};
-
-/* ============================================================
-   FRIENDS
-   ============================================================ */
-const Friends = {
-  render() {
-    UI.els['my-friend-code'].textContent = State.myId;
-    UI.els['friend-count'].textContent = `${State.friends.length} друзей`;
-    const list = UI.els['friends-list'];
-    if (!State.friends.length) { list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--sub); font-size:13px;">Пока никого нет.</div>`; return; }
-    let html = '';
-    State.friends.forEach(f => {
-      html += `<div class="friend-card"><div class="avatar">${f.name.charAt(0).toUpperCase()}</div><div class="friend-info"><div class="friend-name">${f.name}</div><div class="friend-stat">Рекорд: ${fmtRub(f.record)}</div></div></div>`;
-    });
-    list.innerHTML = html;
-  },
-  copyCode() { navigator.clipboard.writeText(State.myId).then(() => toast('📋 Код скопирован!')).catch(() => toast('Твой код: ' + State.myId)); },
-  add() {
-    const code = UI.els['friend-input'].value.trim().toUpperCase();
-    if (!code) return;
-    if (code === State.myId) return toast('❌ Это твой код');
-    if (State.friends.find(f => f.id === code)) return toast('❌ Уже добавлен');
-    let hash = 0;
-    for (let i = 0; i < code.length; i++) hash = code.charCodeAt(i) + ((hash << 5) - hash);
-    const randomName = pick(['Иван', 'Алексей', 'Дмитрий', 'Сергей', 'Максим', 'Артём', 'Кирилл']);
-    const rec = Math.abs(hash) * 1000 + 100000;
-    State.friends.push({ id: code, name: randomName, record: rec });
-    UI.els['friend-input'].value = '';
-    this.render(); saveGame(); Sound.win(4); Haptic.buzz(20); toast('✅ Друг добавлен!');
-  }
-};
-
-/* ============================================================
-   INVENTORY & SAFE
-   ============================================================ */
 const Inventory = {
   render() {
     const list = UI.els['inv-list'];
-    UI.els['inv-count'].textContent = `${State.inventory.length} номеров`;
-    if (!State.inventory.length) { list.innerHTML = `<div class="empty"><div class="empty-ico">🎁</div>Пусто.</div>`; return; }
+    if (!State.inventory.length) { list.innerHTML = `<div style="text-align:center; color:#8e8e93; padding:40px;">Пусто</div>`; return; }
     let html = '';
     [...State.inventory].sort((a,b) => b.price - a.price).forEach(item => {
       html += `
-        <div class="inv-item">
-          <div style="flex:1">
-            <div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div>
-            <div class="inv-price" style="color:${item.rarity.color};">${fmtRub(item.price)}</div>
-            <div style="font-size:11px; color:var(--sub); font-weight:800; margin-top:4px; text-transform:uppercase;">${item.rarity.name} ${item.decor ? '| ' + item.decor.name : ''}</div>
+        <div style="background:#fff; border:1px solid #e5e5ea; border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:18px; font-weight:800;">${item.plate} <span style="font-size:14px; color:#666;">${item.region}</span></div>
+            <div style="color:${item.rarity.color}; font-weight:800; font-size:14px; margin-top:4px;">${fmtRub(item.price)}</div>
           </div>
-          <div class="inv-actions">
-            <button class="btn-sm btn-safe" onclick="Safe.deposit('${item.id}')">В Сейф</button>
-            <button class="btn-sm btn-sell" onclick="Inventory.sell('${item.id}')">Продать</button>
-          </div>
+          <button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Inventory.sell('${item.id}')">Продать</button>
         </div>`;
     });
     list.innerHTML = html;
@@ -905,81 +555,15 @@ const Inventory = {
   sell(id) {
     const idx = State.inventory.findIndex(i => i.id === id);
     if (idx < 0) return;
-    State.money += State.inventory[idx].price; State.stats.earned += State.inventory[idx].price;
+    State.money += State.inventory[idx].price;
     State.inventory.splice(idx, 1); UI.updateMoney(); this.render(); saveGame(); toast(`💰 Продано`);
   }
 };
 
-const Safe = {
-  render() {
-    const list = UI.els['safe-list'];
-    let html = '';
-    for(let i=0; i<3; i++) {
-      const item = State.safe[i];
-      if (item) {
-        html += `<div class="safe-slot filled">
-          <div><div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div><div class="inv-price" style="color:${item.rarity.color}; margin-top:6px;">${fmtRub(item.price)}</div></div>
-          <button class="btn-sm btn-sell" onclick="Safe.withdraw(${i})">Забрать</button>
-        </div>`;
-      } else {
-        html += `<div class="safe-slot"><div class="safe-empty-txt">Слот ${i+1} пуст</div></div>`;
-      }
-    }
-    list.innerHTML = html;
-  },
-  deposit(id) {
-    const slot = State.safe.indexOf(null);
-    if (slot === -1) return toast('❌ Сейф заполнен');
-    const idx = State.inventory.findIndex(i => i.id === id);
-    if (idx < 0) return;
-    State.safe[slot] = State.inventory[idx];
-    State.inventory.splice(idx, 1);
-    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в сейфе');
-  },
-  withdraw(slot) {
-    if (!State.safe[slot]) return;
-    State.inventory.push(State.safe[slot]);
-    State.safe[slot] = null;
-    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в инвентаре');
-  }
-};
-
-/* ============================================================
-   MARKET & SHOP & GARAGE
-   ============================================================ */
-const Market = {
-  tab: 'buy',
-  setTab(t, el) { this.tab = t; document.querySelectorAll('#scr-market .market-tab').forEach(b => b.classList.remove('active')); el.classList.add('active'); this.render(); },
-  render() {
-    const content = UI.els['market-content'];
-    if (this.tab === 'buy') {
-      if (State.market.length === 0) this.generateBots();
-      let html = '';
-      State.market.filter(m => !m.isPlayer).forEach(lot => {
-        html += `<div class="inv-item" style="margin-bottom:14px;"><div style="flex:1"><div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div><div class="inv-price" style="color:${lot.color}; margin-top:8px;">${fmtRub(lot.price)}</div></div><button class="btn-sm btn-sell" onclick="Market.buy('${lot.id}')">Купить</button></div>`;
-      });
-      content.innerHTML = html || `<div class="empty">Нет лотов</div>`;
-    } else {
-      let html = '';
-      State.market.filter(m => m.isPlayer).forEach(lot => {
-        html += `<div class="inv-item" style="margin-bottom:14px;"><div style="flex:1"><div class="inv-plate"><span class="txt">${lot.plate}</span><span class="reg">${lot.region}</span></div><div class="inv-price" style="color:${lot.color}; margin-top:8px;">${fmtRub(lot.price)}</div></div><button class="btn-sm btn-red" onclick="Market.cancel('${lot.id}')">Снять</button></div>`;
-      });
-      content.innerHTML = html || `<div class="empty">У вас нет лотов</div>`;
-    }
-  },
-  generateBots() { for (let i = 0; i < 4; i++) { const rar = pick(RARITIES.slice(1)); const gen = genPlate(rar); State.market.push({ id: uid(), plate: gen.text, region: gen.region, price: Math.floor((rar.min + rar.max) / 2), color: rar.color, lvl: rar.lvl, name: rar.name, isPlayer: false }); } },
-  listItem(id) { const item = State.inventory.find(i => i.id === id); if (!item) return; Modal.show('Выставить на биржу', `Цена: ${fmtRub(item.price)}`, 'Выставить', () => { State.market.push({ ...item, isPlayer: true, color: item.rarity.color, lvl: item.rarity.lvl, name: item.rarity.name }); State.inventory = State.inventory.filter(i => i.id !== id); UI.updateMoney(); saveGame(); this.render(); }); },
-  buy(id) { const lot = State.market.find(m => m.id === id); if (State.money < lot.price) return toast('❌ Мало денег'); State.money -= lot.price; State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false }); State.market = State.market.filter(m => m.id !== id); UI.updateMoney(); saveGame(); this.render(); toast('✅ Куплено!'); },
-  cancel(id) { const lot = State.market.find(m => m.id === id); State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false }); State.market = State.market.filter(m => m.id !== id); saveGame(); this.render(); toast('Лот снят'); }
-};
-
-/* ============================================================
-   SHOP (ТЕПЕРЬ ЗА БИТКОИНЫ)
-   ============================================================ */
 const Shop = {
   render() { 
     const content = UI.els['shop-content']; 
-    let html = `<div class="s-block"><div class="s-title lit">Улучшения (за Биткоины ₿)</div>`; 
+    let html = `<div style="font-weight:800; margin-bottom:16px;">Улучшения (за Биткоины ₿)</div>`; 
     
     BOOSTS.forEach(b => { 
       const lvl = State.boosts[b.id] || 0; 
@@ -988,18 +572,18 @@ const Shop = {
       const isMax = lvl >= b.maxLvl;
       
       html += `
-        <div class="boost-card">
-          <div class="boost-info">
-            <div class="boost-name">${b.name} <span style="color:var(--gold);font-size:12px">Ур. ${lvl}/${b.maxLvl}</span></div>
-            <div class="boost-desc">${b.desc}</div>
-            <div class="boost-price">${isMax ? 'МАКС' : fmtBtc(price)}</div>
+        <div style="background:#fff; border:1px solid #e5e5ea; border-radius:12px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-weight:800; font-size:14px;">${b.name} <span style="color:#d4af37; font-size:12px;">Ур. ${lvl}/${b.maxLvl}</span></div>
+            <div style="font-size:12px; color:#666; margin-top:4px;">${b.desc}</div>
+            <div style="font-weight:800; font-size:14px; margin-top:6px;">${isMax ? 'МАКС' : fmtBtc(price)}</div>
           </div>
-          <button class="btn-sm btn-sell" ${(!canBuy || isMax) ? 'disabled style="opacity:0.5"' : ''} onclick="Shop.buy('${b.id}')">
+          <button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700; opacity:${(!canBuy || isMax) ? 0.5 : 1};" ${(!canBuy || isMax) ? 'disabled' : ''} onclick="Shop.buy('${b.id}')">
             ${isMax ? 'Куплено' : 'Купить'}
           </button>
         </div>`; 
     }); 
-    content.innerHTML = html + `</div>`; 
+    content.innerHTML = html; 
   },
   buy(id) { 
     const b = BOOSTS.find(x => x.id === id); 
@@ -1018,21 +602,10 @@ const Shop = {
   }
 };
 
-const Garage = {
-  render() { const content = UI.els['garage-content']; let html = `<div class="s-block"><div class="s-title lit">Ваш Гараж</div>`; if (State.garage.length === 0) html += `<div class="empty">Нет машин</div>`; else { State.garage.forEach(car => { const base = CARS.find(c => c.id === car.carId); let platePrice = car.plate ? car.plate.price : 0; let decorBonus = car.decor ? car.decor.bonus : 0; const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus * (1 + decorBonus)); html += `<div class="garage-scene"><div class="car-body"><div class="car-cabin" style="background:${base.cabin}"></div><div class="car-chassis" style="background:${base.color}"></div><div class="car-wheel left"></div><div class="car-wheel right"></div>${car.plate ? `<div class="car-plate-mount">${car.plate.plate} <span class="reg">${car.plate.region}</span></div>` : ''}</div></div><div style="display:flex; gap:10px; margin-bottom:14px;">${car.plate ? `<button class="btn-sm btn-market" style="flex:1" onclick="Garage.removePlate('${car.id}')">Снять</button>` : `<button class="btn-sm btn-blue" style="flex:1" onclick="Garage.attach('${car.id}')">Установить</button>`}<button class="btn-sm btn-sell" style="flex:1" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать за ${fmtRub(finalPrice)}</button></div>`; }); } html += `</div><div class="s-block"><div class="s-title lit">Купить машину</div>`; CARS.forEach(c => { html += `<div class="car-shop-card"><div class="car-shop-preview" style="background:${c.color}40">${c.icon}</div><div class="car-shop-info"><div style="font-weight:900;color:#fff;font-size:15px;">${c.name}</div><div style="color:var(--gold);font-family:Orbitron; font-weight:900; margin-top:4px;">${fmtRub(c.basePrice)}</div></div><button class="btn-sm btn-sell" ${State.money < c.basePrice ? 'disabled style="opacity:0.5"' : ''} onclick="Garage.buy('${c.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
-  buy(id) { const base = CARS.find(c => c.id === id); if (State.money < base.basePrice) return; State.money -= base.basePrice; State.garage.push({ id: uid(), carId: id, plate: null, decor: null }); UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!'); },
-  attach(carId) { if (!State.inventory.length) return toast('❌ Нет номеров'); const car = State.garage.find(c => c.id === carId); const best = [...State.inventory].sort((a,b) => b.price - a.price)[0]; car.plate = best; State.inventory = State.inventory.filter(i => i.id !== best.id); saveGame(); this.render(); toast('✅ Номер установлен!'); },
-  removePlate(carId) { const car = State.garage.find(c => c.id === carId); if (!car || !car.plate) return; State.inventory.push(car.plate); car.plate = null; saveGame(); this.render(); toast('Номер снят'); },
-  sell(carId, price) { State.money += price; State.garage = State.garage.filter(c => c.id !== carId); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`); }
-};
-
-/* ============================================================
-   SETTINGS & ADMIN
-   ============================================================ */
 const Settings = {
   promo() {
     const code = UI.els['promo-input'].value.trim().toUpperCase();
-    if (code === 'MOROZIMKA') { UI.els['promo-input'].value = ''; Admin.openPassword(); return; }
+    if (code === 'MOROZIMKA') { UI.els['promo-input'].value = ''; toast('Админка в разработке'); return; }
     
     if (DEFAULT_PROMOS[code]) {
       const val = DEFAULT_PROMOS[code];
@@ -1041,7 +614,7 @@ const Settings = {
         State.bitcoin += btc;
         toast(`✅ +${btc} ₿`);
       } else if (typeof val === 'string' && val.startsWith('ADMIN_')) {
-        UI.els['promo-input'].value = ''; Admin.openPassword(); return;
+        UI.els['promo-input'].value = ''; toast('Админка в разработке'); return;
       } else {
         State.money += val;
         toast(`✅ +${fmtRub(val)}`);
@@ -1056,26 +629,8 @@ const Settings = {
   reset() { if(confirm('Сбросить прогресс?')) { localStorage.removeItem(CFG.KEY); location.reload(); } }
 };
 
-const Admin = {
-  PASSWORD: CFG.ADMIN_PASSWORD, sliderDraft: null,
-  openPassword() { $('admin-password-input').value = ''; $('password-modal').classList.add('show'); },
-  cancelPassword() { $('password-modal').classList.remove('show'); },
-  checkPassword() { if ($('admin-password-input').value === this.PASSWORD) { State.admin.unlocked = true; this.cancelPassword(); this.open(); } else toast('❌ Неверный пароль'); },
-  close() { $('admin-modal').classList.remove('show'); },
-  open() {
-    if (!State.admin.unlocked) return this.openPassword();
-    const chances = this.sliderDraft || State.admin.customChances || RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
-    const sliders = RARITIES.map(r => { const ch = chances[r.lvl] || 0; return `<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px; font-weight:700;"><span style="color:${r.color}">${r.name}</span><span>${ch.toFixed(1)}%</span></div><input type="range" min="0" max="100" step="0.5" value="${ch}" data-rarity="${r.lvl}" class="admin-slider"></div>`; }).join('');
-    $('admin-content').innerHTML = `<div class="admin-section"><div class="admin-section-title">Выдать валюту</div><div style="display:flex;gap:8px;margin-bottom:10px;"><button class="admin-btn" onclick="State.money += 1000000; UI.updateMoney()">+1M ₽</button><button class="admin-btn" onclick="State.bitcoin += 1; UI.updateMoney()">+1 ₿</button></div><div style="display:flex;gap:8px;"><input type="number" id="admin-money-input" class="admin-input" placeholder="Сумма" style="flex:1;"><button class="admin-btn" onclick="Admin.addMoneyInput()">SET</button></div></div><div class="admin-section"><div class="admin-section-title">Шансы</div>${sliders}<button class="admin-btn" style="width:100%;margin-top:10px;" onclick="Admin.applyChances()">ПРИМЕНИТЬ</button></div>`;
-    $('admin-content').querySelectorAll('.admin-slider').forEach(s => { s.addEventListener('input', e => { const lvl = parseInt(e.target.dataset.rarity); if (!this.sliderDraft) this.sliderDraft = { ...chances }; this.sliderDraft[lvl] = parseFloat(e.target.value); }); });
-    $('admin-modal').classList.add('show');
-  },
-  addMoneyInput() { const v = parseInt($('admin-money-input').value); if (Number.isFinite(v)) { State.money += v; UI.updateMoney(); saveGame(); toast('✅ Начислено'); } },
-  applyChances() { if (this.sliderDraft) { State.admin.customChances = this.sliderDraft; this.sliderDraft = null; saveGame(); toast('✅ Шансы применены'); this.close(); } }
-};
-
 function init() {
-  loadGame(); UI.init(); Modal.init(); UI.updateMoney(); UI.els.region.textContent = "77";
+  loadGame(); UI.init(); UI.updateMoney(); UI.els.region.textContent = "82";
   document.addEventListener('click', function once() { Sound.init(); document.removeEventListener('click', once); }, { once: true });
 }
 document.addEventListener('DOMContentLoaded', init);
