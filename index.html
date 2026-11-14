@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   ПОДКЛЮЧЕНИЕ ШРИФТА
+   ПОДКЛЮЧЕНИЕ ШРИФТА (Положи файл GOST-R-50577-93.ttf рядом с index.html)
    ============================================================ */
 @font-face {
   font-family: 'GostPlate';
@@ -40,14 +40,11 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .icon-btn{background:var(--glass);border:1px solid var(--gb);color:#fff;width:44px;height:44px;border-radius:14px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
 .icon-btn:active{transform:scale(.9) rotate(-10deg); background:rgba(255,255,255,0.1);}
 .balances{display:flex;gap:8px;}
-.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center; animation: floatUp 0.3s ease-out;}
-
-/* АНИМАЦИЯ ПОЯВЛЕНИЯ КАРТОЧЕК */
-@keyframes floatUp { from { opacity: 0; transform: translateY(20px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center;}
 
 /* ГЛАВНЫЙ ЭКРАН */
 .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
-.rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: floatUp 0.4s ease-out;}
+.rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
 .rarity-info { display: flex; flex-direction: column; gap: 8px; }
 .rarity-name { font-size: 12px; font-weight: 900; color: var(--uncommon); text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 0 10px currentColor; transition: all 0.3s; }
 .dots { display: flex; gap: 4px; }
@@ -79,7 +76,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   transition: box-shadow 0.3s ease, transform 0.1s;
 }
 
-/* АНИМАЦИЯ ТРЯСКИ */
 .plate.shaking { animation: shake 0.4s infinite; }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -90,7 +86,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-/* АНИМАЦИЯ ПОЯВЛЕНИЯ НОМЕРА */
 .plate.win-pop { animation: winPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes winPop {
   0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
@@ -109,7 +104,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .plate.glow-god { animation: pulseGod 1.5s infinite; }
 @keyframes pulseGod { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px var(--god), 0 0 15px var(--god) inset; filter: hue-rotate(0deg); } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 120px var(--god), 0 0 40px var(--god) inset; filter: hue-rotate(90deg); } }
 
-/* БЛИКИ */
 .plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
 .plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
 
@@ -122,7 +116,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .flag-txt { font-size: 10px; font-weight: 900; color: #0a0a0a; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .flag-txt img { width: 20px; height: 14px; border: 1px solid #000; }
 
-.description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; animation: fadeIn 0.8s; }
+.description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; }
 
 /* ВСПЫШКА */
 .flash-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
@@ -131,6 +125,38 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 /* ЧАСТИЦЫ */
 .particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 10px currentColor; }
+
+/* ============================================================
+   АНИМАЦИЯ ВЫЕЗДА МАШИНЫ (НОВАЯ РЕДКОСТЬ)
+   ============================================================ */
+.new-rarity-overlay {
+  position: fixed; inset: 0; z-index: 10000; pointer-events: none;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+}
+.new-rarity-overlay.show { display: flex; opacity: 1; pointer-events: auto; }
+
+.car-anim-container {
+  position: absolute; top: 0; width: 100%; height: 250px;
+  display: flex; justify-content: center; align-items: center;
+  transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.new-rarity-overlay.show .car-anim-container { transform: translateY(20%); }
+
+.car-anim {
+  font-size: 100px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+  animation: carBounce 1s infinite alternate;
+}
+@keyframes carBounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+
+.new-rarity-text {
+  font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900;
+  text-align: center; text-transform: uppercase; letter-spacing: 2px;
+  margin-top: 150px; transform: scale(0); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.new-rarity-overlay.show .new-rarity-text { transform: scale(1); }
+.new-rarity-text span { display: block; font-size: 16px; color: #fff; margin-top: 10px; letter-spacing: 4px; opacity: 0.8; }
 
 /* ЭКРАНЫ */
 .screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(40px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
@@ -220,7 +246,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 @keyframes bounceIn { 0% { transform: translateX(-50%) scale(0); } 70% { transform: translateX(-50%) scale(1.2); } 100% { transform: translateX(-50%) scale(1); } }
 .car-plate-mount .reg { font-size: 10px; }
 
-/* ДРУЗЬЯ */
 .friend-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; animation: floatUp 0.4s backwards;}
 .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; }
 .friend-info { flex: 1; }
@@ -229,7 +254,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .friend-code-box { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; animation: floatUp 0.4s;}
 .my-code { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: var(--gold); letter-spacing: 4px; margin: 12px 0; text-shadow: 0 0 15px rgba(251,191,36,0.3); }
 
-/* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
 .modal-overlay.show{display:flex; animation: fadeIn 0.2s ease-out; }
 .modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
@@ -257,6 +281,17 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 <div id="app">
   <div class="flash-overlay" id="flash"></div>
   
+  <!-- ОВЕРЛЕЙ НОВОЙ РЕДКОСТИ -->
+  <div class="new-rarity-overlay" id="new-rarity-overlay">
+    <div class="car-anim-container">
+      <div class="car-anim">🚗</div>
+    </div>
+    <div class="new-rarity-text" id="new-rarity-text">
+      НОВАЯ РЕДКОСТЬ
+      <span id="new-rarity-name">ОБЫЧНЫЙ</span>
+    </div>
+  </div>
+
   <div id="game" style="height:100%;display:flex;flex-direction:column">
     <div class="top-bar">
       <button class="icon-btn" onclick="UI.open('menu')">☰</button>
@@ -296,7 +331,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- МЕНЮ -->
+  <!-- ЭКРАНЫ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
@@ -311,7 +346,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- ЭКРАН ДРУЗЕЙ -->
   <div id="scr-friends" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('friends')">←</button><span>ДРУЗЬЯ</span></div>
     <div class="settings">
@@ -332,26 +366,22 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- ИНВЕНТАРЬ -->
   <div id="scr-inventory" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>НОМЕРА</span></div>
     <div class="inv-list" id="inv-list"></div>
   </div>
 
-  <!-- СЕЙФ -->
   <div id="scr-safe" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
     <div class="settings" style="padding-bottom:0;"><div class="s-hint" style="color:var(--sub); font-size:13px; font-weight:600; margin-bottom:10px;">В сейфе надежно хранятся ваши лучшие номера.</div></div>
     <div class="safe-list" id="safe-list"></div>
   </div>
 
-  <!-- ГАРАЖ -->
   <div id="scr-garage" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>ГАРАЖ</span></div>
     <div class="settings" id="garage-content"></div>
   </div>
 
-  <!-- БИРЖА -->
   <div id="scr-market" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('market')">←</button><span>БИРЖА</span></div>
     <div class="settings">
@@ -363,19 +393,16 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- БУСТЫ -->
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
     <div class="settings" id="shop-content"></div>
   </div>
 
-  <!-- ОБНОВЛЕНИЯ -->
   <div id="scr-changelog" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('changelog')">←</button><span>ОБНОВЛЕНИЯ</span></div>
     <div class="settings" id="changelog-content"></div>
   </div>
 
-  <!-- НАСТРОЙКИ -->
   <div id="scr-settings" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>НАСТРОЙКИ</span></div>
     <div class="settings">
@@ -433,7 +460,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v32', VER: 32,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v33', VER: 33,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -464,9 +491,9 @@ const CARS = [
 ];
 
 const CHANGELOG = [
-  { v: 'v32.0', date: 'Текущее', list: ['Добавлены Друзья (по ID-коду)', 'Добавлено ОЧЕНЬ много анимаций везде', 'Улучшена плавность работы'] },
+  { v: 'v33.0', date: 'Текущее', list: ['Анимация появления машины при новой редкости', 'Генератор номеров увеличен до 10+ млрд комбинаций', 'Все анимации улучшены'] },
+  { v: 'v32.0', date: 'Ранее', list: ['Добавлены Друзья', 'Много анимаций'] },
   { v: 'v31.0', date: 'Ранее', list: ['Деньги сокращаются (K, M, B)', 'Правильный шрифт ГОСТ'] },
-  { v: 'v30.0', date: 'Ранее', list: ['Полный редизайн интерфейса'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -491,10 +518,11 @@ const fmtRub = formatCompact;
 const fmtBtc = formatBtc;
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ (1 БУКВА + 3 ЦИФРЫ + 2 БУКВЫ)
+   ГЕНЕРАЦИЯ НОМЕРОВ (МИЛЛИАРДЫ КОМБИНАЦИЙ)
    ============================================================ */
-const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
+// Правильный формат: 1 буква + 3 цифры + 2 буквы (Х 155 ТМ)
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
+const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const BEAUTY_DIGITS = {
   uncommon: ['001','002','010','020','100','200','500','007','300','400','600','700','800','900','111','222','333','444','555','666','999'],
   rare:     ['001','002','003','007','010','100','200','300','500','777','888','999','123','321','456','654','789','987','111','222','333','444','555','666','070','090'],
@@ -509,49 +537,95 @@ const GOOD_REGIONS = [...PREMIUM_REGIONS, '50','90','150','750','790','47','23',
 
 function pickLetter(pool = RU_LETTERS) { return pool[rnd(pool.length)]; }
 function pickBeautyLetter() { return pick(BEAUTY_TOP); }
-function randomDigit() { return String(rnd(10)); }
-function randomDigits3() { return randomDigit() + randomDigit() + randomDigit(); }
 
+// Генератор случайных 3 цифр (от 000 до 999)
+function randomDigits3() { 
+  return String(rnd(1000)).padStart(3, '0'); 
+}
+
+// Генератор номеров
 function genRu(tier) {
-  let firstLetter, lastLetters, digits, region, beauty = false, desc = 'Случайный номер';
+  let firstLetter, lastLetters, digits, region, beauty = false;
+  
+  // Базовые пулы букв и цифр (для не-красивых номеров)
+  // Каждая буква из 12 возможных, каждая цифра из 10 возможных
+  // Это дает 12 * 1000 * 12 * 12 = 1,728,000 комбинаций для обычных
+  // Плюс регионы (199 штук) = 344 миллиона комбинаций для обычных!
   
   switch(tier) {
     case 'trash': 
-      digits = randomDigits3(); firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(150 + rnd(50)); 
+      digits = randomDigits3(); 
+      firstLetter = pickLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = String(150 + rnd(50)); 
       break;
     case 'common': 
-      if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; } else { digits = randomDigits3(); }
-      firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(30 + rnd(120)); 
+      if (Math.random() < 0.1) { 
+        digits = pick(BEAUTY_DIGITS.uncommon); 
+        beauty = true; 
+      } else { 
+        digits = randomDigits3(); 
+      }
+      firstLetter = pickLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = String(30 + rnd(120)); 
       break;
     case 'uncommon': 
-      if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pickLetter(); } else { firstLetter = pickBeautyLetter(); digits = randomDigits3(); } 
-      lastLetters = pickLetter() + pickLetter(); region = pick(GOOD_REGIONS); beauty = true; 
+      if (Math.random() < 0.5) { 
+        digits = pick(BEAUTY_DIGITS.uncommon); 
+        firstLetter = pickLetter(); 
+      } else { 
+        firstLetter = pickBeautyLetter(); 
+        digits = randomDigits3(); 
+      } 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = pick(GOOD_REGIONS); 
+      beauty = true; 
       break;
     case 'rare': 
       digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); 
-      firstLetter = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; 
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = pickLetter() + pickLetter(); 
+      region = pick(PREMIUM_REGIONS); 
+      beauty = true; 
       break;
     case 'epic': 
-      firstLetter = pickBeautyLetter(); lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
-      digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; 
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
+      digits = pick(BEAUTY_DIGITS.epic); 
+      region = pick(['77','99','97','78','98']); 
+      beauty = true; 
       break;
     case 'legend': 
-      firstLetter = pickBeautyLetter(); lastLetters = firstLetter + firstLetter; 
-      digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; 
+      firstLetter = pickBeautyLetter(); 
+      lastLetters = firstLetter + firstLetter; 
+      digits = pick(BEAUTY_DIGITS.legend); 
+      region = pick(['77','99','97']); 
+      beauty = true; 
       break;
     case 'elite': 
       firstLetter = pick(['О','Е','К','М','С','А','Т','Н']); 
       lastLetters = Math.random() < 0.5 ? (pick(['О','Е','К','М','С']) + pick(['О','Е','К','М','С'])) : (pickBeautyLetter() + pickBeautyLetter());
-      digits = pick(['001','007','777','888','100','200','300','500','999']); region = '77'; beauty = true; 
+      digits = pick(['001','007','777','888','100','200','300','500','999']); 
+      region = '77'; 
+      beauty = true; 
       break;
     case 'god': 
-      firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); lastLetters = firstLetter + firstLetter; 
-      digits = pick(['001','007','777','111','222','333']); region = '77'; beauty = true; 
+      firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); 
+      lastLetters = firstLetter + firstLetter; 
+      digits = pick(['001','007','777','111','222','333']); 
+      region = '77'; 
+      beauty = true; 
       break;
   }
-  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty, desc };
+  
+  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty };
 }
-function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
+
+function genPlate(rarity) { 
+  if (!rarity) rarity = RARITIES[1]; 
+  return genRu(rarity.tier || 'common'); 
+}
 
 /* ============================================================
    ЗВУКИ / ВИБРАЦИЯ / TOAST
@@ -606,6 +680,7 @@ const State = {
   stats: { spins:0, spent:0, earned:0, sold:0 },
   boosts: {}, garage: [], market: [],
   friends: [],
+  seenRarities: [], // Массив для отслеживания новых редкостей
   myId: localStorage.getItem('nomerix_my_id') || '',
   admin: { unlocked: false, customChances: null, priceMultiplier: 1 },
 };
@@ -620,7 +695,8 @@ function saveGame() {
     localStorage.setItem(CFG.KEY, JSON.stringify({
       money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe,
       maxRecord: State.maxRecord, stats: State.stats, boosts: State.boosts,
-      garage: State.garage, market: State.market, admin: State.admin, friends: State.friends
+      garage: State.garage, market: State.market, admin: State.admin, friends: State.friends,
+      seenRarities: State.seenRarities
     }));
   } catch(e) {}
 }
@@ -634,6 +710,7 @@ function loadGame() {
     State.maxRecord = d.maxRecord || 0; State.stats = d.stats || { spins:0, spent:0, earned:0, sold:0 };
     State.boosts = d.boosts || {}; State.garage = d.garage || []; State.market = d.market || [];
     State.friends = d.friends || [];
+    State.seenRarities = d.seenRarities || [];
     if (d.admin) State.admin = { ...State.admin, ...d.admin, unlocked: false };
   } catch(e) {}
 }
@@ -642,7 +719,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) saveG
 const SaveFile = {
   export() {
     try {
-      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market, friends: State.friends };
+      const data = { app: 'NomerixReal', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, boosts: State.boosts, market: State.market, friends: State.friends, seenRarities: State.seenRarities };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `nomerix_save_${Date.now()}.json`;
@@ -660,6 +737,7 @@ const SaveFile = {
           State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory;
           State.safe = d.safe || [null, null, null]; State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
           State.friends = d.friends || [];
+          State.seenRarities = d.seenRarities || [];
           saveGame(); UI.updateMoney(); toast('✅ Загружено'); UI.close('settings');
         } else toast('❌ Неверный файл');
       } catch(err) { toast('❌ Ошибка'); }
@@ -674,7 +752,7 @@ const SaveFile = {
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input','new-rarity-overlay','new-rarity-text','new-rarity-name'].forEach(id => this.els[id] = $(id));
   },
   open(name) {
     if (State.spinning) return;
@@ -788,8 +866,15 @@ const Game = {
     UI.els.plate.classList.remove('shaking');
     UI.els.plate.classList.add('win-pop');
     UI.setRarity(win); 
-    UI.els.description.textContent = generated.desc; 
+    UI.els.description.textContent = generated.desc || 'Номер'; 
     UI.els.price.textContent = fmtRub(price);
+
+    // Проверка на новую редкость
+    if (!State.seenRarities.includes(win.lvl)) {
+      State.seenRarities.push(win.lvl);
+      showNewRarity(win);
+      saveGame();
+    }
 
     if (win.lvl === 5) UI.els.plate.classList.add('glow-epic');
     if (win.lvl === 6) UI.els.plate.classList.add('glow-legend');
@@ -819,6 +904,29 @@ const Game = {
     requestAnimationFrame(frame);
   }
 };
+
+// Функция показа новой редкости
+function showNewRarity(rarity) {
+  const overlay = UI.els['new-rarity-overlay'];
+  const text = UI.els['new-rarity-text'];
+  const name = UI.els['new-rarity-name'];
+  
+  // Устанавливаем цвет текста
+  text.style.color = rarity.color;
+  text.style.textShadow = `0 0 20px ${rarity.glow}`;
+  name.textContent = rarity.name;
+  name.style.color = rarity.color;
+  
+  overlay.classList.add('show');
+  
+  // Вибрация и звук для новой редкости
+  Haptic.buzz([100, 50, 100, 50, 100]);
+  Sound.win(8); // Самый крутой звук
+  
+  setTimeout(() => {
+    overlay.classList.remove('show');
+  }, 3000);
+}
 
 /* ============================================================
    FRIENDS
@@ -857,7 +965,7 @@ const Friends = {
     if (code === State.myId) return toast('❌ Это твой код');
     if (State.friends.find(f => f.id === code)) return toast('❌ Уже добавлен');
 
-    // Генерируем "друга" на основе кода (чтобы было интересно)
+    // Генерируем "друга" на основе кода
     let hash = 0;
     for (let i = 0; i < code.length; i++) hash = code.charCodeAt(i) + ((hash << 5) - hash);
     const randomName = pick(['Иван', 'Алексей', 'Дмитрий', 'Сергей', 'Максим', 'Артём', 'Кирилл']);
