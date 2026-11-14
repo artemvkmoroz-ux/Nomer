@@ -4,646 +4,308 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#f8f9fa">
-<title>Nomerix (Full)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<title>Nomerix</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f8f9fa; 
-  --panel-bg: #ffffff;
-  --text: #000000;
-  --sub: #8e8e93;
-  --border: #e5e5ea;
-  --shadow: 0 2px 10px rgba(0,0,0,0.05);
-  --gold: #d4af37;
-  --god: #a855f7;
-  --elite: #ef4444;
-  --sb: env(safe-area-inset-bottom, 0px);
-  --st: env(safe-area-inset-top, 0px);
-}
+/* СБРОС СТИЛЕЙ */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', -apple-system, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+body { background-color: #f8f9fa; color: #000; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; }
-
-#app { width: 100%; max-width: 430px; height: 100dvh; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+#app { width: 100%; max-width: 430px; height: 100%; display: flex; flex-direction: column; position: relative; }
 
 /* ВЕРХНЯЯ ПАНЕЛЬ */
-.top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: calc(16px + var(--st)) 20px 16px; z-index: 100; }
-.balances { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
-.bal-box { background: var(--panel-bg); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
-.icon-btn { background: var(--panel-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); }
+.top-bar { display: flex; justify-content: space-between; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top)); }
+.balances { display: flex; flex-direction: column; gap: 6px; margin-left: auto; }
+.bal-box { background: #fff; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid #e5e5ea; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.icon-btn { background: #fff; border: 1px solid #e5e5ea; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 
-/* ГЛАВНЫЙ ЭКРАН */
+/* ЦЕНТРАЛЬНАЯ ЧАСТЬ */
 .main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; }
 
 /* ПЛАШКА СТАТУСА */
-.status-bar { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; box-shadow: var(--shadow); }
-.rarity-info { display: flex; flex-direction: column; gap: 4px; }
-.rarity-name { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #333; }
-.dots { display: flex; gap: 3px; }
-.dot { width: 8px; height: 4px; border-radius: 2px; background: #e5e5ea; transition: background 0.3s; }
-.price-tag { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #333; }
+.status-bar { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.rarity-name { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #333; }
+.dots { display: flex; gap: 3px; margin-top: 4px; }
+.dot { width: 8px; height: 4px; border-radius: 2px; background: #e5e5ea; }
+.price-tag { font-size: 18px; font-weight: 900; color: #333; }
 
-/* ИДЕАЛЬНЫЙ НОМЕР */
-.plate-zone { width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.1s; margin-bottom: 24px; }
-.plate-zone:active { transform: scale(0.97); }
-
+/* САМ НОМЕР (ЖЕСТКИЕ РАЗМЕРЫ, ЧТОБЫ НЕ СПЛЮЩИВАЛО) */
+.plate-zone { width: 100%; display: flex; justify-content: center; cursor: pointer; }
 .plate { 
   display: flex; 
+  width: 100%; 
+  max-width: 360px; 
+  height: 100px; /* Жесткая высота */
   background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 40%, #d1d1d1 100%);
-  border-radius: 6px; overflow: hidden; height: 100px; width: 100%; max-width: 380px; 
-  border: 2px solid #222; box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,1);
-  position: relative; font-family: 'Arial Black', Impact, sans-serif;
+  border-radius: 6px; 
+  border: 2px solid #222; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+  overflow: hidden;
+  position: relative;
 }
 .plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'Arial Black', Impact, sans-serif; font-size: 64px; letter-spacing: 1px; white-space: nowrap; color: #111; text-shadow: 1px 1px 1px rgba(255,255,255,0.5); }
-.plate-side { width: 85px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #222; padding-top: 4px; }
-.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 38px; line-height: 1; color: #111; margin-top: -2px; }
+.reels { position: absolute; top: 0; left: 0; width: 100%; }
+.reel { 
+  height: 100px; /* Жесткая высота строки */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-family: 'Arial Black', Impact, sans-serif; 
+  font-size: 60px; 
+  color: #111; 
+  white-space: nowrap;
+  letter-spacing: 2px;
+}
+
+/* ПРАВАЯ ЧАСТЬ НОМЕРА */
+.plate-side { width: 85px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #222; flex-shrink: 0; }
+.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 36px; color: #111; line-height: 1; }
 .flag-box { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
-.rus-text { font-family: 'Arial', sans-serif; font-size: 12px; font-weight: 900; color: #111; }
-.flag-icon { width: 22px; height: 14px; display: flex; flex-direction: column; border: 1px solid #111; }
+.rus-text { font-family: Arial, sans-serif; font-size: 12px; font-weight: 900; color: #111; }
+.flag-icon { width: 20px; height: 13px; display: flex; flex-direction: column; border: 1px solid #111; }
 .flag-white { flex: 1; background: #fff; }
 .flag-blue { flex: 1; background: #0039a6; }
 .flag-red { flex: 1; background: #d52b1e; }
-.description { font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; margin-bottom: 40px; }
+
+.description { margin-top: 20px; font-size: 13px; color: #8e8e93; font-weight: 600; }
 
 /* НИЖНИЕ КНОПКИ */
-.bottom-controls { position: absolute; bottom: calc(20px + var(--sb)); width: 100%; padding: 0 20px; display: flex; justify-content: space-between; }
-.bottom-btn { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
+.bottom-bar { padding: 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom)); display: flex; justify-content: space-between; }
+.b-btn { background: #fff; border: 1px solid #e5e5ea; padding: 10px 16px; border-radius: 12px; font-size: 12px; font-weight: 700; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 
-/* ЭКРАНЫ */
-.screen { display: none; flex-direction: column; height: 100%; background: var(--bg); position: absolute; inset: 0; z-index: 200; overflow-y: auto; }
-.screen.active { display: flex; animation: slideUp 0.3s ease-out; }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.scr-head { display: flex; align-items: center; gap: 16px; padding: calc(16px + var(--st)) 20px 16px; font-size: 18px; font-weight: 800; position: sticky; top: 0; background: rgba(248,249,250,0.95); backdrop-filter: blur(10px); z-index: 10; border-bottom: 1px solid var(--border); }
-.menu-grid { display: flex; flex-direction: column; gap: 10px; padding: 20px; }
-.menu-card { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); font-size: 16px; font-weight: 700; }
-.menu-ico { font-size: 24px; }
+/* ЭКРАНЫ (МЕНЮ) */
+.screen { display: none; position: absolute; inset: 0; background: #f8f9fa; z-index: 100; flex-direction: column; overflow-y: auto; }
+.screen.active { display: flex; }
+.header { display: flex; align-items: center; gap: 16px; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top)); border-bottom: 1px solid #e5e5ea; background: #fff; position: sticky; top: 0; }
+.menu-list { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.menu-item { background: #fff; padding: 16px; border-radius: 16px; border: 1px solid #e5e5ea; font-weight: 700; display: flex; gap: 12px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
 
-.list-item { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 10000; transition: top 0.3s; }
+/* УВЕДОМЛЕНИЯ */
+.toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 13px; font-weight: 600; transition: 0.3s; z-index: 999; }
 .toast.show { top: 40px; }
 </style>
 </head>
 <body>
 
 <div id="app">
-  <div id="game" style="height:100%;display:flex;flex-direction:column">
-    
+  <!-- ГЛАВНЫЙ ЭКРАН -->
+  <div id="game" style="display:flex; flex-direction:column; height:100%;">
     <div class="top-bar">
       <button class="icon-btn" onclick="UI.open('menu')">☰</button>
       <div class="balances">
         <div class="bal-box" id="money">0 ₽</div>
-        <div class="bal-box" id="bitcoin" style="font-size:11px; color:#8e8e93;">0 ₿</div>
+        <div class="bal-box" id="bitcoin" style="color:#8e8e93;">0 ₿</div>
       </div>
     </div>
 
     <div class="main">
       <div class="status-bar">
-        <div class="rarity-info">
-          <div class="rarity-name" id="rarity-name">ОБЫЧНЫЙ</div>
-          <div class="dots" id="dots">
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          </div>
+        <div>
+          <div class="rarity-name" id="rarity">ОБЫЧНЫЙ</div>
+          <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
         </div>
         <div class="price-tag" id="price">0 ₽</div>
       </div>
 
       <div class="plate-zone" onclick="Game.spin()">
-        <div class="plate" id="plate">
-          <div class="plate-main"><div class="reels" id="reels"><div class="reel">А 000 АА</div></div></div>
-          <div class="plate-side" id="side">
+        <div class="plate">
+          <div class="plate-main">
+            <div class="reels" id="reels">
+              <div class="reel">А 000 АА</div>
+            </div>
+          </div>
+          <div class="plate-side">
             <div class="region" id="region">77</div>
-            <div class="flag-box"><span class="rus-text">RUS</span><div class="flag-icon"><div class="flag-white"></div><div class="flag-blue"></div><div class="flag-red"></div></div></div>
+            <div class="flag-box">
+              <span class="rus-text">RUS</span>
+              <div class="flag-icon"><div class="flag-white"></div><div class="flag-blue"></div><div class="flag-red"></div></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="description" id="description">Коснись номера, чтобы крутить</div>
+      <div class="description" id="desc">Коснись номера, чтобы крутить</div>
     </div>
 
-    <div class="bottom-controls">
-      <div class="bottom-btn"><span>🇷🇺</span> Россия</div>
-      <div class="bottom-btn">Авто 1/с</div>
+    <div class="bottom-bar">
+      <div class="b-btn">🇷🇺 Россия</div>
+      <div class="b-btn">Авто 1/с</div>
     </div>
   </div>
 
   <!-- МЕНЮ -->
   <div id="scr-menu" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
-    <div class="menu-grid">
-      <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div>Инвентарь</div></div>
-      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div>Сейф</div></div>
-      <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div>Гараж</div></div>
-      <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div>Биржа</div></div>
-      <div class="menu-card" onclick="UI.open('friends')"><div class="menu-ico">👥</div><div>Друзья</div></div>
-      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div>Бусты (за ₿)</div></div>
-      <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div>Настройки</div></div>
+    <div class="header"><button class="icon-btn" onclick="UI.close('menu')">←</button><b>МЕНЮ</b></div>
+    <div class="menu-list">
+      <div class="menu-item" onclick="UI.open('inv')">📦 Инвентарь</div>
+      <div class="menu-item" onclick="UI.open('shop')">⚡ Бусты (за ₿)</div>
+      <div class="menu-item" onclick="UI.open('set')">⚙️ Настройки</div>
     </div>
   </div>
 
-  <div id="scr-inventory" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>ИНВЕНТАРЬ</span></div><div id="inv-list" style="padding:20px;"></div></div>
-  <div id="scr-safe" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ (3 слота)</span></div><div id="safe-list" style="padding:20px;"></div></div>
-  <div id="scr-garage" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>ГАРАЖ</span></div><div id="garage-list" style="padding:20px;"></div></div>
-  <div id="scr-market" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('market')">←</button><span>БИРЖА</span></div><div id="market-list" style="padding:20px;"></div></div>
-  <div id="scr-friends" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('friends')">←</button><span>ДРУЗЬЯ</span></div><div id="friends-content" style="padding:20px;"></div></div>
-  <div id="scr-shop" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div><div id="shop-content" style="padding:20px;"></div></div>
-  <div id="scr-settings" class="screen"><div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>НАСТРОЙКИ</span></div><div id="settings-content" style="padding:20px;"></div></div>
+  <!-- ИНВЕНТАРЬ -->
+  <div id="scr-inv" class="screen">
+    <div class="header"><button class="icon-btn" onclick="UI.close('inv')">←</button><b>ИНВЕНТАРЬ</b></div>
+    <div class="menu-list" id="inv-list"></div>
+  </div>
+
+  <!-- МАГАЗИН -->
+  <div id="scr-shop" class="screen">
+    <div class="header"><button class="icon-btn" onclick="UI.close('shop')">←</button><b>БУСТЫ</b></div>
+    <div class="menu-list" id="shop-list"></div>
+  </div>
+
+  <!-- НАСТРОЙКИ -->
+  <div id="scr-set" class="screen">
+    <div class="header"><button class="icon-btn" onclick="UI.close('set')">←</button><b>НАСТРОЙКИ</b></div>
+    <div class="menu-list">
+      <input type="text" id="promo" placeholder="ВВЕДИ ПРОМОКОД" style="padding:12px; border-radius:10px; border:1px solid #ccc; font-weight:700;">
+      <button class="menu-item" style="justify-content:center; background:#007aff; color:#fff;" onclick="Settings.usePromo()">АКТИВИРОВАТЬ</button>
+      <button class="menu-item" style="justify-content:center; background:#ff3b30; color:#fff;" onclick="if(confirm('Сброс?'))location.reload()">СБРОСИТЬ</button>
+    </div>
+  </div>
 </div>
 
 <div id="toast" class="toast"></div>
+
 <script>
-'use strict';
-
-/* ============================================================
-   КОНФИГ
-   ============================================================ */
-const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_full_v37', VER: 37,
-  ADMIN_PASSWORD: '3006',
-  BTC_PER_RUB: 1000000
-};
-
+// --- ДАННЫЕ ---
 const RARITIES = [
-  { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5_000,        tier:'trash' },
-  { lvl:2, name:'ОБЫЧНЫЙ',      color:'#94a3b8', chance:35.0, min:15_000,    max:80_000,       tier:'common' },
-  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'#10b981', chance:25.0, min:100_000,   max:500_000,      tier:'uncommon' },
-  { lvl:4, name:'РЕДКИЙ',       color:'#3b82f6', chance:15.0, min:1_000_000, max:5_000_000,    tier:'rare' },
-  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'#a855f7', chance:7.0,  min:5_000_000, max:15_000_000,   tier:'epic' },
-  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'#f59e0b', chance:2.5,  min:15_000_000,max:50_000_000,   tier:'legend' },
-  { lvl:7, name:'БЛАТНОЙ',      color:'#ef4444', chance:1.0,  min:50_000_000,max:200_000_000,  tier:'elite' },
-  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
+  {lvl:1, name:'МУСОР', c:'#475569', min:500, max:5000},
+  {lvl:2, name:'ОБЫЧНЫЙ', c:'#94a3b8', min:15000, max:80000},
+  {lvl:3, name:'НЕОБЫЧНЫЙ', c:'#10b981', min:100000, max:500000},
+  {lvl:4, name:'РЕДКИЙ', c:'#3b82f6', min:1000000, max:5000000},
+  {lvl:5, name:'ЭПИЧЕСКИЙ', c:'#a855f7', min:5000000, max:15000000},
+  {lvl:6, name:'ЛЕГЕНДАРНЫЙ', c:'#f59e0b', min:15000000, max:50000000},
+  {lvl:7, name:'БЛАТНОЙ', c:'#ef4444', min:50000000, max:200000000},
+  {lvl:8, name:'БОЖЕСТВЕННЫЙ', c:'#ec4899', min:200000000, max:1000000000}
 ];
-
-const DEFAULT_PROMOS = { "MONEY": 50000, "BTC": "BTC_1", "RICH": 1000000 };
 const BOOSTS = [
-  { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 1, maxLvl: 5 }, 
-  { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1.5, maxLvl: 5 }, 
-  { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 0.5, maxLvl: 5 },
-];
-const CARS = [
-  { id: 'lada', name: 'LADA Priora', basePrice: 800000, icon: '🚗' },
-  { id: 'bmw', name: 'BMW M5', basePrice: 15000000, icon: '🚙' },
-  { id: 'audi', name: 'Audi RS7', basePrice: 35000000, icon: '🚘' },
-  { id: 'ferrari', name: 'Ferrari F8', basePrice: 150000000, icon: '🏎️' },
-  { id: 'bugatti', name: 'Bugatti', basePrice: 500000000, icon: '🏎️' }
+  {id:'mult', name:'Множитель', price:1},
+  {id:'lucky', name:'Удача', price:1.5},
+  {id:'disc', name:'Скидка', price:0.5}
 ];
 
+let S = { money: 500000, btc: 0, inv: [], boosts: {} };
 const $ = id => document.getElementById(id);
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-const rnd = n => Math.floor(Math.random() * n);
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+const rnd = n => Math.floor(Math.random()*n);
 const pick = arr => arr[rnd(arr.length)];
+const fmt = n => Math.floor(n).toLocaleString('ru-RU') + ' ₽';
 
-function formatCompact(n) {
-  if (n === 0) return '0 ₽';
-  const abs = Math.abs(n);
-  if (abs < 1000) return Math.floor(n) + ' ₽';
-  if (abs < 1_000_000) return (n / 1000).toFixed(1).replace('.0', '') + 'K ₽';
-  if (abs < 1_000_000_000) return (n / 1_000_000).toFixed(1).replace('.0', '') + 'M ₽';
-  if (abs < 1_000_000_000_000) return (n / 1_000_000_000).toFixed(1).replace('.0', '') + 'МЛРД ₽';
-  return (n / 1_000_000_000_000).toFixed(1).replace('.0', '') + 'ТРЛН ₽';
-}
-const fmtBtc = n => n === 0 ? '0 ₿' : (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
-const fmtRub = formatCompact;
+function save() { localStorage.setItem('nomerix_v38', JSON.stringify(S)); }
+function load() { try { let d = JSON.parse(localStorage.getItem('nomerix_v38')); if(d) S = d; } catch(e){} }
+load();
 
-/* ГЕНЕРАЦИЯ НОМЕРОВ */
-const RU_LETTERS = 'АВЕКМНОРСТУХ';
-const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
-const BEAUTY_DIGITS = {
-  uncommon: ['001','100','777','007','111','222','999'],
-  rare:     ['001','777','888','999','123','456','789','555','333'],
-  epic:     ['001','007','777','888','999','123','456','555'],
-  legend:   ['001','777','888','999','100','555'],
-  elite:    ['001','007','777','888','999','555'],
-  god:      ['001','007','777','111','222','333'],
-};
-const MIRROR = ['010','020','101','111','121','131','202','212','303','313','404','505','606','707','808','909','999','777','555'];
-const PREMIUM_REGIONS = ['77','99','97','78','98','177','199','197','178','198'];
-const GOOD_REGIONS = [...PREMIUM_REGIONS, '50','90','150','750','790','47','23','61','34','36','16','02','52','63','64','66','72','74','86','89'];
-
-function pickLetter(pool = RU_LETTERS) { return pool[rnd(pool.length)]; }
-function pickBeautyLetter() { return pick(BEAUTY_TOP); }
-function randomDigits3() { return String(rnd(1000)).padStart(3, '0'); }
-
-function genRu(tier) {
-  let firstLetter, lastLetters, digits, region, beauty = false;
-  switch(tier) {
-    case 'trash': digits = randomDigits3(); firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(150 + rnd(50)); break;
-    case 'common': if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; } else { digits = randomDigits3(); } firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(30 + rnd(120)); break;
-    case 'uncommon': if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pickLetter(); } else { firstLetter = pickBeautyLetter(); digits = randomDigits3(); } lastLetters = pickLetter() + pickLetter(); region = pick(GOOD_REGIONS); beauty = true; break;
-    case 'rare': digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); firstLetter = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; break;
-    case 'epic': firstLetter = pickBeautyLetter(); lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter()); digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; break;
-    case 'legend': firstLetter = pickBeautyLetter(); lastLetters = firstLetter + firstLetter; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; break;
-    case 'elite': firstLetter = pick(['О','Е','К','М','С','А','Т','Н']); lastLetters = Math.random() < 0.5 ? (pick(['О','Е','К','М','С']) + pick(['О','Е','К','М','С'])) : (pickBeautyLetter() + pickBeautyLetter()); digits = pick(['001','007','777','888','100','200','300','500','999']); region = '77'; beauty = true; break;
-    case 'god': firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); lastLetters = firstLetter + firstLetter; digits = pick(['001','007','777','111','222','333']); region = '77'; beauty = true; break;
-  }
-  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty };
-}
-function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
-
-/* ЗВУКИ / ВИБРАЦИЯ / TOAST */
-const Sound = {
-  ctx: null, enabled: true,
-  init() { if (!this.ctx) { try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){} } },
-  tone(freq, dur=.15, type='sine', vol=.08) {
-    if (!this.enabled) return;
-    this.init(); if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-    try {
-      const o = this.ctx.createOscillator(), g = this.ctx.createGain();
-      o.type = type; o.frequency.value = freq;
-      g.gain.setValueAtTime(vol, this.ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
-      o.connect(g); g.connect(this.ctx.destination);
-      o.start(); o.stop(this.ctx.currentTime + dur);
-    } catch(e){}
-  },
-  win(lvl) {
-    const notes = { 3:[523,659], 4:[523,659,784], 5:[523,659,784,1047], 6:[523,659,784,1047,1319], 7:[523,659,784,1047,1319,1568], 8:[523,659,784,1047,1319,1568,2093] };
-    (notes[lvl] || [523]).forEach((f,i) => setTimeout(() => this.tone(f,.18,'triangle',.07), i*80));
-  }
-};
-const Haptic = { buzz(pattern = 15) { if (navigator.vibrate) navigator.vibrate(pattern); } };
-
-let toastTimer;
-function toast(msg, ms = 2500) {
-  const t = $('toast'); t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), ms);
-}
-
-/* STATE & SAVE */
-const State = {
-  money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false,
-  boosts: {}, garage: [], friends: [],
-  myId: localStorage.getItem('nomerix_my_id') || '',
-};
-
-if (!State.myId) {
-  State.myId = Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-  localStorage.setItem('nomerix_my_id', State.myId);
-}
-
-function saveGame() {
-  try {
-    localStorage.setItem(CFG.KEY, JSON.stringify({
-      money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe,
-      maxRecord: State.maxRecord, boosts: State.boosts, garage: State.garage, friends: State.friends
-    }));
-  } catch(e) {}
-}
-function loadGame() {
-  const raw = localStorage.getItem(CFG.KEY);
-  if (!raw) return;
-  try {
-    const d = JSON.parse(raw);
-    State.money = d.money || CFG.START; State.bitcoin = d.bitcoin || 0;
-    State.inventory = d.inventory || []; State.safe = d.safe || [null, null, null];
-    State.maxRecord = d.maxRecord || 0; State.boosts = d.boosts || {};
-    State.garage = d.garage || []; State.friends = d.friends || [];
-  } catch(e) {}
-}
-document.addEventListener('visibilitychange', () => { if (document.hidden) saveGame(); });
-
-/* UI */
+// --- UI ---
 const UI = {
-  els: {},
-  init() {
-    ['money','bitcoin','reels','region','plate','price','rarity-name','dots','description','inv-list','safe-list','garage-list','market-list','friends-content','shop-content','settings-content'].forEach(id => this.els[id] = $(id));
+  update() {
+    $('money').textContent = fmt(S.money);
+    $('bitcoin').textContent = (Math.round(S.btc*100)/100) + ' ₿';
   },
-  open(name) {
-    if (State.spinning) return;
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const el = $('scr-' + name);
-    if (el) el.classList.add('active');
-    if (name === 'inventory') Inventory.render();
-    if (name === 'safe') Safe.render();
-    if (name === 'garage') Garage.render();
-    if (name === 'market') Market.render();
-    if (name === 'friends') Friends.render();
-    if (name === 'shop') Shop.render();
-    if (name === 'settings') Settings.render();
+  open(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $('scr-'+id).classList.add('active'); if(id==='inv') UI.renderInv(); if(id==='shop') UI.renderShop(); },
+  close(id) { $('scr-'+id).classList.remove('active'); UI.update(); },
+  renderInv() {
+    let html = '';
+    if(!S.inv.length) html = '<div style="text-align:center; color:#888;">Пусто</div>';
+    S.inv.forEach(i => {
+      html += `<div class="menu-item" style="justify-content:space-between;">
+        <div><b>${i.plate} ${i.region}</b><br><span style="color:${i.c}; font-size:12px;">${fmt(i.price)}</span></div>
+        <button onclick="Game.sell('${i.id}')" style="background:#34c759; color:#fff; border:none; padding:8px; border-radius:8px; font-weight:700;">Продать</button>
+      </div>`;
+    });
+    $('inv-list').innerHTML = html;
   },
-  close(name) {
-    const el = $('scr-' + name); if (el) el.classList.remove('active');
-    this.updateMoney();
-  },
-  updateMoney() {
-    this.els.money.textContent = fmtRub(State.money);
-    this.els.bitcoin.textContent = fmtBtc(State.bitcoin);
-    const cost = this.getSpinCost();
-    if (State.money < cost && !State.spinning) {
-      this.els.description.textContent = 'НЕ ХВАТАЕТ ДЕНЕГ';
-      this.els.description.style.color = '#ff3b30';
-    } else if (!State.spinning) {
-      this.els.description.textContent = 'Коснись номера, чтобы крутить';
-      this.els.description.style.color = '#8e8e93';
-    }
-  },
-  getSpinCost() { return Math.floor(CFG.COST * (1 - (State.boosts.discount || 0) * 0.1)); },
-  getPriceMultiplier() { return Math.pow(2, State.boosts.multiplier || 0); },
-  setRarity(win) {
-    this.els['rarity-name'].textContent = win.name;
-    this.els['rarity-name'].style.color = win.color;
-    this.els.price.style.color = win.color;
-    const dots = this.els.dots.children;
-    for (let i = 0; i < dots.length; i++) {
-      if (i < win.lvl) { dots[i].style.background = win.color; }
-      else { dots[i].style.background = '#e5e5ea'; }
-    }
+  renderShop() {
+    let html = '<div style="text-align:center; margin-bottom:10px;">Улучшения за Биткоины</div>';
+    BOOSTS.forEach(b => {
+      let lvl = S.boosts[b.id] || 0;
+      let p = (b.price * Math.pow(2, lvl)).toFixed(2);
+      html += `<div class="menu-item" style="justify-content:space-between;">
+        <div>${b.name} (Ур. ${lvl})</div>
+        <button onclick="Shop.buy('${b.id}', ${p})" style="background:#007aff; color:#fff; border:none; padding:8px; border-radius:8px; font-weight:700;">${p} ₿</button>
+      </div>`;
+    });
+    $('shop-list').innerHTML = html;
   }
 };
 
-function rollRarity() {
-  let chances = RARITIES.reduce((acc, r) => { acc[r.lvl] = r.chance; return acc; }, {});
-  if (State.boosts.lucky) { let mod = { ...chances }; for (let k in mod) mod[k] = Math.max(0, mod[k] + (k >= 4 ? State.boosts.lucky : -State.boosts.lucky/2)); chances = mod; }
-  let total = 0; for (const r of RARITIES) total += chances[r.lvl];
-  let rand = Math.random() * total, cum = 0;
-  for (const r of RARITIES) { cum += chances[r.lvl]; if (rand <= cum) return r; }
-  return RARITIES[1];
-}
-
-/* GAME (Крутка) */
+// --- ИГРА ---
 const Game = {
   spin() {
-    const cost = UI.getSpinCost();
-    if (State.spinning || State.money < cost) return;
-    State.spinning = true; State.money -= cost;
-    UI.updateMoney(); Sound.tone(200, .1, 'sawtooth', .05); Haptic.buzz(15);
+    if(S.money < 5000) return alert('Мало денег!');
+    S.money -= 5000; UI.update();
 
-    const win = rollRarity();
-    const generated = genPlate(win);
-    const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * (generated.beauty ? 1.3 : 1.0) * UI.getPriceMultiplier());
+    let win = RARITIES[rnd(4)]; // Для простоты выпадают до Редкого
+    let price = rnd(win.max - win.min) + win.min;
+    let plateStr = "А " + String(rnd(1000)).padStart(3,'0') + " АА";
+    let reg = rnd(199) + 1;
 
-    UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = '#8e8e93';
-    UI.els.price.textContent = '...'; UI.els.price.style.color = '#8e8e93';
+    $('rarity').textContent = win.name;
+    $('rarity').style.color = win.c;
+    $('price').textContent = fmt(price);
+    $('price').style.color = win.c;
+    $('region').textContent = reg;
+    
+    let reels = $('reels');
+    reels.innerHTML = '';
+    // Создаем 10 строк для анимации
+    for(let i=0; i<10; i++) {
+      let d = document.createElement('div');
+      d.className = 'reel';
+      d.textContent = "А " + String(rnd(1000)).padStart(3,'0') + " АА";
+      reels.appendChild(d);
+    }
+    let finalD = document.createElement('div');
+    finalD.className = 'reel';
+    finalD.textContent = plateStr;
+    reels.appendChild(finalD);
 
-    const reels = UI.els.reels; reels.innerHTML = '';
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < 20; i++) { const d = document.createElement('div'); d.className = 'reel'; d.textContent = genPlate(RARITIES[1]).text; frag.appendChild(d); }
-    const finalDiv = document.createElement('div'); finalDiv.className = 'reel'; finalDiv.textContent = generated.text;
-    frag.appendChild(finalDiv); reels.appendChild(frag);
-    reels.style.transition = 'none'; reels.style.transform = 'translateY(0px)';
+    reels.style.transition = 'none';
+    reels.style.transform = 'translateY(0)';
     
     setTimeout(() => {
-      reels.style.transition = 'transform 3s cubic-bezier(.15,.85,.2,1)'; reels.style.transform = `translateY(-2000px)`;
-      let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = Math.floor(Math.random()*199)+1; }, 60);
-      setTimeout(() => {
-        clearInterval(rTimer);
-        if (UI.els.region) UI.els.region.textContent = generated.region;
-        Game.reveal(win, generated, finalPrice);
-      }, 3100);
+      reels.style.transition = 'transform 2s ease-out';
+      reels.style.transform = 'translateY(-1000px)'; // 10 * 100px
     }, 50);
-  },
-  reveal(win, generated, price) {
-    UI.setRarity(win); 
-    UI.els.description.textContent = 'Номер выпал!'; 
-    UI.els.price.textContent = fmtRub(price);
 
-    if (win.lvl >= 4) { Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
-
-    Game.animatePrice(price, win, () => {
-      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
-      if (price > State.maxRecord) State.maxRecord = price;
-      saveGame(); State.spinning = false; UI.updateMoney();
-    });
-  },
-  animatePrice(target, win, cb) {
-    const start = performance.now(); const el = UI.els.price;
-    function frame(now) {
-      const prog = Math.min((now - start) / 1000, 1);
-      el.textContent = fmtRub(target * (1 - Math.pow(1 - prog, 3)));
-      if (prog < 1) requestAnimationFrame(frame); else { el.textContent = fmtRub(target); cb(); }
-    }
-    requestAnimationFrame(frame);
-  }
-};
-
-/* INVENTORY & SAFE */
-const Inventory = {
-  render() {
-    const list = UI.els['inv-list'];
-    if (!State.inventory.length) { list.innerHTML = `<div style="text-align:center; color:#8e8e93; padding:40px;">Пусто</div>`; return; }
-    let html = '';
-    [...State.inventory].sort((a,b) => b.price - a.price).forEach(item => {
-      html += `<div class="list-item"><div><div style="font-size:18px; font-weight:800;">${item.plate} <span style="font-size:14px; color:#666;">${item.region}</span></div><div style="color:${item.rarity.color}; font-weight:800; font-size:14px; margin-top:4px;">${fmtRub(item.price)}</div></div><div style="display:flex; gap:6px;"><button style="background:#007aff; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Safe.deposit('${item.id}')">В Сейф</button><button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Inventory.sell('${item.id}')">Продать</button></div></div>`;
-    });
-    list.innerHTML = html;
+    setTimeout(() => {
+      S.inv.push({ id: uid(), plate: plateStr, region: reg, price: price, c: win.c });
+      save(); UI.update();
+      $('desc').textContent = "Сохранено в инвентарь!";
+    }, 2100);
   },
   sell(id) {
-    const idx = State.inventory.findIndex(i => i.id === id);
-    if (idx < 0) return;
-    State.money += State.inventory[idx].price;
-    State.inventory.splice(idx, 1); UI.updateMoney(); this.render(); saveGame(); toast(`💰 Продано`);
-  }
-};
-
-const Safe = {
-  render() {
-    const list = UI.els['safe-list'];
-    let html = '';
-    for(let i=0; i<3; i++) {
-      const item = State.safe[i];
-      if (item) {
-        html += `<div class="list-item"><div><div style="font-size:18px; font-weight:800;">${item.plate} <span style="font-size:14px; color:#666;">${item.region}</span></div><div style="color:${item.rarity.color}; font-weight:800; font-size:14px; margin-top:4px;">${fmtRub(item.price)}</div></div><button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Safe.withdraw(${i})">Забрать</button></div>`;
-      } else {
-        html += `<div class="list-item" style="justify-content:center; color:#8e8e93; border-style:dashed;">Слот ${i+1} пуст</div>`;
-      }
+    let i = S.inv.findIndex(x => x.id === id);
+    if(i >= 0) {
+      S.money += S.inv[i].price;
+      S.inv.splice(i, 1);
+      save(); UI.update(); UI.renderInv();
     }
-    list.innerHTML = html;
-  },
-  deposit(id) {
-    const slot = State.safe.indexOf(null);
-    if (slot === -1) return toast('❌ Сейф заполнен');
-    const idx = State.inventory.findIndex(i => i.id === id);
-    if (idx < 0) return;
-    State.safe[slot] = State.inventory[idx];
-    State.inventory.splice(idx, 1);
-    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в сейфе');
-  },
-  withdraw(slot) {
-    if (!State.safe[slot]) return;
-    State.inventory.push(State.safe[slot]);
-    State.safe[slot] = null;
-    this.render(); Inventory.render(); saveGame(); toast('✅ Номер в инвентаре');
   }
 };
 
-/* GARAGE */
-const Garage = {
-  render() {
-    const list = UI.els['garage-list'];
-    let html = '<div style="font-weight:800; margin-bottom:16px;">Твой гараж</div>';
-    if (State.garage.length === 0) html += `<div style="text-align:center; color:#8e8e93; margin-bottom:20px;">Нет машин</div>`;
-    else {
-      State.garage.forEach(car => {
-        const base = CARS.find(c => c.id === car.carId);
-        const finalPrice = Math.floor(base.basePrice * (car.plate ? 1.5 : 1));
-        html += `<div class="list-item" style="flex-direction:column; align-items:flex-start;"><div style="font-size:24px;">${base.icon} ${base.name}</div><div style="font-size:12px; color:#666; margin-top:4px;">${car.plate ? `Номер: ${car.plate.plate}` : 'Без номера'}</div><div style="font-weight:800; margin-top:8px;">Цена: ${fmtRub(finalPrice)}</div><div style="display:flex; gap:6px; margin-top:10px; width:100%;"><button style="flex:1; background:#007aff; color:#fff; border:none; padding:8px; border-radius:8px; font-weight:700;" onclick="Garage.attach('${car.id}')">${car.plate ? 'Сменить' : 'Установить'} номер</button><button style="flex:1; background:#34c759; color:#fff; border:none; padding:8px; border-radius:8px; font-weight:700;" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать</button></div></div>`;
-      });
-    }
-    html += '<div style="font-weight:800; margin:20px 0 16px;">Купить машину</div>';
-    CARS.forEach(c => {
-      html += `<div class="list-item"><div style="font-size:20px;">${c.icon} ${c.name}</div><button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Garage.buy('${c.id}')">${fmtRub(c.basePrice)}</button></div>`;
-    });
-    list.innerHTML = html;
-  },
-  buy(id) {
-    const base = CARS.find(c => c.id === id);
-    if (State.money < base.basePrice) return toast('❌ Мало денег');
-    State.money -= base.basePrice;
-    State.garage.push({ id: uid(), carId: id, plate: null });
-    UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!');
-  },
-  attach(carId) {
-    if (!State.inventory.length) return toast('❌ Нет номеров');
-    const car = State.garage.find(c => c.id === carId);
-    const best = [...State.inventory].sort((a,b) => b.price - a.price)[0];
-    if (car.plate) State.inventory.push(car.plate);
-    car.plate = best;
-    State.inventory = State.inventory.filter(i => i.id !== best.id);
-    saveGame(); this.render(); toast('✅ Установлен!');
-  },
-  sell(carId, price) {
-    State.money += price;
-    State.garage = State.garage.filter(c => c.id !== carId);
-    UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`);
-  }
-};
-
-/* MARKET (Биржа) */
-const Market = {
-  render() {
-    const list = UI.els['market-list'];
-    let html = '<div style="font-weight:800; margin-bottom:16px;">Лоты ботов</div>';
-    for(let i=0; i<3; i++) {
-      const rar = pick(RARITIES.slice(2));
-      const gen = genPlate(rar);
-      const price = Math.floor((rar.min + rar.max) / 2);
-      html += `<div class="list-item"><div><div style="font-size:16px; font-weight:800;">${gen.text} <span style="color:#666;">${gen.region}</span></div><div style="color:${rar.color}; font-weight:800;">${fmtRub(price)}</div></div><button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;" onclick="Market.buy('${gen.text}', '${gen.region}', ${price}, ${rar.lvl})">Купить</button></div>`;
-    }
-    list.innerHTML = html;
-  },
-  buy(plate, region, price, lvl) {
-    if (State.money < price) return toast('❌ Мало денег');
-    const rar = RARITIES.find(r => r.lvl === lvl);
-    State.money -= price;
-    State.inventory.push({ id: uid(), plate, region, price, rarity: rar, beauty: false });
-    UI.updateMoney(); saveGame(); toast('✅ Куплено!');
-  }
-};
-
-/* FRIENDS */
-const Friends = {
-  render() {
-    const content = UI.els['friends-content'];
-    let html = `<div style="text-align:center; margin-bottom:20px;"><div style="font-weight:800; margin-bottom:8px;">Твой ID-код</div><div style="font-size:20px; font-weight:900; color:#d4af37; letter-spacing:2px;">${State.myId}</div></div>`;
-    html += `<input type="text" id="friend-input" placeholder="ВВЕДИ КОД ДРУГА" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px; text-transform:uppercase;"><button style="width:100%; background:#007aff; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; margin-bottom:20px;" onclick="Friends.add()">ДОБАВИТЬ</button>`;
-    if (State.friends.length) {
-      html += '<div style="font-weight:800; margin-bottom:10px;">Список друзей</div>';
-      State.friends.forEach(f => {
-        html += `<div class="list-item"><div style="font-weight:800;">${f.name}</div><div style="font-size:12px; color:#666;">Рекорд: ${fmtRub(f.record)}</div></div>`;
-      });
-    }
-    content.innerHTML = html;
-  },
-  add() {
-    const input = $('friend-input');
-    const code = input.value.trim().toUpperCase();
-    if (!code) return;
-    if (code === State.myId) return toast('❌ Это твой код');
-    if (State.friends.find(f => f.id === code)) return toast('❌ Уже добавлен');
-    let hash = 0;
-    for (let i = 0; i < code.length; i++) hash = code.charCodeAt(i) + ((hash << 5) - hash);
-    const name = pick(['Иван', 'Алексей', 'Дмитрий', 'Сергей', 'Максим']);
-    const rec = Math.abs(hash) * 1000 + 100000;
-    State.friends.push({ id: code, name, record: rec });
-    saveGame(); this.render(); toast('✅ Добавлен!');
-  }
-};
-
-/* SHOP (За биткоины) */
 const Shop = {
-  render() { 
-    const content = UI.els['shop-content']; 
-    let html = `<div style="font-weight:800; margin-bottom:16px;">Улучшения (за Биткоины ₿)</div>`; 
-    BOOSTS.forEach(b => { 
-      const lvl = State.boosts[b.id] || 0; 
-      const price = b.basePrice * Math.pow(2, lvl); 
-      const canBuy = State.bitcoin >= price && lvl < b.maxLvl; 
-      const isMax = lvl >= b.maxLvl;
-      html += `<div class="list-item"><div><div style="font-weight:800;">${b.name} <span style="color:#d4af37; font-size:12px;">Ур. ${lvl}/${b.maxLvl}</span></div><div style="font-size:12px; color:#666; margin-top:4px;">${b.desc}</div><div style="font-weight:800; margin-top:6px;">${isMax ? 'МАКС' : fmtBtc(price)}</div></div><button style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700; opacity:${(!canBuy || isMax) ? 0.5 : 1};" ${(!canBuy || isMax) ? 'disabled' : ''} onclick="Shop.buy('${b.id}')">${isMax ? 'Куплено' : 'Купить'}</button></div>`; 
-    }); 
-    content.innerHTML = html; 
-  },
-  buy(id) { 
-    const b = BOOSTS.find(x => x.id === id); 
-    const lvl = State.boosts[id] || 0; 
-    const price = b.basePrice * Math.pow(2, lvl); 
-    if (State.bitcoin < price || lvl >= b.maxLvl) return toast('❌ Мало биткоинов');
-    State.bitcoin -= price; State.boosts[id] = lvl + 1; 
-    UI.updateMoney(); this.render(); saveGame(); toast('✅ Улучшено!'); 
+  buy(id, price) {
+    if(S.btc < price) return alert('Мало биткоинов!');
+    S.btc -= price;
+    S.boosts[id] = (S.boosts[id] || 0) + 1;
+    save(); UI.update(); UI.renderShop();
   }
 };
 
-/* SETTINGS & ADMIN */
 const Settings = {
-  render() {
-    const content = UI.els['settings-content'];
-    let html = `<div style="font-weight:800; margin-bottom:10px;">Промокод</div><input type="text" id="promo-input" placeholder="ВВЕДИ КОД" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px;"><button style="width:100%; background:#007aff; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; margin-bottom:20px;" onclick="Settings.promo()">АКТИВИРОВАТЬ</button>`;
-    html += `<button style="width:100%; background:#34c759; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; margin-bottom:10px;" onclick="SaveFile.export()">📤 Экспорт</button>`;
-    html += `<button style="width:100%; background:#ff9500; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; margin-bottom:10px;" onclick="SaveFile.import()">📥 Импорт</button>`;
-    html += `<input type="file" id="file-input" style="display:none" onchange="SaveFile.handleFile(event)">`;
-    html += `<button style="width:100%; background:#ff3b30; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700;" onclick="Settings.reset()">СБРОС</button>`;
-    content.innerHTML = html;
-  },
-  promo() {
-    const code = $('promo-input').value.trim().toUpperCase();
-    if (DEFAULT_PROMOS[code]) {
-      const val = DEFAULT_PROMOS[code];
-      if (typeof val === 'string' && val.startsWith('BTC_')) {
-        State.bitcoin += parseInt(val.replace('BTC_', ''));
-        toast(`✅ +${parseInt(val.replace('BTC_', ''))} ₿`);
-      } else {
-        State.money += val;
-        toast(`✅ +${fmtRub(val)}`);
-      }
-      UI.updateMoney();
-    } else {
-      toast('❌ Неверный код');
-    }
-    $('promo-input').value = '';
-  },
-  reset() { if(confirm('Сбросить?')) { localStorage.removeItem(CFG.KEY); location.reload(); } }
-};
-
-const SaveFile = {
-  export() {
-    const data = { app: 'Nomerix', money: State.money, bitcoin: State.bitcoin, inventory: State.inventory, safe: State.safe, garage: State.garage, friends: State.friends };
-    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nomerix.json'; a.click();
-  },
-  import() { $('file-input').click(); },
-  handleFile(e) {
-    const file = e.target.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      try {
-        const d = JSON.parse(ev.target.result);
-        State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory; State.safe = d.safe; State.garage = d.garage; State.friends = d.friends;
-        saveGame(); UI.updateMoney(); toast('✅ Загружено');
-      } catch(err) { toast('❌ Ошибка'); }
-    };
-    reader.readAsText(file);
+  usePromo() {
+    let code = $('promo').value.trim().toUpperCase();
+    if(code === 'MONEY') { S.money += 50000; alert('+50 000 ₽'); }
+    else if(code === 'BTC') { S.btc += 1; alert('+1 ₿'); }
+    else alert('Неверный код');
+    $('promo').value = '';
+    save(); UI.update();
   }
 };
 
-function init() {
-  loadGame(); UI.init(); UI.updateMoney(); UI.els.region.textContent = "82";
-  document.addEventListener('click', function once() { Sound.init(); document.removeEventListener('click', once); }, { once: true });
-}
-document.addEventListener('DOMContentLoaded', init);
+UI.update();
 </script>
 </body>
 </html>
