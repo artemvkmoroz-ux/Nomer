@@ -9,9 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   ПОДКЛЮЧЕНИЕ ШРИФТА (Положи файл GOST-R-50577-93.ttf рядом с index.html)
-   ============================================================ */
 @font-face {
   font-family: 'GostPlate';
   src: url('GOST-R-50577-93.ttf') format('truetype');
@@ -30,21 +27,14 @@
   --xmas-red:#dc2626; --xmas-green:#16a34a; --xmas-gold:#fbbf24;
   --sb:env(safe-area-inset-bottom,0px); --st:env(safe-area-inset-top,0px);
 }
-body.theme-classic { --bg:#0a1628; --bg-g:radial-gradient(circle at 50% -10%,#1a2c4d 0%,#0a1628 40%,#050a14 100%); --accent:#fbbf24; --glass:rgba(15,25,45,.6); }
-body.theme-neon { --bg:#09090b; --bg-g:radial-gradient(circle at 50% 0%,#1e1b4b 0%,#09090b 80%); --accent:#ec4899; --glass:rgba(20,20,30,.7); --gb:rgba(236,72,153,.2); }
-body.theme-halloween { --bg:#0f0a06; --bg-g:radial-gradient(circle at 50% 0%,#2a1608 0%,#0f0a06 80%); --accent:#f97316; --glass:rgba(30,20,10,.6); }
-body.theme-matrix { --bg:#000000; --bg-g:radial-gradient(circle at 50% 0%,#002200 0%,#000000 80%); --accent:#22c55e; --glass:rgba(0,20,0,.6); --gb:rgba(34,197,94,.2); }
-
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
-body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;transition:background 0.5s;}
+body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;}
 
-/* СНЕГ */
-#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;transition:opacity 0.5s;}
+#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
 .snowflake{position:absolute;top:-10px;color:var(--xmas-gold);opacity:.8;user-select:none;pointer-events:none;animation:snowfall linear infinite;will-change:transform;text-shadow: 0 0 5px rgba(251,191,36,0.5);}
 @keyframes snowfall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(100vh) translateX(var(--drift,30px)) rotate(360deg);opacity:0}}
 
-/* ГИРЛЯНДА */
 #garland{position:fixed;top:0;left:0;right:0;height:50px;pointer-events:none;z-index:2;display:flex;justify-content:space-around;padding:0 10px}
 .bulb{width:12px;height:12px;border-radius:50%;margin-top:8px;position:relative;animation:twinkle 2s ease-in-out infinite}
 .bulb::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:2px;height:10px;background:rgba(255,255,255,.3)}
@@ -53,14 +43,12 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 #app{width:100%;max-width:430px;height:100dvh;height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:10;}
 
-/* ВЕРХНЯЯ ПАНЕЛЬ */
 .top-bar{display:flex;justify-content:space-between;align-items:center;padding:calc(20px + var(--st)) 20px 16px;z-index:100;}
 .icon-btn{background:var(--glass);border:1px solid var(--gb);color:#fff;width:44px;height:44px;border-radius:14px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
 .icon-btn:active{transform:scale(.9) rotate(-10deg); background:rgba(255,255,255,0.1);}
 .balances{display:flex;gap:8px;}
 .bal-box{background:var(--glass);border:1px solid var(--gb);padding:8px 14px;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#fff;backdrop-filter:blur(20px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width: 80px; justify-content: center;}
 
-/* ГЛАВНЫЙ ЭКРАН */
 .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;z-index:10;position:relative;}
 .rarity-price-bar {background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 14px 18px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
 .rarity-info { display: flex; flex-direction: column; gap: 8px; }
@@ -69,15 +57,11 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .dot { width: 16px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); transition: all 0.3s; }
 .price-tag { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); transition: all 0.3s; }
 
-/* ЗОНА НОМЕРА */
 .plate-zone { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; transition: transform 0.15s; }
 .plate-zone:active { transform: scale(0.96); }
 .ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 160px; background: var(--uncommon); filter: blur(70px); opacity: 0.4; border-radius: 50%; z-index: -1; transition: all 0.5s; animation: pulseGlow 2s infinite; }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
-}
+@keyframes pulseGlow { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
 
 .plate { 
   display: flex; 
@@ -95,22 +79,10 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 }
 
 .plate.shaking { animation: shake 0.4s infinite; }
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  20% { transform: translate(-2px, 0px) rotate(-1deg); }
-  40% { transform: translate(2px, 2px) rotate(1deg); }
-  60% { transform: translate(-1px, -1px) rotate(0deg); }
-  80% { transform: translate(1px, 2px) rotate(1deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
+@keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-2px, 0px) rotate(-1deg); } 40% { transform: translate(2px, 2px) rotate(1deg); } 60% { transform: translate(-1px, -1px) rotate(0deg); } 80% { transform: translate(1px, 2px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
 
 .plate.win-pop { animation: winPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes winPop {
-  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
-  50% { transform: scale(1.1) rotate(5deg); }
-  70% { transform: scale(0.95) rotate(-2deg); }
-  100% { transform: scale(1) rotate(0); opacity: 1; }
-}
+@keyframes winPop { 0% { transform: scale(0.5) rotate(-10deg); opacity: 0; } 50% { transform: scale(1.1) rotate(5deg); } 70% { transform: scale(0.95) rotate(-2deg); } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 
 .plate.glow-epic { animation: pulseEpic 1.5s infinite; }
 @keyframes pulseEpic { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; } }
@@ -124,10 +96,9 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
 .plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
 
-/* ИСПРАВЛЕНИЕ ВЫЛЕЗАНИЯ БУКВ */
 .plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 54px; letter-spacing: 1px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); padding: 0 10px; } /* Уменьшили шрифт до 54px и добавили отступ */
+.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 54px; letter-spacing: 1px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); padding: 0 10px; }
 
 .plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #0a0a0a; z-index: 11; }
 .region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 32px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
@@ -136,30 +107,16 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 .description { margin-top: 24px; font-size: 14px; color: var(--sub); font-weight: 700; text-align: center; letter-spacing: 0.5px; }
 
-/* ВСПЫШКА */
 .flash-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
 .flash-overlay.active { animation: flash 0.8s ease-out; }
 @keyframes flash { 0% { opacity: 0.9; } 100% { opacity: 0; } }
-
-/* ЧАСТИЦЫ */
 .particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 10px currentColor; }
 
-/* АНИМАЦИЯ ВЫЕЗДА МАШИНЫ */
-.new-rarity-overlay { position: fixed; inset: 0; z-index: 10000; pointer-events: none; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: none; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-.new-rarity-overlay.show { display: flex; opacity: 1; pointer-events: auto; }
-.car-anim-container { position: absolute; top: 0; width: 100%; height: 250px; display: flex; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.new-rarity-overlay.show .car-anim-container { transform: translateY(20%); }
-.car-anim { font-size: 100px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); animation: carBounce 1s infinite alternate; }
-@keyframes carBounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
-.new-rarity-text { font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-top: 150px; transform: scale(0); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.new-rarity-overlay.show .new-rarity-text { transform: scale(1); }
-.new-rarity-text span { display: block; font-size: 16px; color: #fff; margin-top: 10px; letter-spacing: 4px; opacity: 0.8; }
-
-/* ЭКРАНЫ */
+/* ОСТАЛЬНОЙ CSS (ЭКРАНЫ, МЕНЮ, ИНВЕНТАРЬ И Т.Д.) */
 .screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(40px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
 .screen.active{display:flex; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
 @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:var(--accent);}
+.scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:var(--xmas-gold);}
 .scr-head .icon-btn{width:44px;height:44px;font-size:20px;}
 
 .menu-grid{display:flex;flex-direction:column;gap:14px;padding:20px;}
@@ -168,7 +125,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));}
 .menu-txt{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;}
 .menu-sub{font-size:13px;color:var(--sub);font-weight:600;margin-top:4px;}
-.menu-card .arrow{margin-left:auto;font-size:22px;color:var(--accent);opacity:.5;}
+.menu-card .arrow{margin-left:auto;font-size:22px;color:var(--xmas-gold);opacity:.8;}
 
 .inv-list{display:flex;flex-direction:column;gap:14px;padding:20px calc(20px) calc(120px + var(--sb)) 20px}
 .inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
@@ -193,7 +150,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .s-title{font-weight:900;font-size:13px;text-transform:uppercase;color:var(--sub); letter-spacing:1px;}
 .s-title.lit{color:#fff}
 .input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
-.input:focus{border-color:var(--accent); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
+.input:focus{border-color:var(--xmas-gold); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
 .btn{border:none;padding:18px;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:all 0.15s; letter-spacing:1px;}
 .btn:active{transform:scale(.95);}
 .btn-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff; box-shadow:0 8px 20px rgba(59,130,246,0.3);}
@@ -225,12 +182,13 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5);}
 .car-plate-mount .reg { font-size: 10px; }
 
-/* УКРАШЕНИЯ */
-.decor-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.decor-ico { font-size: 28px; }
-.decor-info { flex: 1; }
-.decor-name { font-weight: 900; font-size: 14px; color: #fff; }
-.decor-price { font-size: 12px; color: var(--gold); font-weight: 800; margin-top: 4px; }
+.friend-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px;}
+.avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; }
+.friend-info { flex: 1; }
+.friend-name { font-weight: 900; font-size: 16px; color: #fff; }
+.friend-stat { font-size: 12px; color: var(--sub); margin-top: 4px; font-weight: 600; }
+.friend-code-box { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;}
+.my-code { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: var(--gold); letter-spacing: 4px; margin: 12px 0; text-shadow: 0 0 15px rgba(251,191,36,0.3); }
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
 .modal-overlay.show{display:flex;}
@@ -253,7 +211,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .toast.show{top:24px;}
 </style>
 </head>
-<body class="theme-classic">
+<body>
 
 <div id="snow-container"></div>
 <div id="garland"></div>
@@ -261,11 +219,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 <div id="app">
   <div class="flash-overlay" id="flash"></div>
   
-  <div class="new-rarity-overlay" id="new-rarity-overlay">
-    <div class="car-anim-container"><div class="car-anim">🚗</div></div>
-    <div class="new-rarity-text" id="new-rarity-text">НОВАЯ РЕДКОСТЬ<span id="new-rarity-name">ОБЫЧНЫЙ</span></div>
-  </div>
-
   <div id="game" style="height:100%;display:flex;flex-direction:column">
     <div class="top-bar">
       <button class="icon-btn" onclick="UI.open('menu')">☰</button>
@@ -314,24 +267,22 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('garage')"><div class="menu-ico">🚘</div><div><div class="menu-txt">Гараж</div><div class="menu-sub">Машины</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('market')"><div class="menu-ico">💼</div><div><div class="menu-txt">Биржа</div><div class="menu-sub">Купить/Продать</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения</div></div><div class="arrow">→</div></div>
-      <div class="menu-card" onclick="UI.open('changelog')"><div class="menu-ico">📜</div><div><div class="menu-txt">Обновления</div><div class="menu-sub">История версий</div></div><div class="arrow">→</div></div>
+      <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения (за ₿)</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div><div class="arrow">→</div></div>
     </div>
   </div>
 
-  <!-- ЭКРАН СОБЫТИЯ -->
   <div id="scr-event" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('event')">←</button><span>🎄 СОБЫТИЕ</span></div>
     <div class="settings">
       <div class="s-block">
         <div class="s-title" style="color:var(--xmas-gold);">Украшение номеров</div>
-        <div class="s-hint" style="margin-bottom:10px;">Выбери номер из инвентаря и повесь на него новогодний декор. Цена номера вырастет!</div>
+        <div class="s-hint" style="margin-bottom:10px; color:var(--sub); font-size:12px; font-weight:600;">Выбери номер из инвентаря и повесь на него новогодний декор. Цена номера вырастет!</div>
         <button class="btn btn-gold" onclick="Event.openNumDecor()">Выбрать номер</button>
       </div>
       <div class="s-block">
         <div class="s-title" style="color:var(--xmas-gold);">Украшение машин</div>
-        <div class="s-hint" style="margin-bottom:10px;">Укрась свою машину в гараже. Продать её можно будет дороже!</div>
+        <div class="s-hint" style="margin-bottom:10px; color:var(--sub); font-size:12px; font-weight:600;">Укрась свою машину в гараже. Продать её можно будет дороже!</div>
         <button class="btn btn-gold" onclick="Event.openCarDecor()">Выбрать машину</button>
       </div>
     </div>
@@ -387,11 +338,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
     <div class="settings" id="shop-content"></div>
-  </div>
-
-  <div id="scr-changelog" class="screen">
-    <div class="scr-head"><button class="icon-btn" onclick="UI.close('changelog')">←</button><span>ОБНОВЛЕНИЯ</span></div>
-    <div class="settings" id="changelog-content"></div>
   </div>
 
   <div id="scr-settings" class="screen">
@@ -451,7 +397,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v34', VER: 34,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v35', VER: 35,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -467,11 +413,18 @@ const RARITIES = [
   { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'var(--god)',      glow:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
 ];
 
-const DEFAULT_PROMOS = { MONEY: 50000, BTC: 1, RICH: 1000000, NEWYEAR: 100000 };
+/* ============================================================
+   СКРЫТЫЕ ПРОМОКОДЫ (Base64)
+   ============================================================ */
+// Список кодов зашифрован, чтобы их нельзя было найти поиском по файлу.
+// Чтобы добавить новый код, создай объект { "CODE": value } и зашифруй в base64.
+const _P = "eyJNT05FWTUwMCI6NTAwLCJNT05FWTUwMCI6NTAwLCJNT05FWTEwMDAiOjEwMDAsIk1PTkVZNTAwMCI6NTAwMCwiTU9ORVkxMDAwMCI6MTAwMDAsIk1PTkVZNTAwMDAiOjUwMDAwLCJNT05FWTEwMDAwMCI6MTAwMDAwLCJNT05FWTEwMDAwMDAiOjEwMDAwMDAsIk1PTkVZMU0iOjEwMDAwMDAsIk1PTkVZNU0iOjUwMDAwMDAsIk1PTkVZMTBNIjoxMDAwMDAwMCwiTU9ORVk1ME0iOjUwMDAwMDAwLCJNT05FWTEwME0iOjEwMDAwMDAwMCwiTU9ORVk1MDBNIjo1MDAwMDAwMDAsIk1PTkVZMEJCIjoxMDAwMDAwMDAwLCJQT09SIjoxMDAsIlNUQVJUIjoxMDAwMCwiSEVMTE8iOjEwMDAsIk5FV0JJRSI6NTAwMCwiUFJPIjoyNTAwMCwiVE9QIjozMDAwMCwiR09EIjo1MDAwLCJCVE0iOiJCVENfMSIsIkJUQzIiOiJCVENfMiIsIkJUQzMiOiJCVENfMyIsIkJUQzUiOiJCVENfNSIsIkJUQzEwIjoiQlRDXzEwIiwiQlRDMTUiOiJCVENfMTUiLCJCVE0iOiJCVENfMjAiLCJCVE0iOiJCVENfNTAiLCJCVEMxMDAiOiJCVENfMTAwIiwiQ1JZUFRPIjoiQlRDXzMiLCJNT09OIjoiQlRDXzE1IiwiTkVXWUVBUiI6MTAwMDAwLCJYTUFTIjoxMDAwMCwiU0FOVEEiOjIwMjUwLCJTTk9XIjo3Nzc3LCJHSUZUIjoxNTAwMCwiSEFQUFkiOjUwMDAsIkxVQ0NZIjozMDAwLCI3NzciOjc3NzcsIjg4OCI6ODg4OCwiOTk5Ijo5OTk5LCIxOTkiOjE5OTAwMCwiMTIzIjoxMjMwLCI0NTYiOjQ1NjAsIjc4OSI6Nzg5MCwiNzc3NyI6Nzc3NzcsIjg4ODgiOjg4ODg4LCI5OTk5Ijo5OTk5OSwiMTIzNCI6MTIzNDAsIjQzMjEiOjQzMjEwLCIwMDAxIjoxMDAwLCIxMDAwIjoxMDAwMDAsIjUwMDAiOjUwMDAwLCJNSVRST0ZBTiI6MTAwMDAwMCwiTk9NRVJJWCI6MjUwMDAsIkdJVEhVQiI6NTAwMDAsIkFETUlOIjoiQURNSU5fMzAwNiIsIlJJQ0giOjEwMDAwMDAsIkJPR1MiOjUwMDAwMDAsIktJTkciOjEwMDAwMDAwLCJMT1JEIjo1MDAwMDAwMCwiSEVSTyI6MTAwMDAwLCJMRUdFTkQiOjUwMDAwMDAsIk1ZVEgiOjEwMDAwMDAwLCJFUElDIjoxMDAwMDAwMCwiVUxUUkEiOjUwMDAwMDAwLCJNRU1BIjoxMDAwMDAwMDAsIlNVUEVSIjoxMDAwMDAwMDAsIlNUQVIiOjUwMDAwMCwiU1VOIjoxMDAwMDAwLCJNT09OTElHSFQiOjUwMDAwMDAsIkRBUksiOjEwMDAwMDAsIkxJR0hUIjoxMDAwMDAwMDAsIlNBVE9TSEkiOiJCVENfMSIsIkhBTFZJTkciOiJCVENfMiIsIkxFREdFUiI6IkJUQ18xMCIsIldBTExFVCI6IkJUQ181IiwiQkxPQ0tDSEFJTiI6IkJUQ18yMCIsIk1JTkVSIjoiQlRDXzUiLCJERUZJIjoiQlRDXzMiLCJORlQiOiJCVENfMTAiLCJBSVJEUk9QIjoiQlRDXzUwIiwiTU9ST1pJTUtBIjoiQURNSU5fMzAwNiIsIk1JVE9TRkFOMjAyNCI6MTAwMDAwMCwiTk9NRVJJWDIwMjQiOjUwMDAwMDAsIkdJVEhVQjIwMjQiOjEwMDAwMDAwLCJIRUxMT1dPUkxEIjoxMDAwMDAwLCJCSUdNT05FWSI6NTAwMDAwMDB9";
+const DEFAULT_PROMOS = JSON.parse(atob(_P));
+
 const BOOSTS = [
-  { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 500000, maxLvl: 5 },
-  { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1000000, maxLvl: 5 },
-  { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 250000, maxLvl: 5 },
+  { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 1, maxLvl: 5 }, // 1 ₿
+  { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1.5, maxLvl: 5 }, // 1.5 ₿
+  { id: 'discount', name: '🎟 Скидка', desc: 'Стоимость спина -10%', basePrice: 0.5, maxLvl: 5 }, // 0.5 ₿
 ];
 const CARS = [
   { id: 'lada',    name: 'LADA Priora',   basePrice: 800000,    color: '#b91c1c', cabin: '#0f172a', bonus: 1.2, icon: '🚗', tier: 'A' },
@@ -488,12 +441,6 @@ const DECORS = [
   { id: 'snow', name: '❄️ Снежинка', price: 50000, bonus: 0.2 },
   { id: 'star', name: '⭐ Звезда', price: 500000, bonus: 0.8 },
   { id: 'garland', name: '✨ Гирлянда', price: 1000000, bonus: 1.0 },
-];
-
-const CHANGELOG = [
-  { v: 'v34.0', date: 'Текущее', list: ['Новогодний интерфейс (снег, гирлянды)', 'Новогоднее событие: украшение номеров и машин', 'Исправлено вылезание букв'] },
-  { v: 'v33.0', date: 'Ранее', list: ['Анимация появления машины при новой редкости'] },
-  { v: 'v32.0', date: 'Ранее', list: ['Друзья и много анимаций'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -676,7 +623,7 @@ const SaveFile = {
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input','new-rarity-overlay','new-rarity-text','new-rarity-name'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','plate','side','price','rarity-name','glow','dots','inv-list','inv-count','description','safe-list','market-content','shop-content','garage-content','changelog-content','promo-input','flash','friends-list','friend-count','my-friend-code','friend-input'].forEach(id => this.els[id] = $(id));
   },
   open(name) {
     if (State.spinning) return;
@@ -688,7 +635,6 @@ const UI = {
     if (name === 'market') Market.render();
     if (name === 'shop') Shop.render();
     if (name === 'garage') Garage.render();
-    if (name === 'changelog') Changelog.render();
     if (name === 'friends') Friends.render();
   },
   close(name) {
@@ -793,12 +739,6 @@ const Game = {
     UI.els.description.textContent = 'Номер выпал!'; 
     UI.els.price.textContent = fmtRub(price);
 
-    if (!State.seenRarities.includes(win.lvl)) {
-      State.seenRarities.push(win.lvl);
-      showNewRarity(win);
-      saveGame();
-    }
-
     if (win.lvl === 5) UI.els.plate.classList.add('glow-epic');
     if (win.lvl === 6) UI.els.plate.classList.add('glow-legend');
     if (win.lvl === 7) UI.els.plate.classList.add('glow-elite');
@@ -828,20 +768,6 @@ const Game = {
   }
 };
 
-function showNewRarity(rarity) {
-  const overlay = UI.els['new-rarity-overlay'];
-  const text = UI.els['new-rarity-text'];
-  const name = UI.els['new-rarity-name'];
-  text.style.color = rarity.color;
-  text.style.textShadow = `0 0 20px ${rarity.glow}`;
-  name.textContent = rarity.name;
-  name.style.color = rarity.color;
-  overlay.classList.add('show');
-  Haptic.buzz([100, 50, 100, 50, 100]);
-  Sound.win(8);
-  setTimeout(() => { overlay.classList.remove('show'); }, 3000);
-}
-
 /* ============================================================
    EVENT (НОВОГОДНЕЕ СОБЫТИЕ)
    ============================================================ */
@@ -850,9 +776,9 @@ const Event = {
     if (!State.inventory.length) return toast('❌ Нет номеров в инвентаре');
     let html = '<div style="max-height:300px; overflow-y:auto;">';
     State.inventory.forEach(item => {
-      html += `<div class="decor-card" onclick="Event.selectDecor('num', '${item.id}')">
+      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.selectDecor('num', '${item.id}')">
         <div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div>
-        <div class="decor-info"><div class="decor-name">${item.decor ? item.decor.name : 'Без декора'}</div></div>
+        <div style="flex:1; font-size:12px; color:#fff;">${item.decor ? item.decor.name : 'Без декора'}</div>
       </div>`;
     });
     html += '</div>';
@@ -865,9 +791,9 @@ const Event = {
     let html = '<div style="max-height:300px; overflow-y:auto;">';
     State.garage.forEach(car => {
       const base = CARS.find(c => c.id === car.carId);
-      html += `<div class="decor-card" onclick="Event.selectDecor('car', '${car.id}')">
-        <div class="decor-ico">${base.icon}</div>
-        <div class="decor-info"><div class="decor-name">${base.name}</div><div class="decor-price">${car.decor ? car.decor.name : 'Без декора'}</div></div>
+      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.selectDecor('car', '${car.id}')">
+        <div style="font-size:24px;">${base.icon}</div>
+        <div style="flex:1; font-size:12px; color:#fff;">${base.name} ${car.decor ? '| ' + car.decor.name : ''}</div>
       </div>`;
     });
     html += '</div>';
@@ -878,9 +804,9 @@ const Event = {
   selectDecor(type, id) {
     let html = '<div style="max-height:300px; overflow-y:auto;">';
     DECORS.forEach(d => {
-      html += `<div class="decor-card" onclick="Event.applyDecor('${type}', '${id}', '${d.id}')">
-        <div class="decor-ico">${d.name.split(' ')[0]}</div>
-        <div class="decor-info"><div class="decor-name">${d.name}</div><div class="decor-price">+${d.bonus * 100}% к цене | ${fmtRub(d.price)}</div></div>
+      html += `<div class="decor-card" style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; margin-bottom:8px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="Event.applyDecor('${type}', '${id}', '${d.id}')">
+        <div style="font-size:24px;">${d.name.split(' ')[0]}</div>
+        <div style="flex:1; font-size:12px; color:#fff;">${d.name} <br><span style="color:var(--gold)">+${d.bonus * 100}% | ${fmtRub(d.price)}</span></div>
       </div>`;
     });
     html += '</div>';
@@ -899,10 +825,11 @@ const Event = {
       const item = State.inventory.find(i => i.id === targetId);
       if (item) {
         if (item.decor) {
-          // Возвращаем старый бонус (упрощенно, просто перезаписываем)
+          // Убираем старый бонус перед добавлением нового (упрощенно)
+          item.price = Math.floor(item.price / (1 + item.decor.bonus));
         }
         item.decor = decor;
-        item.price = Math.floor(item.price * (1 + decor.bonus)); // Увеличиваем цену
+        item.price = Math.floor(item.price * (1 + decor.bonus));
       }
     } else if (type === 'car') {
       const car = State.garage.find(c => c.id === targetId);
@@ -1018,28 +945,6 @@ const Safe = {
 };
 
 /* ============================================================
-   CHANGELOG
-   ============================================================ */
-const Changelog = {
-  render() {
-    const content = UI.els['changelog-content'];
-    let html = '';
-    CHANGELOG.forEach((log, idx) => {
-      html += `<div class="s-block" style="margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <div class="s-title lit" style="font-size:16px; color:var(--gold);">${log.v}</div>
-          <div style="font-size:11px; color:var(--sub); font-weight:700;">${log.date}</div>
-        </div>
-        <ul style="font-size:13px; color:#fff; padding-left:20px; line-height:1.8; font-weight:600;">
-          ${log.list.map(item => `<li>${item}</li>`).join('')}
-        </ul>
-      </div>`;
-    });
-    content.innerHTML = html;
-  }
-};
-
-/* ============================================================
    MARKET & SHOP & GARAGE
    ============================================================ */
 const Market = {
@@ -1068,9 +973,49 @@ const Market = {
   cancel(id) { const lot = State.market.find(m => m.id === id); State.inventory.push({ id: uid(), plate: lot.plate, region: lot.region, price: lot.price, rarity: { lvl: lot.lvl, name: lot.name, color: lot.color, glow: '#fff' }, beauty: false }); State.market = State.market.filter(m => m.id !== id); saveGame(); this.render(); toast('Лот снят'); }
 };
 
+/* ============================================================
+   SHOP (ТЕПЕРЬ ЗА БИТКОИНЫ)
+   ============================================================ */
 const Shop = {
-  render() { const content = UI.els['shop-content']; let html = `<div class="s-block"><div class="s-title lit">Улучшения</div>`; BOOSTS.forEach(b => { const lvl = State.boosts[b.id] || 0; const price = b.basePrice * Math.pow(2, lvl); html += `<div class="boost-card"><div class="boost-info"><div class="boost-name">${b.name} <span style="color:var(--gold);font-size:12px">Ур. ${lvl}/${b.maxLvl}</span></div><div class="boost-desc">${b.desc}</div><div class="boost-price">${fmtRub(price)}</div></div><button class="btn-sm btn-sell" ${State.money < price || lvl >= b.maxLvl ? 'disabled style="opacity:0.5"' : ''} onclick="Shop.buy('${b.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
-  buy(id) { const b = BOOSTS.find(x => x.id === id); const lvl = State.boosts[id] || 0; const price = b.basePrice * Math.pow(2, lvl); if (State.money < price || lvl >= b.maxLvl) return; State.money -= price; State.boosts[id] = lvl + 1; UI.updateMoney(); this.render(); saveGame(); toast('✅ Улучшено!'); }
+  render() { 
+    const content = UI.els['shop-content']; 
+    let html = `<div class="s-block"><div class="s-title lit">Улучшения (за Биткоины ₿)</div>`; 
+    
+    BOOSTS.forEach(b => { 
+      const lvl = State.boosts[b.id] || 0; 
+      const price = b.basePrice * Math.pow(2, lvl); 
+      const canBuy = State.bitcoin >= price && lvl < b.maxLvl; 
+      const isMax = lvl >= b.maxLvl;
+      
+      html += `
+        <div class="boost-card">
+          <div class="boost-info">
+            <div class="boost-name">${b.name} <span style="color:var(--gold);font-size:12px">Ур. ${lvl}/${b.maxLvl}</span></div>
+            <div class="boost-desc">${b.desc}</div>
+            <div class="boost-price">${isMax ? 'МАКС' : fmtBtc(price)}</div>
+          </div>
+          <button class="btn-sm btn-sell" ${(!canBuy || isMax) ? 'disabled style="opacity:0.5"' : ''} onclick="Shop.buy('${b.id}')">
+            ${isMax ? 'Куплено' : 'Купить'}
+          </button>
+        </div>`; 
+    }); 
+    content.innerHTML = html + `</div>`; 
+  },
+  buy(id) { 
+    const b = BOOSTS.find(x => x.id === id); 
+    const lvl = State.boosts[id] || 0; 
+    const price = b.basePrice * Math.pow(2, lvl); 
+    
+    if (State.bitcoin < price || lvl >= b.maxLvl) return toast('❌ Мало биткоинов');
+    
+    State.bitcoin -= price; 
+    State.boosts[id] = lvl + 1; 
+    
+    UI.updateMoney(); 
+    this.render(); 
+    saveGame(); 
+    toast('✅ Улучшено!'); 
+  }
 };
 
 const Garage = {
@@ -1081,14 +1026,31 @@ const Garage = {
   sell(carId, price) { State.money += price; State.garage = State.garage.filter(c => c.id !== carId); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`); }
 };
 
+/* ============================================================
+   SETTINGS & ADMIN
+   ============================================================ */
 const Settings = {
   promo() {
     const code = UI.els['promo-input'].value.trim().toUpperCase();
     if (code === 'MOROZIMKA') { UI.els['promo-input'].value = ''; Admin.openPassword(); return; }
+    
     if (DEFAULT_PROMOS[code]) {
-      if (code === 'BTC') State.bitcoin += DEFAULT_PROMOS[code]; else State.money += DEFAULT_PROMOS[code];
-      UI.updateMoney(); toast('✅ Промокод активирован!');
-    } else toast('❌ Неверный код');
+      const val = DEFAULT_PROMOS[code];
+      if (typeof val === 'string' && val.startsWith('BTC_')) {
+        const btc = parseInt(val.replace('BTC_', ''));
+        State.bitcoin += btc;
+        toast(`✅ +${btc} ₿`);
+      } else if (typeof val === 'string' && val.startsWith('ADMIN_')) {
+        UI.els['promo-input'].value = ''; Admin.openPassword(); return;
+      } else {
+        State.money += val;
+        toast(`✅ +${fmtRub(val)}`);
+      }
+      UI.updateMoney(); 
+      Sound.win(5);
+    } else {
+      toast('❌ Неверный код');
+    }
     UI.els['promo-input'].value = '';
   },
   reset() { if(confirm('Сбросить прогресс?')) { localStorage.removeItem(CFG.KEY); location.reload(); } }
