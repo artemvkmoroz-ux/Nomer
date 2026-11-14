@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#050a14">
-<title>💎 Nomerix ∞ Real</title>
+<meta name="theme-color" content="#0a1628">
+<title>🎄 Nomerix ∞ Новогодний</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -27,11 +27,29 @@
   --trash:#475569; --common:#94a3b8; --uncommon:#10b981; --rare:#3b82f6;
   --epic:#a855f7; --legend:#f59e0b; --elite:#ef4444; --god:#ec4899;
   --blue:#3b82f6; --red:#ef4444; --green:#10b981; --gold:#fbbf24;
+  --xmas-red:#dc2626; --xmas-green:#16a34a; --xmas-gold:#fbbf24;
   --sb:env(safe-area-inset-bottom,0px); --st:env(safe-area-inset-top,0px);
 }
+body.theme-classic { --bg:#0a1628; --bg-g:radial-gradient(circle at 50% -10%,#1a2c4d 0%,#0a1628 40%,#050a14 100%); --accent:#fbbf24; --glass:rgba(15,25,45,.6); }
+body.theme-neon { --bg:#09090b; --bg-g:radial-gradient(circle at 50% 0%,#1e1b4b 0%,#09090b 80%); --accent:#ec4899; --glass:rgba(20,20,30,.7); --gb:rgba(236,72,153,.2); }
+body.theme-halloween { --bg:#0f0a06; --bg-g:radial-gradient(circle at 50% 0%,#2a1608 0%,#0f0a06 80%); --accent:#f97316; --glass:rgba(30,20,10,.6); }
+body.theme-matrix { --bg:#000000; --bg-g:radial-gradient(circle at 50% 0%,#002200 0%,#000000 80%); --accent:#22c55e; --glass:rgba(0,20,0,.6); --gb:rgba(34,197,94,.2); }
+
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
-body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;}
+body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:flex;justify-content:center;align-items:center;position:relative;transition:background 0.5s;}
+
+/* СНЕГ */
+#snow-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;transition:opacity 0.5s;}
+.snowflake{position:absolute;top:-10px;color:var(--xmas-gold);opacity:.8;user-select:none;pointer-events:none;animation:snowfall linear infinite;will-change:transform;text-shadow: 0 0 5px rgba(251,191,36,0.5);}
+@keyframes snowfall{0%{transform:translateY(-10px) translateX(0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(100vh) translateX(var(--drift,30px)) rotate(360deg);opacity:0}}
+
+/* ГИРЛЯНДА */
+#garland{position:fixed;top:0;left:0;right:0;height:50px;pointer-events:none;z-index:2;display:flex;justify-content:space-around;padding:0 10px}
+.bulb{width:12px;height:12px;border-radius:50%;margin-top:8px;position:relative;animation:twinkle 2s ease-in-out infinite}
+.bulb::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:2px;height:10px;background:rgba(255,255,255,.3)}
+.bulb:nth-child(odd){animation-delay:.3s}.bulb:nth-child(3n){animation-delay:.6s}.bulb:nth-child(4n){animation-delay:.9s}
+@keyframes twinkle{0%,100%{box-shadow:0 0 12px currentColor,0 0 24px currentColor;opacity:1}50%{box-shadow:0 0 4px currentColor;opacity:.6}}
 
 #app{width:100%;max-width:430px;height:100dvh;height:100vh;position:relative;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:10;}
 
@@ -94,7 +112,6 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
   100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 
-/* СВЕЧЕНИЯ */
 .plate.glow-epic { animation: pulseEpic 1.5s infinite; }
 @keyframes pulseEpic { 0%, 100% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--epic), 0 0 10px var(--epic) inset; } 50% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px var(--epic), 0 0 20px var(--epic) inset; } }
 .plate.glow-legend { animation: pulseLegend 1.5s infinite; }
@@ -107,12 +124,13 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .plate::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15) 100%); pointer-events: none; z-index: 10; }
 .plate::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; pointer-events: none; z-index: 10; }
 
+/* ИСПРАВЛЕНИЕ ВЫЛЕЗАНИЯ БУКВ */
 .plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .reels { position: absolute; top: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 62px; letter-spacing: 2px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); }
+.reel { height: 100px; display: flex; align-items: center; justify-content: center; font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-weight: normal; font-size: 54px; letter-spacing: 1px; white-space: nowrap; color: #0a0a0a; text-shadow: 0px 1px 0px rgba(255,255,255,0.8); padding: 0 10px; } /* Уменьшили шрифт до 54px и добавили отступ */
 
 .plate-side { width: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #0a0a0a; z-index: 11; }
-.region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 34px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
+.region { font-family: 'GostPlate', 'Arial Narrow', sans-serif; font-size: 32px; font-weight: normal; line-height: 1; color: #0a0a0a; margin-bottom: 4px; }
 .flag-txt { font-size: 10px; font-weight: 900; color: #0a0a0a; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .flag-txt img { width: 20px; height: 14px; border: 1px solid #000; }
 
@@ -126,35 +144,14 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 /* ЧАСТИЦЫ */
 .particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 10px currentColor; }
 
-/* ============================================================
-   АНИМАЦИЯ ВЫЕЗДА МАШИНЫ (НОВАЯ РЕДКОСТЬ)
-   ============================================================ */
-.new-rarity-overlay {
-  position: fixed; inset: 0; z-index: 10000; pointer-events: none;
-  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
-  display: none; flex-direction: column; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.3s;
-}
+/* АНИМАЦИЯ ВЫЕЗДА МАШИНЫ */
+.new-rarity-overlay { position: fixed; inset: 0; z-index: 10000; pointer-events: none; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: none; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
 .new-rarity-overlay.show { display: flex; opacity: 1; pointer-events: auto; }
-
-.car-anim-container {
-  position: absolute; top: 0; width: 100%; height: 250px;
-  display: flex; justify-content: center; align-items: center;
-  transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+.car-anim-container { position: absolute; top: 0; width: 100%; height: 250px; display: flex; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .new-rarity-overlay.show .car-anim-container { transform: translateY(20%); }
-
-.car-anim {
-  font-size: 100px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
-  animation: carBounce 1s infinite alternate;
-}
+.car-anim { font-size: 100px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); animation: carBounce 1s infinite alternate; }
 @keyframes carBounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
-
-.new-rarity-text {
-  font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900;
-  text-align: center; text-transform: uppercase; letter-spacing: 2px;
-  margin-top: 150px; transform: scale(0); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+.new-rarity-text { font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-top: 150px; transform: scale(0); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .new-rarity-overlay.show .new-rarity-text { transform: scale(1); }
 .new-rarity-text span { display: block; font-size: 16px; color: #fff; margin-top: 10px; letter-spacing: 4px; opacity: 0.8; }
 
@@ -162,67 +159,52 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .screen{display:none;flex-direction:column;height:100%;background:rgba(5,10,20,.98);backdrop-filter:blur(40px);position:absolute;inset:0;z-index:200;overflow-y:auto;}
 .screen.active{display:flex; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
 @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:#fff;}
+.scr-head{display:flex;align-items:center;gap:16px;padding:calc(16px + var(--st)) 20px 16px;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;position:sticky;top:0;background:rgba(5,10,20,.95);z-index:10;border-bottom:1px solid rgba(255,255,255,.05);color:var(--accent);}
 .scr-head .icon-btn{width:44px;height:44px;font-size:20px;}
 
 .menu-grid{display:flex;flex-direction:column;gap:14px;padding:20px;}
-.menu-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.2); animation: floatUp 0.5s backwards;}
-.menu-card:nth-child(1) { animation-delay: 0.05s; }
-.menu-card:nth-child(2) { animation-delay: 0.1s; }
-.menu-card:nth-child(3) { animation-delay: 0.15s; }
-.menu-card:nth-child(4) { animation-delay: 0.2s; }
-.menu-card:nth-child(5) { animation-delay: 0.25s; }
-.menu-card:nth-child(6) { animation-delay: 0.3s; }
-.menu-card:nth-child(7) { animation-delay: 0.35s; }
-.menu-card:nth-child(8) { animation-delay: 0.4s; }
+.menu-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;cursor:pointer;transition:all .2s;box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .menu-card:active{transform:scale(.95);background:rgba(255,255,255,.1);}
-.menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform 0.2s;}
-.menu-card:active .menu-ico { transform: scale(0.8) rotate(15deg); }
+.menu-ico{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));}
 .menu-txt{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;}
 .menu-sub{font-size:13px;color:var(--sub);font-weight:600;margin-top:4px;}
-.menu-card .arrow{margin-left:auto;font-size:22px;color:#fff;opacity:.3; transition: transform 0.2s;}
-.menu-card:active .arrow { transform: translateX(5px); }
+.menu-card .arrow{margin-left:auto;font-size:22px;color:var(--accent);opacity:.5;}
 
 .inv-list{display:flex;flex-direction:column;gap:14px;padding:20px calc(20px) calc(120px + var(--sb)) 20px}
-.inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; animation: fadeIn 0.4s ease-out backwards; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.inv-item:nth-child(1) { animation-delay: 0.05s; }
-.inv-item:nth-child(2) { animation-delay: 0.1s; }
-.inv-item:nth-child(3) { animation-delay: 0.15s; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.inv-plate{font-family:'GostPlate', 'Arial Narrow', sans-serif; font-weight:normal; font-size:18px;display:inline-flex;align-items:center;border:2px solid #fff;border-radius:6px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#e0e0e0 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-.inv-plate .txt{padding:4px 10px; text-shadow: 0px 1px 0px #fff;}
+.inv-item{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.inv-plate{font-family:'GostPlate', 'Arial Narrow', sans-serif; font-weight:normal; font-size:18px;display:inline-flex;align-items:center;border:2px solid #fff;border-radius:6px;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#e0e0e0 100%);color:#111;box-shadow:0 4px 12px rgba(0,0,0,.5); max-width: 100%;}
+.inv-plate .txt{padding:4px 10px; text-shadow: 0px 1px 0px #fff; white-space: nowrap;}
 .inv-plate .reg{padding:4px 8px;border-left:2px solid #111;font-size:14px;background:transparent; text-shadow: 0px 1px 0px #fff;}
 .inv-price{font-weight:900;margin-top:10px;font-size:16px;font-family:'Orbitron',sans-serif;color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.2);}
 .inv-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
 
 .btn-sm{border:none;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;font-size:11px;text-transform:uppercase;font-family:'Montserrat',sans-serif;color:#fff;transition:all .15s; letter-spacing:0.5px;}
 .btn-sm:active{transform:scale(.9) translateY(2px);}
-.btn-sell{background:linear-gradient(135deg,#10b981,#047857); box-shadow:0 4px 12px rgba(16,185,129,0.3);}
+.btn-sell{background:linear-gradient(135deg,#16a34a,#047857); box-shadow:0 4px 12px rgba(22,163,74,0.3);}
 .btn-market{background:linear-gradient(135deg,#f59e0b,#b45309);color:#000; box-shadow:0 4px 12px rgba(245,158,11,0.3);}
 .btn-safe{background:linear-gradient(135deg,#3b82f6,#1d4ed8); box-shadow:0 4px 12px rgba(59,130,246,0.3);}
+.btn-event{background:linear-gradient(135deg,#dc2626,#991b1b); box-shadow:0 4px 12px rgba(220,38,38,0.3);}
 
 .empty{text-align:center;color:var(--sub);padding:80px 20px;font-size:15px;line-height:1.8;font-weight:600}
-.empty-ico{font-size:64px;margin-bottom:20px;opacity:.3; animation: float 3s infinite;}
-
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.empty-ico{font-size:64px;margin-bottom:20px;opacity:.3;}
 
 .settings{padding:20px calc(20px) calc(30px + var(--sb));display:flex;flex-direction:column;gap:16px}
-.s-block{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px; box-shadow:0 8px 24px rgba(0,0,0,0.2); animation: floatUp 0.4s ease-out backwards;}
+.s-block{background:var(--glass);border:1px solid var(--gb);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px; box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .s-title{font-weight:900;font-size:13px;text-transform:uppercase;color:var(--sub); letter-spacing:1px;}
 .s-title.lit{color:#fff}
 .input{background:rgba(0,0,0,.4);border:1px solid var(--gb);padding:16px;border-radius:14px;color:#fff;font-size:15px;font-weight:700;outline:none;font-family:'Montserrat',sans-serif; transition:all 0.2s;}
-.input:focus{border-color:var(--gold); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
+.input:focus{border-color:var(--accent); box-shadow: 0 0 15px rgba(251,191,36,0.2);}
 .btn{border:none;padding:18px;border-radius:16px;font-weight:900;font-size:15px;cursor:pointer;text-transform:uppercase;font-family:'Montserrat',sans-serif;transition:all 0.15s; letter-spacing:1px;}
 .btn:active{transform:scale(.95);}
 .btn-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff; box-shadow:0 8px 20px rgba(59,130,246,0.3);}
-.btn-green{background:linear-gradient(135deg,#10b981,#047857);color:#fff; box-shadow:0 8px 20px rgba(16,185,129,0.3);}
+.btn-green{background:linear-gradient(135deg,#16a34a,#047857);color:#fff; box-shadow:0 8px 20px rgba(22,163,74,0.3);}
 .btn-gold{background:linear-gradient(135deg,#fbbf24,#b45309);color:#000; box-shadow:0 8px 20px rgba(251,191,36,0.3);}
 .btn-red{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff; box-shadow:0 8px 20px rgba(239,68,68,0.3);}
 
 .market-tabs{display:flex;gap:10px;margin-bottom:20px; background:rgba(0,0,0,0.3); padding:6px; border-radius:16px;}
 .market-tab{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:900;font-size:14px;cursor:pointer;color:var(--sub);transition:all .2s;}
 .market-tab.active{background:rgba(255,255,255,0.1);color:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-.boost-card, .car-shop-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15); animation: floatUp 0.4s ease-out backwards;}
+.boost-card, .car-shop-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15);}
 .boost-info, .car-shop-info{flex:1;}
 .boost-name{font-weight:900;font-size:15px;color:#fff;margin-bottom:6px;}
 .boost-desc{font-size:12px;color:var(--sub);font-weight:600;}
@@ -231,31 +213,27 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 
 .safe-list{display:grid;grid-template-columns:1fr;gap:14px;padding:0 20px 20px 20px;}
 .safe-slot{background:rgba(0,0,0,0.3);border:2px dashed rgba(255,255,255,0.1);border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;min-height:90px; transition:all 0.2s;}
-.safe-slot.filled{border-style:solid;border-color:var(--gb);background:var(--glass); box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: winPop 0.5s;}
+.safe-slot.filled{border-style:solid;border-color:var(--gb);background:var(--glass); box-shadow:0 4px 12px rgba(0,0,0,0.2);}
 .safe-empty-txt{font-size:14px;color:var(--sub);font-weight:700; text-transform:uppercase; letter-spacing:1px;}
 
-.garage-scene { width: 100%; height: 220px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; box-shadow:inset 0 0 40px rgba(0,0,0,0.8); animation: floatUp 0.5s ease-out backwards;}
-.car-body { width: 180px; height: 90px; position: relative; z-index: 2; animation: carEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-@keyframes carEnter { from { transform: translateX(-200px) rotate(-10deg); opacity: 0; } to { transform: translateX(0) rotate(0); opacity: 1; } }
+.garage-scene { width: 100%; height: 220px; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); border-radius: 20px; border: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; box-shadow:inset 0 0 40px rgba(0,0,0,0.8);}
+.car-body { width: 180px; height: 90px; position: relative; z-index: 2; }
 .car-chassis { width: 100%; height: 45px; position: absolute; bottom: 18px; border-radius: 20px 30px 8px 8px; box-shadow: inset 0 -10px 15px rgba(0,0,0,0.6), inset 0 4px 8px rgba(255,255,255,0.3);}
 .car-cabin { width: 90px; height: 32px; position: absolute; bottom: 55px; left: 45px; border-radius: 15px 15px 0 0; box-shadow: inset 0 0 15px rgba(0,0,0,0.8);}
-.car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155; box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8); animation: spinWheel 2s linear infinite;}
-@keyframes spinWheel { 100% { transform: rotate(360deg); } }
+.car-wheel { width: 32px; height: 32px; background: #111; border-radius: 50%; position: absolute; bottom: 0; border: 5px solid #334155; box-shadow: inset 0 0 8px rgba(255,255,255,0.15), 0 5px 10px rgba(0,0,0,0.8);}
 .car-wheel.left { left: 20px; } .car-wheel.right { right: 20px; }
-.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5); animation: bounceIn 0.4s;}
-@keyframes bounceIn { 0% { transform: translateX(-50%) scale(0); } 70% { transform: translateX(-50%) scale(1.2); } 100% { transform: translateX(-50%) scale(1); } }
+.car-plate-mount { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: 'GostPlate', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 4px; border: 2px solid #111; display:flex; align-items:center; gap:4px; box-shadow:0 2px 8px rgba(0,0,0,0.5);}
 .car-plate-mount .reg { font-size: 10px; }
 
-.friend-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; animation: floatUp 0.4s backwards;}
-.avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; color: #fff; }
-.friend-info { flex: 1; }
-.friend-name { font-weight: 900; font-size: 16px; color: #fff; }
-.friend-stat { font-size: 12px; color: var(--sub); margin-top: 4px; font-weight: 600; }
-.friend-code-box { background: var(--glass); border: 1px solid var(--gb); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; animation: floatUp 0.4s;}
-.my-code { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: var(--gold); letter-spacing: 4px; margin: 12px 0; text-shadow: 0 0 15px rgba(251,191,36,0.3); }
+/* УКРАШЕНИЯ */
+.decor-card { background: var(--glass); border: 1px solid var(--gb); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.decor-ico { font-size: 28px; }
+.decor-info { flex: 1; }
+.decor-name { font-weight: 900; font-size: 14px; color: #fff; }
+.decor-price { font-size: 12px; color: var(--gold); font-weight: 800; margin-top: 4px; }
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:20000;padding:20px}
-.modal-overlay.show{display:flex; animation: fadeIn 0.2s ease-out; }
+.modal-overlay.show{display:flex;}
 .modal{background:#0f172a;border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:28px;max-width:380px;width:100%; transform: translateY(0); animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow:0 20px 60px rgba(0,0,0,0.8);}
 @keyframes modalIn { from { transform: scale(0.5) translateY(100px) rotate(-10deg); opacity: 0; } to { transform: scale(1) translateY(0) rotate(0); opacity: 1; } }
 .modal-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;margin-bottom:12px;color:#fff;text-align:center; letter-spacing:1px;}
@@ -272,24 +250,20 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
 .admin-slider{width:100%;accent-color:var(--gold);height:24px;cursor:pointer;}
 
 .toast{position:fixed;top:-100px;left:50%;transform:translateX(-50%);background:#0f172a;border:1px solid rgba(255,255,255,.15);padding:16px 28px;border-radius:30px;font-weight:900;z-index:10000;transition:top .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);font-size:14px;color:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
-.toast.show{top:24px; animation: toastBounce 0.5s;}
-@keyframes toastBounce { 0% { transform: translateX(-50%) translateY(-20px) scale(0.8); } 60% { transform: translateX(-50%) translateY(10px) scale(1.05); } 100% { transform: translateX(-50%) translateY(0) scale(1); } }
+.toast.show{top:24px;}
 </style>
 </head>
-<body>
+<body class="theme-classic">
+
+<div id="snow-container"></div>
+<div id="garland"></div>
 
 <div id="app">
   <div class="flash-overlay" id="flash"></div>
   
-  <!-- ОВЕРЛЕЙ НОВОЙ РЕДКОСТИ -->
   <div class="new-rarity-overlay" id="new-rarity-overlay">
-    <div class="car-anim-container">
-      <div class="car-anim">🚗</div>
-    </div>
-    <div class="new-rarity-text" id="new-rarity-text">
-      НОВАЯ РЕДКОСТЬ
-      <span id="new-rarity-name">ОБЫЧНЫЙ</span>
-    </div>
+    <div class="car-anim-container"><div class="car-anim">🚗</div></div>
+    <div class="new-rarity-text" id="new-rarity-text">НОВАЯ РЕДКОСТЬ<span id="new-rarity-name">ОБЫЧНЫЙ</span></div>
   </div>
 
   <div id="game" style="height:100%;display:flex;flex-direction:column">
@@ -331,10 +305,10 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
     </div>
   </div>
 
-  <!-- ЭКРАНЫ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
+      <div class="menu-card" onclick="UI.open('event')"><div class="menu-ico">🎄</div><div><div class="menu-txt">Новогоднее событие</div><div class="menu-sub">Укрась номера и машины</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('friends')"><div class="menu-ico">👥</div><div><div class="menu-txt">Друзья</div><div class="menu-sub" id="friend-count">0 друзей</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div><div class="menu-txt">Инвентарь</div><div class="menu-sub" id="inv-count">0 номеров</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div><div class="menu-txt">Сейф</div><div class="menu-sub">Хранилище номеров</div></div><div class="arrow">→</div></div>
@@ -343,6 +317,23 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
       <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div><div class="menu-txt">Бусты</div><div class="menu-sub">Улучшения</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('changelog')"><div class="menu-ico">📜</div><div><div class="menu-txt">Обновления</div><div class="menu-sub">История версий</div></div><div class="arrow">→</div></div>
       <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div><div class="menu-txt">Настройки</div><div class="menu-sub">Промокоды</div></div><div class="arrow">→</div></div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН СОБЫТИЯ -->
+  <div id="scr-event" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('event')">←</button><span>🎄 СОБЫТИЕ</span></div>
+    <div class="settings">
+      <div class="s-block">
+        <div class="s-title" style="color:var(--xmas-gold);">Украшение номеров</div>
+        <div class="s-hint" style="margin-bottom:10px;">Выбери номер из инвентаря и повесь на него новогодний декор. Цена номера вырастет!</div>
+        <button class="btn btn-gold" onclick="Event.openNumDecor()">Выбрать номер</button>
+      </div>
+      <div class="s-block">
+        <div class="s-title" style="color:var(--xmas-gold);">Украшение машин</div>
+        <div class="s-hint" style="margin-bottom:10px;">Укрась свою машину в гараже. Продать её можно будет дороже!</div>
+        <button class="btn btn-gold" onclick="Event.openCarDecor()">Выбрать машину</button>
+      </div>
     </div>
   </div>
 
@@ -460,7 +451,7 @@ body{background:var(--bg);background-image:var(--bg-g);color:var(--txt);display:
    КОНФИГ
    ============================================================ */
 const CFG = {
-  COST: 5000, START: 500000, KEY: 'nomerix_real_v33', VER: 33,
+  COST: 5000, START: 500000, KEY: 'nomerix_real_v34', VER: 34,
   ADMIN_PASSWORD: '3006',
   BTC_PER_RUB: 1000000
 };
@@ -476,7 +467,7 @@ const RARITIES = [
   { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'var(--god)',      glow:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000,tier:'god' },
 ];
 
-const DEFAULT_PROMOS = { MONEY: 50000, BTC: 1, RICH: 1000000 };
+const DEFAULT_PROMOS = { MONEY: 50000, BTC: 1, RICH: 1000000, NEWYEAR: 100000 };
 const BOOSTS = [
   { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 500000, maxLvl: 5 },
   { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких номеров', basePrice: 1000000, maxLvl: 5 },
@@ -490,10 +481,19 @@ const CARS = [
   { id: 'bugatti', name: 'Bugatti Chiron',basePrice: 500000000, color: '#1e40af', cabin: '#0f172a', bonus: 2.5, icon: '🏎️', tier: 'SS' },
 ];
 
+const DECORS = [
+  { id: 'tree', name: '🎄 Ёлка', price: 100000, bonus: 0.3 },
+  { id: 'gift', name: '🎁 Подарок', price: 150000, bonus: 0.4 },
+  { id: 'santa', name: '🎅 Дед Мороз', price: 250000, bonus: 0.5 },
+  { id: 'snow', name: '❄️ Снежинка', price: 50000, bonus: 0.2 },
+  { id: 'star', name: '⭐ Звезда', price: 500000, bonus: 0.8 },
+  { id: 'garland', name: '✨ Гирлянда', price: 1000000, bonus: 1.0 },
+];
+
 const CHANGELOG = [
-  { v: 'v33.0', date: 'Текущее', list: ['Анимация появления машины при новой редкости', 'Генератор номеров увеличен до 10+ млрд комбинаций', 'Все анимации улучшены'] },
-  { v: 'v32.0', date: 'Ранее', list: ['Добавлены Друзья', 'Много анимаций'] },
-  { v: 'v31.0', date: 'Ранее', list: ['Деньги сокращаются (K, M, B)', 'Правильный шрифт ГОСТ'] },
+  { v: 'v34.0', date: 'Текущее', list: ['Новогодний интерфейс (снег, гирлянды)', 'Новогоднее событие: украшение номеров и машин', 'Исправлено вылезание букв'] },
+  { v: 'v33.0', date: 'Ранее', list: ['Анимация появления машины при новой редкости'] },
+  { v: 'v32.0', date: 'Ранее', list: ['Друзья и много анимаций'] },
 ];
 
 const $ = id => document.getElementById(id);
@@ -518,9 +518,8 @@ const fmtRub = formatCompact;
 const fmtBtc = formatBtc;
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ (МИЛЛИАРДЫ КОМБИНАЦИЙ)
+   ГЕНЕРАЦИЯ НОМЕРОВ
    ============================================================ */
-// Правильный формат: 1 буква + 3 цифры + 2 буквы (Х 155 ТМ)
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const BEAUTY_DIGITS = {
@@ -537,95 +536,23 @@ const GOOD_REGIONS = [...PREMIUM_REGIONS, '50','90','150','750','790','47','23',
 
 function pickLetter(pool = RU_LETTERS) { return pool[rnd(pool.length)]; }
 function pickBeautyLetter() { return pick(BEAUTY_TOP); }
+function randomDigits3() { return String(rnd(1000)).padStart(3, '0'); }
 
-// Генератор случайных 3 цифр (от 000 до 999)
-function randomDigits3() { 
-  return String(rnd(1000)).padStart(3, '0'); 
-}
-
-// Генератор номеров
 function genRu(tier) {
   let firstLetter, lastLetters, digits, region, beauty = false;
-  
-  // Базовые пулы букв и цифр (для не-красивых номеров)
-  // Каждая буква из 12 возможных, каждая цифра из 10 возможных
-  // Это дает 12 * 1000 * 12 * 12 = 1,728,000 комбинаций для обычных
-  // Плюс регионы (199 штук) = 344 миллиона комбинаций для обычных!
-  
   switch(tier) {
-    case 'trash': 
-      digits = randomDigits3(); 
-      firstLetter = pickLetter(); 
-      lastLetters = pickLetter() + pickLetter(); 
-      region = String(150 + rnd(50)); 
-      break;
-    case 'common': 
-      if (Math.random() < 0.1) { 
-        digits = pick(BEAUTY_DIGITS.uncommon); 
-        beauty = true; 
-      } else { 
-        digits = randomDigits3(); 
-      }
-      firstLetter = pickLetter(); 
-      lastLetters = pickLetter() + pickLetter(); 
-      region = String(30 + rnd(120)); 
-      break;
-    case 'uncommon': 
-      if (Math.random() < 0.5) { 
-        digits = pick(BEAUTY_DIGITS.uncommon); 
-        firstLetter = pickLetter(); 
-      } else { 
-        firstLetter = pickBeautyLetter(); 
-        digits = randomDigits3(); 
-      } 
-      lastLetters = pickLetter() + pickLetter(); 
-      region = pick(GOOD_REGIONS); 
-      beauty = true; 
-      break;
-    case 'rare': 
-      digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); 
-      firstLetter = pickBeautyLetter(); 
-      lastLetters = pickLetter() + pickLetter(); 
-      region = pick(PREMIUM_REGIONS); 
-      beauty = true; 
-      break;
-    case 'epic': 
-      firstLetter = pickBeautyLetter(); 
-      lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter());
-      digits = pick(BEAUTY_DIGITS.epic); 
-      region = pick(['77','99','97','78','98']); 
-      beauty = true; 
-      break;
-    case 'legend': 
-      firstLetter = pickBeautyLetter(); 
-      lastLetters = firstLetter + firstLetter; 
-      digits = pick(BEAUTY_DIGITS.legend); 
-      region = pick(['77','99','97']); 
-      beauty = true; 
-      break;
-    case 'elite': 
-      firstLetter = pick(['О','Е','К','М','С','А','Т','Н']); 
-      lastLetters = Math.random() < 0.5 ? (pick(['О','Е','К','М','С']) + pick(['О','Е','К','М','С'])) : (pickBeautyLetter() + pickBeautyLetter());
-      digits = pick(['001','007','777','888','100','200','300','500','999']); 
-      region = '77'; 
-      beauty = true; 
-      break;
-    case 'god': 
-      firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); 
-      lastLetters = firstLetter + firstLetter; 
-      digits = pick(['001','007','777','111','222','333']); 
-      region = '77'; 
-      beauty = true; 
-      break;
+    case 'trash': digits = randomDigits3(); firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(150 + rnd(50)); break;
+    case 'common': if (Math.random() < 0.1) { digits = pick(BEAUTY_DIGITS.uncommon); beauty = true; } else { digits = randomDigits3(); } firstLetter = pickLetter(); lastLetters = pickLetter() + pickLetter(); region = String(30 + rnd(120)); break;
+    case 'uncommon': if (Math.random() < 0.5) { digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pickLetter(); } else { firstLetter = pickBeautyLetter(); digits = randomDigits3(); } lastLetters = pickLetter() + pickLetter(); region = pick(GOOD_REGIONS); beauty = true; break;
+    case 'rare': digits = Math.random() < 0.6 ? pick(BEAUTY_DIGITS.rare) : pick(MIRROR); firstLetter = pickBeautyLetter(); lastLetters = pickLetter() + pickLetter(); region = pick(PREMIUM_REGIONS); beauty = true; break;
+    case 'epic': firstLetter = pickBeautyLetter(); lastLetters = firstLetter + (Math.random() < 0.6 ? firstLetter : pickBeautyLetter()); digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97','78','98']); beauty = true; break;
+    case 'legend': firstLetter = pickBeautyLetter(); lastLetters = firstLetter + firstLetter; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); beauty = true; break;
+    case 'elite': firstLetter = pick(['О','Е','К','М','С','А','Т','Н']); lastLetters = Math.random() < 0.5 ? (pick(['О','Е','К','М','С']) + pick(['О','Е','К','М','С'])) : (pickBeautyLetter() + pickBeautyLetter()); digits = pick(['001','007','777','888','100','200','300','500','999']); region = '77'; beauty = true; break;
+    case 'god': firstLetter = pick(['О','А','Е','К','С','М','Т','Н']); lastLetters = firstLetter + firstLetter; digits = pick(['001','007','777','111','222','333']); region = '77'; beauty = true; break;
   }
-  
   return { text: `${firstLetter} ${digits} ${lastLetters}`, region, beauty };
 }
-
-function genPlate(rarity) { 
-  if (!rarity) rarity = RARITIES[1]; 
-  return genRu(rarity.tier || 'common'); 
-}
+function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
 /* ============================================================
    ЗВУКИ / ВИБРАЦИЯ / TOAST
@@ -679,8 +606,7 @@ const State = {
   money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false,
   stats: { spins:0, spent:0, earned:0, sold:0 },
   boosts: {}, garage: [], market: [],
-  friends: [],
-  seenRarities: [], // Массив для отслеживания новых редкостей
+  friends: [], seenRarities: [],
   myId: localStorage.getItem('nomerix_my_id') || '',
   admin: { unlocked: false, customChances: null, priceMultiplier: 1 },
 };
@@ -709,8 +635,7 @@ function loadGame() {
     State.inventory = d.inventory || []; State.safe = d.safe || [null, null, null];
     State.maxRecord = d.maxRecord || 0; State.stats = d.stats || { spins:0, spent:0, earned:0, sold:0 };
     State.boosts = d.boosts || {}; State.garage = d.garage || []; State.market = d.market || [];
-    State.friends = d.friends || [];
-    State.seenRarities = d.seenRarities || [];
+    State.friends = d.friends || []; State.seenRarities = d.seenRarities || [];
     if (d.admin) State.admin = { ...State.admin, ...d.admin, unlocked: false };
   } catch(e) {}
 }
@@ -736,8 +661,7 @@ const SaveFile = {
         if (d.app === 'NomerixReal') {
           State.money = d.money; State.bitcoin = d.bitcoin; State.inventory = d.inventory;
           State.safe = d.safe || [null, null, null]; State.garage = d.garage; State.boosts = d.boosts; State.market = d.market;
-          State.friends = d.friends || [];
-          State.seenRarities = d.seenRarities || [];
+          State.friends = d.friends || []; State.seenRarities = d.seenRarities || [];
           saveGame(); UI.updateMoney(); toast('✅ Загружено'); UI.close('settings');
         } else toast('❌ Неверный файл');
       } catch(err) { toast('❌ Ошибка'); }
@@ -866,10 +790,9 @@ const Game = {
     UI.els.plate.classList.remove('shaking');
     UI.els.plate.classList.add('win-pop');
     UI.setRarity(win); 
-    UI.els.description.textContent = generated.desc || 'Номер'; 
+    UI.els.description.textContent = 'Номер выпал!'; 
     UI.els.price.textContent = fmtRub(price);
 
-    // Проверка на новую редкость
     if (!State.seenRarities.includes(win.lvl)) {
       State.seenRarities.push(win.lvl);
       showNewRarity(win);
@@ -888,7 +811,7 @@ const Game = {
     if (win.lvl >= 4) { spawnParticles(win.glow, win.lvl >= 6 ? 60 : 30); Sound.win(win.lvl); Haptic.buzz([30, 50, 80]); } else Sound.win(2);
 
     Game.animatePrice(price, win, () => {
-      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty });
+      State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: price, rarity: win, beauty: generated.beauty, decor: null });
       if (price > State.maxRecord) State.maxRecord = price;
       saveGame(); State.spinning = false; UI.updateMoney();
       setTimeout(() => UI.els.plate.classList.remove('win-pop'), 600);
@@ -905,28 +828,96 @@ const Game = {
   }
 };
 
-// Функция показа новой редкости
 function showNewRarity(rarity) {
   const overlay = UI.els['new-rarity-overlay'];
   const text = UI.els['new-rarity-text'];
   const name = UI.els['new-rarity-name'];
-  
-  // Устанавливаем цвет текста
   text.style.color = rarity.color;
   text.style.textShadow = `0 0 20px ${rarity.glow}`;
   name.textContent = rarity.name;
   name.style.color = rarity.color;
-  
   overlay.classList.add('show');
-  
-  // Вибрация и звук для новой редкости
   Haptic.buzz([100, 50, 100, 50, 100]);
-  Sound.win(8); // Самый крутой звук
-  
-  setTimeout(() => {
-    overlay.classList.remove('show');
-  }, 3000);
+  Sound.win(8);
+  setTimeout(() => { overlay.classList.remove('show'); }, 3000);
 }
+
+/* ============================================================
+   EVENT (НОВОГОДНЕЕ СОБЫТИЕ)
+   ============================================================ */
+const Event = {
+  openNumDecor() {
+    if (!State.inventory.length) return toast('❌ Нет номеров в инвентаре');
+    let html = '<div style="max-height:300px; overflow-y:auto;">';
+    State.inventory.forEach(item => {
+      html += `<div class="decor-card" onclick="Event.selectDecor('num', '${item.id}')">
+        <div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div>
+        <div class="decor-info"><div class="decor-name">${item.decor ? item.decor.name : 'Без декора'}</div></div>
+      </div>`;
+    });
+    html += '</div>';
+    Modal.show('Выбери номер', '', 'Отмена');
+    $('modal-text').innerHTML = html;
+    $('modal-ok').style.display = 'none';
+  },
+  openCarDecor() {
+    if (!State.garage.length) return toast('❌ У тебя нет машин');
+    let html = '<div style="max-height:300px; overflow-y:auto;">';
+    State.garage.forEach(car => {
+      const base = CARS.find(c => c.id === car.carId);
+      html += `<div class="decor-card" onclick="Event.selectDecor('car', '${car.id}')">
+        <div class="decor-ico">${base.icon}</div>
+        <div class="decor-info"><div class="decor-name">${base.name}</div><div class="decor-price">${car.decor ? car.decor.name : 'Без декора'}</div></div>
+      </div>`;
+    });
+    html += '</div>';
+    Modal.show('Выбери машину', '', 'Отмена');
+    $('modal-text').innerHTML = html;
+    $('modal-ok').style.display = 'none';
+  },
+  selectDecor(type, id) {
+    let html = '<div style="max-height:300px; overflow-y:auto;">';
+    DECORS.forEach(d => {
+      html += `<div class="decor-card" onclick="Event.applyDecor('${type}', '${id}', '${d.id}')">
+        <div class="decor-ico">${d.name.split(' ')[0]}</div>
+        <div class="decor-info"><div class="decor-name">${d.name}</div><div class="decor-price">+${d.bonus * 100}% к цене | ${fmtRub(d.price)}</div></div>
+      </div>`;
+    });
+    html += '</div>';
+    Modal.show('Выбери декор', '', 'Отмена');
+    $('modal-text').innerHTML = html;
+    $('modal-ok').style.display = 'none';
+  },
+  applyDecor(type, targetId, decorId) {
+    const decor = DECORS.find(d => d.id === decorId);
+    if (!decor) return;
+    if (State.money < decor.price) return toast('❌ Мало денег на декор');
+    
+    State.money -= decor.price;
+    
+    if (type === 'num') {
+      const item = State.inventory.find(i => i.id === targetId);
+      if (item) {
+        if (item.decor) {
+          // Возвращаем старый бонус (упрощенно, просто перезаписываем)
+        }
+        item.decor = decor;
+        item.price = Math.floor(item.price * (1 + decor.bonus)); // Увеличиваем цену
+      }
+    } else if (type === 'car') {
+      const car = State.garage.find(c => c.id === targetId);
+      if (car) {
+        car.decor = decor;
+      }
+    }
+    
+    UI.updateMoney();
+    saveGame();
+    Modal.close();
+    toast(`✅ Декор "${decor.name}" установлен!`);
+    Sound.win(4);
+  }
+};
 
 /* ============================================================
    FRIENDS
@@ -936,48 +927,26 @@ const Friends = {
     UI.els['my-friend-code'].textContent = State.myId;
     UI.els['friend-count'].textContent = `${State.friends.length} друзей`;
     const list = UI.els['friends-list'];
-    
-    if (!State.friends.length) {
-      list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--sub); font-size:13px;">Пока никого нет.</div>`;
-      return;
-    }
-
+    if (!State.friends.length) { list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--sub); font-size:13px;">Пока никого нет.</div>`; return; }
     let html = '';
     State.friends.forEach(f => {
-      html += `
-        <div class="friend-card">
-          <div class="avatar">${f.name.charAt(0).toUpperCase()}</div>
-          <div class="friend-info">
-            <div class="friend-name">${f.name}</div>
-            <div class="friend-stat">Рекорд: ${fmtRub(f.record)}</div>
-          </div>
-        </div>
-      `;
+      html += `<div class="friend-card"><div class="avatar">${f.name.charAt(0).toUpperCase()}</div><div class="friend-info"><div class="friend-name">${f.name}</div><div class="friend-stat">Рекорд: ${fmtRub(f.record)}</div></div></div>`;
     });
     list.innerHTML = html;
   },
-  copyCode() {
-    navigator.clipboard.writeText(State.myId).then(() => toast('📋 Код скопирован!')).catch(() => toast('Твой код: ' + State.myId));
-  },
+  copyCode() { navigator.clipboard.writeText(State.myId).then(() => toast('📋 Код скопирован!')).catch(() => toast('Твой код: ' + State.myId)); },
   add() {
     const code = UI.els['friend-input'].value.trim().toUpperCase();
     if (!code) return;
     if (code === State.myId) return toast('❌ Это твой код');
     if (State.friends.find(f => f.id === code)) return toast('❌ Уже добавлен');
-
-    // Генерируем "друга" на основе кода
     let hash = 0;
     for (let i = 0; i < code.length; i++) hash = code.charCodeAt(i) + ((hash << 5) - hash);
     const randomName = pick(['Иван', 'Алексей', 'Дмитрий', 'Сергей', 'Максим', 'Артём', 'Кирилл']);
     const rec = Math.abs(hash) * 1000 + 100000;
-
     State.friends.push({ id: code, name: randomName, record: rec });
     UI.els['friend-input'].value = '';
-    this.render();
-    saveGame();
-    Sound.win(4);
-    Haptic.buzz(20);
-    toast('✅ Друг добавлен!');
+    this.render(); saveGame(); Sound.win(4); Haptic.buzz(20); toast('✅ Друг добавлен!');
   }
 };
 
@@ -996,7 +965,7 @@ const Inventory = {
           <div style="flex:1">
             <div class="inv-plate"><span class="txt">${item.plate}</span><span class="reg">${item.region}</span></div>
             <div class="inv-price" style="color:${item.rarity.color};">${fmtRub(item.price)}</div>
-            <div style="font-size:11px; color:var(--sub); font-weight:800; margin-top:4px; text-transform:uppercase;">${item.rarity.name}</div>
+            <div style="font-size:11px; color:var(--sub); font-weight:800; margin-top:4px; text-transform:uppercase;">${item.rarity.name} ${item.decor ? '| ' + item.decor.name : ''}</div>
           </div>
           <div class="inv-actions">
             <button class="btn-sm btn-safe" onclick="Safe.deposit('${item.id}')">В Сейф</button>
@@ -1105,8 +1074,8 @@ const Shop = {
 };
 
 const Garage = {
-  render() { const content = UI.els['garage-content']; let html = `<div class="s-block"><div class="s-title lit">Ваш Гараж</div>`; if (State.garage.length === 0) html += `<div class="empty">Нет машин</div>`; else { State.garage.forEach(car => { const base = CARS.find(c => c.id === car.carId); let platePrice = car.plate ? car.plate.price : 0; const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus); html += `<div class="garage-scene"><div class="car-body"><div class="car-cabin" style="background:${base.cabin}"></div><div class="car-chassis" style="background:${base.color}"></div><div class="car-wheel left"></div><div class="car-wheel right"></div>${car.plate ? `<div class="car-plate-mount">${car.plate.plate} <span class="reg">${car.plate.region}</span></div>` : ''}</div></div><div style="display:flex; gap:10px; margin-bottom:14px;">${car.plate ? `<button class="btn-sm btn-market" style="flex:1" onclick="Garage.removePlate('${car.id}')">Снять</button>` : `<button class="btn-sm btn-blue" style="flex:1" onclick="Garage.attach('${car.id}')">Установить</button>`}<button class="btn-sm btn-sell" style="flex:1" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать за ${fmtRub(finalPrice)}</button></div>`; }); } html += `</div><div class="s-block"><div class="s-title lit">Купить машину</div>`; CARS.forEach(c => { html += `<div class="car-shop-card"><div class="car-shop-preview" style="background:${c.color}40">${c.icon}</div><div class="car-shop-info"><div style="font-weight:900;color:#fff;font-size:15px;">${c.name}</div><div style="color:var(--gold);font-family:Orbitron; font-weight:900; margin-top:4px;">${fmtRub(c.basePrice)}</div></div><button class="btn-sm btn-sell" ${State.money < c.basePrice ? 'disabled style="opacity:0.5"' : ''} onclick="Garage.buy('${c.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
-  buy(id) { const base = CARS.find(c => c.id === id); if (State.money < base.basePrice) return; State.money -= base.basePrice; State.garage.push({ id: uid(), carId: id, plate: null }); UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!'); },
+  render() { const content = UI.els['garage-content']; let html = `<div class="s-block"><div class="s-title lit">Ваш Гараж</div>`; if (State.garage.length === 0) html += `<div class="empty">Нет машин</div>`; else { State.garage.forEach(car => { const base = CARS.find(c => c.id === car.carId); let platePrice = car.plate ? car.plate.price : 0; let decorBonus = car.decor ? car.decor.bonus : 0; const finalPrice = Math.floor((base.basePrice + platePrice) * base.bonus * (1 + decorBonus)); html += `<div class="garage-scene"><div class="car-body"><div class="car-cabin" style="background:${base.cabin}"></div><div class="car-chassis" style="background:${base.color}"></div><div class="car-wheel left"></div><div class="car-wheel right"></div>${car.plate ? `<div class="car-plate-mount">${car.plate.plate} <span class="reg">${car.plate.region}</span></div>` : ''}</div></div><div style="display:flex; gap:10px; margin-bottom:14px;">${car.plate ? `<button class="btn-sm btn-market" style="flex:1" onclick="Garage.removePlate('${car.id}')">Снять</button>` : `<button class="btn-sm btn-blue" style="flex:1" onclick="Garage.attach('${car.id}')">Установить</button>`}<button class="btn-sm btn-sell" style="flex:1" onclick="Garage.sell('${car.id}', ${finalPrice})">Продать за ${fmtRub(finalPrice)}</button></div>`; }); } html += `</div><div class="s-block"><div class="s-title lit">Купить машину</div>`; CARS.forEach(c => { html += `<div class="car-shop-card"><div class="car-shop-preview" style="background:${c.color}40">${c.icon}</div><div class="car-shop-info"><div style="font-weight:900;color:#fff;font-size:15px;">${c.name}</div><div style="color:var(--gold);font-family:Orbitron; font-weight:900; margin-top:4px;">${fmtRub(c.basePrice)}</div></div><button class="btn-sm btn-sell" ${State.money < c.basePrice ? 'disabled style="opacity:0.5"' : ''} onclick="Garage.buy('${c.id}')">Купить</button></div>`; }); content.innerHTML = html + `</div>`; },
+  buy(id) { const base = CARS.find(c => c.id === id); if (State.money < base.basePrice) return; State.money -= base.basePrice; State.garage.push({ id: uid(), carId: id, plate: null, decor: null }); UI.updateMoney(); this.render(); saveGame(); toast('🚗 Куплено!'); },
   attach(carId) { if (!State.inventory.length) return toast('❌ Нет номеров'); const car = State.garage.find(c => c.id === carId); const best = [...State.inventory].sort((a,b) => b.price - a.price)[0]; car.plate = best; State.inventory = State.inventory.filter(i => i.id !== best.id); saveGame(); this.render(); toast('✅ Номер установлен!'); },
   removePlate(carId) { const car = State.garage.find(c => c.id === carId); if (!car || !car.plate) return; State.inventory.push(car.plate); car.plate = null; saveGame(); this.render(); toast('Номер снят'); },
   sell(carId, price) { State.money += price; State.garage = State.garage.filter(c => c.id !== carId); UI.updateMoney(); this.render(); saveGame(); toast(`💰 +${fmtRub(price)}`); }
