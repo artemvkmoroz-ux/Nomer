@@ -4,121 +4,397 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#f8f9fa">
-<title>Nomerix (Final)</title>
+<title>Nomerix (Best)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   1. БАЗА И СБРОС
+   1. ГЛОБАЛЬНЫЕ СТИЛИ
    ============================================================ */
 :root {
-  --bg: #f8f9fa; 
-  --panel-bg: #ffffff;
-  --text: #000000;
-  --sub: #8e8e93;
-  --border: #e5e5ea;
-  --shadow: 0 2px 10px rgba(0,0,0,0.05);
-  --sb: env(safe-area-inset-bottom, 0px);
-  --st: env(safe-area-inset-top, 0px);
+    --bg: #f8f9fa;
+    --panel-bg: #ffffff;
+    --text: #000000;
+    --sub: #8e8e93;
+    --border: #e5e5ea;
+    --shadow: 0 2px 10px rgba(0,0,0,0.05);
+    --gold: #d4af37;
+    --sb: env(safe-area-inset-bottom, 0px);
+    --st: env(safe-area-inset-top, 0px);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; }
-#app { width: 100%; max-width: 430px; height: 100dvh; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app {
+    width: 100%;
+    max-width: 430px;
+    height: 100dvh;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bg);
+}
 
 /* ============================================================
    2. ВЕРХНЯЯ ПАНЕЛЬ
    ============================================================ */
-.top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: calc(16px + var(--st)) 20px 16px; z-index: 100; }
-.balances { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
-.bal-box { background: var(--panel-bg); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
-.icon-btn { background: var(--panel-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); }
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: calc(16px + var(--st)) 20px 16px;
+    z-index: 100;
+}
+
+.balances {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-left: auto;
+}
+
+.bal-box {
+    background: var(--panel-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.icon-btn {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
 
 /* ============================================================
    3. ГЛАВНЫЙ ЭКРАН
    ============================================================ */
-.main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; }
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
 
-/* Плашка статуса */
-.status-bar { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; box-shadow: var(--shadow); }
-.rarity-info { display: flex; flex-direction: column; gap: 4px; }
-.rarity-name { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #333; }
-.dots { display: flex; gap: 3px; }
-.dot { width: 8px; height: 4px; border-radius: 2px; background: #e5e5ea; transition: background 0.3s; }
-.price-tag { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #333; }
+.status-bar {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+}
+
+.rarity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rarity-name {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #333;
+}
+
+.dots {
+    display: flex;
+    gap: 3px;
+}
+
+.dot {
+    width: 8px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e5ea;
+    transition: background 0.3s;
+}
+
+.price-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
 
 /* ============================================================
-   4. НОМЕР (ЖЕСТКАЯ ФИКСАЦИЯ)
+   4. ИДЕАЛЬНЫЙ НОМЕР (ЗАЩИЩЕН ОТ СПЛЮЩИВАНИЯ)
    ============================================================ */
-.plate-zone { width: 100%; display: flex; justify-content: center; cursor: pointer; margin-bottom: 24px; flex-shrink: 0; }
-.plate-zone:active { transform: scale(0.97); }
-
-.plate { 
-  display: flex; 
-  background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 40%, #d1d1d1 100%);
-  border-radius: 6px; 
-  overflow: hidden; 
-  height: 90px; 
-  min-height: 90px;
-  max-height: 90px;
-  width: 100%; 
-  max-width: 380px; 
-  flex-shrink: 0;
-  border: 2px solid #222; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,1);
-  position: relative; 
-  font-family: 'Arial Black', Impact, sans-serif;
+.plate-zone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 24px;
+    flex-shrink: 0;
 }
 
-.plate-main { flex: 1; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%; }
-.reels { position: absolute; top: 0; left: 0; width: 100%; height: 100%; will-change: transform; }
-.reel { 
-  height: 90px; 
-  min-height: 90px;
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  font-family: 'Arial Black', Impact, sans-serif; 
-  font-size: 52px; 
-  letter-spacing: 1px; 
-  white-space: nowrap; 
-  color: #111; 
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.6); 
+.plate-zone:active {
+    transform: scale(0.97);
 }
 
-.plate-side { width: 80px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #222; flex-shrink: 0; }
-.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 32px; line-height: 1; color: #111; margin-top: -2px; }
-.flag-box { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
-.rus-text { font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 900; color: #111; }
-.flag-icon { width: 20px; height: 13px; display: flex; flex-direction: column; border: 1px solid #111; }
+.plate {
+    display: flex;
+    background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 40%, #d1d1d1 100%);
+    border-radius: 6px;
+    overflow: hidden;
+    height: 95px;
+    min-height: 95px;
+    max-height: 95px;
+    width: 100%;
+    max-width: 380px;
+    flex-shrink: 0;
+    border: 2px solid #222;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,1);
+    position: relative;
+    font-family: 'Arial Black', Impact, sans-serif;
+}
+
+.plate-main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.reels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+}
+
+.reel {
+    height: 95px;
+    min-height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 56px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    color: #111;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
+}
+
+.plate-side {
+    width: 82px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid #222;
+    flex-shrink: 0;
+}
+
+.region {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    color: #111;
+    margin-top: -2px;
+}
+
+.flag-box {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.rus-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    color: #111;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 13px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #111;
+}
+
 .flag-white { flex: 1; background: #fff; }
 .flag-blue { flex: 1; background: #0039a6; }
 .flag-red { flex: 1; background: #d52b1e; }
 
-.description { font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; margin-bottom: 40px; }
+.description {
+    font-size: 13px;
+    color: var(--sub);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 40px;
+}
 
 /* ============================================================
    5. НИЖНИЕ КНОПКИ
    ============================================================ */
-.bottom-controls { position: absolute; bottom: calc(20px + var(--sb)); width: 100%; padding: 0 20px; display: flex; justify-content: space-between; }
-.bottom-btn { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
+.bottom-controls {
+    position: absolute;
+    bottom: calc(20px + var(--sb));
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom-btn {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: var(--shadow);
+}
 
 /* ============================================================
-   6. ЭКРАНЫ И СПИСКИ
+   6. ЭКРАНЫ
    ============================================================ */
-.screen { display: none; flex-direction: column; height: 100%; background: var(--bg); position: absolute; inset: 0; z-index: 200; overflow-y: auto; }
-.screen.active { display: flex; animation: slideUp 0.3s ease-out; }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.screen {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    background: var(--bg);
+    position: absolute;
+    inset: 0;
+    z-index: 200;
+    overflow-y: auto;
+}
 
-.scr-head { display: flex; align-items: center; gap: 16px; padding: calc(16px + var(--st)) 20px 16px; font-size: 18px; font-weight: 800; position: sticky; top: 0; background: rgba(248,249,250,0.95); backdrop-filter: blur(10px); z-index: 10; border-bottom: 1px solid var(--border); }
-.menu-grid { display: flex; flex-direction: column; gap: 10px; padding: 20px; }
-.menu-card { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); font-size: 16px; font-weight: 700; }
-.menu-ico { font-size: 24px; }
+.screen.active {
+    display: flex;
+    animation: slideUp 0.3s ease-out;
+}
 
-.list-item { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
 
-.toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 10000; transition: top 0.3s; }
-.toast.show { top: 40px; }
+.scr-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: calc(16px + var(--st)) 20px 16px;
+    font-size: 18px;
+    font-weight: 800;
+    position: sticky;
+    top: 0;
+    background: rgba(248,249,250,0.95);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    border-bottom: 1px solid var(--border);
+}
+
+.menu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.menu-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.menu-ico {
+    font-size: 24px;
+}
+
+.list-item {
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.toast {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.toast.show {
+    top: 40px;
+}
 </style>
 </head>
 <body>
@@ -170,7 +446,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     </div>
 
     <div class="bottom-controls">
-      <div class="bottom-btn"><span>🇷🇺</span> Россия</div>
+      <div class="bottom-btn"><span>🇷🇺</span> Россия 5 типов</div>
       <div class="bottom-btn">Авто 1/с</div>
     </div>
   </div>
@@ -209,28 +485,29 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 <script>
 'use strict';
 
-/* ============================================================
-   КОНФИГ
-   ============================================================ */
-const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_final_v40' };
-
+// ==========================================
+// 1. КОНФИГ
+// ==========================================
+const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_best_v1' };
 const RARITIES = [
-  { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5_000 },
-  { lvl:2, name:'ОБЫЧНЫЙ',      color:'#94a3b8', chance:35.0, min:15_000,    max:80_000 },
-  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'#10b981', chance:25.0, min:100_000,   max:500_000 },
-  { lvl:4, name:'РЕДКИЙ',       color:'#3b82f6', chance:15.0, min:1_000_000, max:5_000_000 },
-  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'#a855f7', chance:7.0,  min:5_000_000, max:15_000_000 },
-  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'#f59e0b', chance:2.5,  min:15_000_000,max:50_000_000 },
-  { lvl:7, name:'БЛАТНОЙ',      color:'#ef4444', chance:1.0,  min:50_000_000,max:200_000_000 },
-  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'#ec4899', chance:0.5,  min:200_000_000,max:1_000_000_000 },
+  { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5000 },
+  { lvl:2, name:'ОБЫЧНЫЙ',      color:'#94a3b8', chance:35.0, min:15000,     max:80000 },
+  { lvl:3, name:'НЕОБЫЧНЫЙ',    color:'#10b981', chance:25.0, min:100000,    max:500000 },
+  { lvl:4, name:'РЕДКИЙ',       color:'#3b82f6', chance:15.0, min:1000000,   max:5000000 },
+  { lvl:5, name:'ЭПИЧЕСКИЙ',    color:'#a855f7', chance:7.0,  min:5000000,   max:15000000 },
+  { lvl:6, name:'ЛЕГЕНДАРНЫЙ',  color:'#f59e0b', chance:2.5,  min:15000000,  max:50000000 },
+  { lvl:7, name:'БЛАТНОЙ',      color:'#ef4444', chance:1.0,  min:50000000,  max:200000000 },
+  { lvl:8, name:'БОЖЕСТВЕННЫЙ', color:'#ec4899', chance:0.5,  min:200000000, max:1000000000 },
 ];
-
 const BOOSTS = [
   { id: 'multiplier', name: '💎 Множитель цены', desc: 'Все номера стоят в 2 раза дороже', basePrice: 1, maxLvl: 5 }, 
   { id: 'lucky', name: '🍀 Удача', desc: '+10% к шансу редких', basePrice: 1.5, maxLvl: 5 }, 
   { id: 'discount', name: '🎟 Скидка', desc: 'Спин -10%', basePrice: 0.5, maxLvl: 5 },
 ];
 
+// ==========================================
+// 2. УТИЛИТЫ
+// ==========================================
 const $ = id => document.getElementById(id);
 const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
@@ -247,9 +524,9 @@ function fmtRub(n) {
 }
 const fmtBtc = n => n === 0 ? '0 ₿' : (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
 
-/* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ
-   ============================================================ */
+// ==========================================
+// 3. ГЕНЕРАТОР НОМЕРОВ
+// ==========================================
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const BEAUTY_DIGITS = {
@@ -284,9 +561,9 @@ function genRu(tier) {
 }
 function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
-/* ============================================================
-   СОСТОЯНИЕ
-   ============================================================ */
+// ==========================================
+// 4. СОСТОЯНИЕ И СОХРАНЕНИЯ
+// ==========================================
 let State = {
   money: CFG.START, bitcoin: 0, inventory: [], maxRecord: 0, spinning: false, boosts: {}
 };
@@ -297,9 +574,9 @@ function loadGame() {
   if (raw) { try { State = JSON.parse(raw); State.spinning = false; } catch(e){} } 
 }
 
-/* ============================================================
-   UI И ЛОГИКА
-   ============================================================ */
+// ==========================================
+// 5. UI ЛОГИКА
+// ==========================================
 const UI = {
   els: {},
   init() {
@@ -363,9 +640,9 @@ const UI = {
   }
 };
 
-/* ============================================================
-   ИГРА
-   ============================================================ */
+// ==========================================
+// 6. ИГРА
+// ==========================================
 function rollRarity() {
   let chances = RARITIES.map(r => r.chance);
   if (State.boosts.lucky) chances = chances.map((c, i) => Math.max(0, c + (i >= 3 ? State.boosts.lucky : -State.boosts.lucky/2)));
@@ -401,7 +678,7 @@ const Game = {
     
     setTimeout(() => {
       reels.style.transition = 'transform 2.5s cubic-bezier(.15,.85,.2,1)'; 
-      reels.style.transform = `translateY(-1800px)`; // 20 строк * 90px = 1800
+      reels.style.transform = `translateY(-1900px)`; // 20 строк * 95px = 1900
       
       let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = rnd(199)+1; }, 60);
       
@@ -444,10 +721,10 @@ const Shop = {
 const Settings = {
   promo() {
     const code = $('promo').value.trim().toUpperCase();
-    const DEFAULT_PROMOS = { "MONEY": 50000, "BTC": "BTC_1", "RICH": 1000000, "MONEY100": 100, "MONEY500": 500, "MONEY1K": 1000, "MONEY5K": 5000, "MONEY10K": 10000, "MONEY25K": 25000, "MONEY50K": 50000, "MONEY100K": 100000, "MONEY250K": 250000, "MONEY500K": 500000, "MONEY1M": 1000000, "MONEY5M": 5000000, "MONEY10M": 10000000, "MONEY25M": 25000000, "MONEY50M": 50000000, "MONEY100M": 100000000, "MONEY500M": 500000000, "MONEY1B": 1000000000, "POOR": 100, "START": 10000, "HELLO": 1000, "NEWBIE": 5000, "PRO": 25000, "TOP": 30000, "GOD": 5000, "BTC1": "BTC_1", "BTC2": "BTC_2", "BTC3": "BTC_3", "BTC5": "BTC_5", "BTC10": "BTC_10", "BTC15": "BTC_15", "BTC20": "BTC_20", "BTC50": "BTC_50", "BTC100": "BTC_100", "CRYPTO": "BTC_3", "MOON": "BTC_15", "NEWYEAR": 100000, "XMAS": 10000, "SANTA": 20250, "SNOW": 7777, "GIFT": 15000, "HAPPY": 5000, "LUCKY": 3000, "777": 7777, "888": 8888, "999": 9999, "199": 199000, "123": 1230, "456": 4560, "789": 7890, "7777": 77777, "8888": 88888, "9999": 99999, "1234": 12340, "4321": 43210, "0001": 1000, "1000": 100000, "5000": 50000, "MITROFAN": 1000000, "NOMERIX": 25000, "GITHUB": 50000, "ADMIN": "ADMIN_3006", "BOSS": 5000000, "KING": 10000000, "LORD": 50000000, "HERO": 100000, "LEGEND": 5000000, "MYTH": 10000000, "EPIC": 10000000, "ULTRA": 50000000, "MEGA": 100000000, "SUPER": 100000000, "STAR": 500000, "SUN": 1000000, "MOONLIGHT": 5000000, "DARK": 1000000, "LIGHT": 10000000, "SATOSHI": "BTC_1", "HALVING": "BTC_2", "LEDGER": "BTC_10", "WALLET": "BTC_5", "BLOCKCHAIN": "BTC_20", "MINER": "BTC_5", "DEFI": "BTC_3", "NFT": "BTC_10", "AIRDROP": "BTC_50", "MOROZIMKA": "ADMIN_3006", "MITROFAN2024": 1000000, "NOMERIX2024": 5000000, "GITHUB2024": 10000000, "HELLOWORLD": 1000000, "BIGMONEY": 50000000 };
+    const P = { "MONEY": 50000, "BTC": "BTC_1", "RICH": 1000000, "MONEY100": 100, "MONEY500": 500, "MONEY1K": 1000, "MONEY5K": 5000, "MONEY10K": 10000, "MONEY25K": 25000, "MONEY50K": 50000, "MONEY100K": 100000, "MONEY250K": 250000, "MONEY500K": 500000, "MONEY1M": 1000000, "MONEY5M": 5000000, "MONEY10M": 10000000, "MONEY25M": 25000000, "MONEY50M": 50000000, "MONEY100M": 100000000, "MONEY500M": 500000000, "MONEY1B": 1000000000, "POOR": 100, "START": 10000, "HELLO": 1000, "NEWBIE": 5000, "PRO": 25000, "TOP": 30000, "GOD": 5000, "BTC1": "BTC_1", "BTC2": "BTC_2", "BTC3": "BTC_3", "BTC5": "BTC_5", "BTC10": "BTC_10", "BTC15": "BTC_15", "BTC20": "BTC_20", "BTC50": "BTC_50", "BTC100": "BTC_100", "CRYPTO": "BTC_3", "MOON": "BTC_15", "NEWYEAR": 100000, "XMAS": 10000, "SANTA": 20250, "SNOW": 7777, "GIFT": 15000, "HAPPY": 5000, "LUCKY": 3000, "777": 7777, "888": 8888, "999": 9999, "199": 199000, "123": 1230, "456": 4560, "789": 7890, "7777": 77777, "8888": 88888, "9999": 99999, "1234": 12340, "4321": 43210, "0001": 1000, "1000": 100000, "5000": 50000, "MITROFAN": 1000000, "NOMERIX": 25000, "GITHUB": 50000, "ADMIN": "ADMIN_3006", "BOSS": 5000000, "KING": 10000000, "LORD": 50000000, "HERO": 100000, "LEGEND": 5000000, "MYTH": 10000000, "EPIC": 10000000, "ULTRA": 50000000, "MEGA": 100000000, "SUPER": 100000000, "STAR": 500000, "SUN": 1000000, "MOONLIGHT": 5000000, "DARK": 1000000, "LIGHT": 10000000, "SATOSHI": "BTC_1", "HALVING": "BTC_2", "LEDGER": "BTC_10", "WALLET": "BTC_5", "BLOCKCHAIN": "BTC_20", "MINER": "BTC_5", "DEFI": "BTC_3", "NFT": "BTC_10", "AIRDROP": "BTC_50", "MOROZIMKA": "ADMIN_3006", "MITROFAN2024": 1000000, "NOMERIX2024": 5000000, "GITHUB2024": 10000000, "HELLOWORLD": 1000000, "BIGMONEY": 50000000 };
     
-    if (DEFAULT_PROMOS[code]) {
-      const val = DEFAULT_PROMOS[code];
+    if (P[code]) {
+      const val = P[code];
       if (typeof val === 'string' && val.startsWith('BTC_')) { State.bitcoin += parseInt(val.replace('BTC_', '')); alert(`✅ +${parseInt(val.replace('BTC_', ''))} ₿`); }
       else if (typeof val === 'string' && val.startsWith('ADMIN_')) { alert('🔐 Админка в разработке'); return; }
       else { State.money += val; alert(`✅ +${fmtRub(val)}`); }
@@ -457,9 +734,6 @@ const Settings = {
   }
 };
 
-/* ============================================================
-   СТАРТ
-   ============================================================ */
 function init() {
   loadGame();
   UI.init();
