@@ -4,403 +4,91 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#f8f9fa">
-<title>Nomerix (Best)</title>
+<title>Nomerix (Full)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   1. ГЛОБАЛЬНЫЕ СТИЛИ
+   ЭКРАН ЗАГРУЗКИ
+   ============================================================ */
+#loader { position: fixed; inset: 0; z-index: 99999; background-color: #f8f9fa; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.4s ease, visibility 0.4s ease; }
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.spinner { width: 44px; height: 44px; border: 4px solid #e5e5ea; border-top-color: #007aff; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader-text { margin-top: 16px; font-size: 14px; font-weight: 700; color: #8e8e93; letter-spacing: 1px; }
+
+/* ============================================================
+   ГЛОБАЛЬНЫЕ СТИЛИ
    ============================================================ */
 :root {
-    --bg: #f8f9fa;
-    --panel-bg: #ffffff;
-    --text: #000000;
-    --sub: #8e8e93;
-    --border: #e5e5ea;
-    --shadow: 0 2px 10px rgba(0,0,0,0.05);
-    --gold: #d4af37;
-    --sb: env(safe-area-inset-bottom, 0px);
-    --st: env(safe-area-inset-top, 0px);
+    --bg: #f8f9fa; --panel-bg: #ffffff; --text: #000000; --sub: #8e8e93;
+    --border: #e5e5ea; --shadow: 0 2px 10px rgba(0,0,0,0.05);
+    --gold: #d4af37; --sb: env(safe-area-inset-bottom, 0px); --st: env(safe-area-inset-top, 0px);
 }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; }
+#app { width: 100%; max-width: 430px; height: 100dvh; height: 100vh; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
+/* ВЕРХНЯЯ ПАНЕЛЬ */
+.top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: calc(16px + var(--st)) 20px 16px; z-index: 100; }
+.balances { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
+.bal-box { background: var(--panel-bg); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
+.icon-btn { background: var(--panel-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); }
 
-html, body {
-    height: 100%;
-    overflow: hidden;
-    background: var(--bg);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* ГЛАВНЫЙ ЭКРАН */
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; }
+.status-bar { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: var(--shadow); }
+.rarity-info { display: flex; flex-direction: column; gap: 4px; }
+.rarity-name { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #333; }
+.dots { display: flex; gap: 3px; }
+.dot { width: 8px; height: 4px; border-radius: 2px; background: #e5e5ea; transition: background 0.3s; }
+.price-tag { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; color: #333; }
 
-#app {
-    width: 100%;
-    max-width: 430px;
-    height: 100dvh;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--bg);
-}
+/* НОМЕР */
+.plate-zone { width: 100%; display: flex; justify-content: center; cursor: pointer; margin-bottom: 24px; flex: none; }
+.plate-zone:active { transform: scale(0.98); }
+.plate { display: grid; grid-template-columns: 1fr 80px; height: 95px; min-height: 95px; max-height: 95px; width: 100%; max-width: 380px; background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 40%, #d1d1d1 100%); border-radius: 6px; overflow: hidden; border: 2px solid #222; box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,1); }
+.plate-main { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-width: 0; }
+.reels { position: absolute; top: 0; left: 0; width: 100%; will-change: transform; }
+.reel { height: 95px; line-height: 95px; text-align: center; font-family: 'Arial Black', Impact, sans-serif; font-size: clamp(38px, 12vw, 54px); white-space: nowrap; color: #111; text-shadow: 1px 1px 1px rgba(255,255,255,0.6); }
+.plate-side { display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #222; }
+.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 32px; line-height: 1; color: #111; margin-top: -2px; }
+.flag-box { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+.rus-text { font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 900; color: #111; }
+.flag-icon { width: 20px; height: 13px; display: flex; flex-direction: column; border: 1px solid #111; }
+.flag-white { flex: 1; background: #fff; } .flag-blue { flex: 1; background: #0039a6; } .flag-red { flex: 1; background: #d52b1e; }
+.description { font-size: 13px; color: var(--sub); font-weight: 600; text-align: center; margin-bottom: 40px; }
 
-/* ============================================================
-   2. ВЕРХНЯЯ ПАНЕЛЬ
-   ============================================================ */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: calc(16px + var(--st)) 20px 16px;
-    z-index: 100;
-}
+/* НИЖНИЕ КНОПКИ */
+.bottom-controls { position: absolute; bottom: calc(20px + var(--sb)); width: 100%; padding: 0 20px; display: flex; justify-content: space-between; }
+.bottom-btn { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
 
-.balances {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-left: auto;
-}
+/* ЭКРАНЫ */
+.screen { display: none; flex-direction: column; height: 100%; background: var(--bg); position: absolute; inset: 0; z-index: 200; overflow-y: auto; }
+.screen.active { display: flex; animation: slideUp 0.3s ease-out; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.scr-head { display: flex; align-items: center; gap: 16px; padding: calc(16px + var(--st)) 20px 16px; font-size: 18px; font-weight: 800; position: sticky; top: 0; background: rgba(248,249,250,0.95); backdrop-filter: blur(10px); z-index: 10; border-bottom: 1px solid var(--border); }
+.menu-grid { display: flex; flex-direction: column; gap: 10px; padding: 20px; }
+.menu-card { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; box-shadow: var(--shadow); font-size: 16px; font-weight: 700; }
+.menu-ico { font-size: 24px; }
+.list-item { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 10000; transition: top 0.3s; }
+.toast.show { top: 40px; }
 
-.bal-box {
-    background: var(--panel-bg);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1px solid var(--border);
-    text-align: center;
-    box-shadow: var(--shadow);
-}
-
-.icon-btn {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-}
-
-/* ============================================================
-   3. ГЛАВНЫЙ ЭКРАН
-   ============================================================ */
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-}
-
-.status-bar {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 10px 16px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-}
-
-.rarity-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.rarity-name {
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #333;
-}
-
-.dots {
-    display: flex;
-    gap: 3px;
-}
-
-.dot {
-    width: 8px;
-    height: 4px;
-    border-radius: 2px;
-    background: #e5e5ea;
-    transition: background 0.3s;
-}
-
-.price-tag {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #333;
-}
-
-/* ============================================================
-   4. ИДЕАЛЬНЫЙ НОМЕР (ЗАЩИЩЕН ОТ СПЛЮЩИВАНИЯ)
-   ============================================================ */
-.plate-zone {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    margin-bottom: 24px;
-    flex-shrink: 0;
-}
-
-.plate-zone:active {
-    transform: scale(0.97);
-}
-
-.plate {
-    display: flex;
-    background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 40%, #d1d1d1 100%);
-    border-radius: 6px;
-    overflow: hidden;
-    height: 95px;
-    min-height: 95px;
-    max-height: 95px;
-    width: 100%;
-    max-width: 380px;
-    flex-shrink: 0;
-    border: 2px solid #222;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,1);
-    position: relative;
-    font-family: 'Arial Black', Impact, sans-serif;
-}
-
-.plate-main {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.reels {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
-}
-
-.reel {
-    height: 95px;
-    min-height: 95px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Arial Black', Impact, sans-serif;
-    font-size: 56px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    color: #111;
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
-}
-
-.plate-side {
-    width: 82px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid #222;
-    flex-shrink: 0;
-}
-
-.region {
-    font-family: 'Arial Black', Impact, sans-serif;
-    font-size: 34px;
-    line-height: 1;
-    color: #111;
-    margin-top: -2px;
-}
-
-.flag-box {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 2px;
-}
-
-.rus-text {
-    font-family: 'Arial', sans-serif;
-    font-size: 11px;
-    font-weight: 900;
-    color: #111;
-}
-
-.flag-icon {
-    width: 20px;
-    height: 13px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #111;
-}
-
-.flag-white { flex: 1; background: #fff; }
-.flag-blue { flex: 1; background: #0039a6; }
-.flag-red { flex: 1; background: #d52b1e; }
-
-.description {
-    font-size: 13px;
-    color: var(--sub);
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-/* ============================================================
-   5. НИЖНИЕ КНОПКИ
-   ============================================================ */
-.bottom-controls {
-    position: absolute;
-    bottom: calc(20px + var(--sb));
-    width: 100%;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.bottom-btn {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: var(--shadow);
-}
-
-/* ============================================================
-   6. ЭКРАНЫ
-   ============================================================ */
-.screen {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-    background: var(--bg);
-    position: absolute;
-    inset: 0;
-    z-index: 200;
-    overflow-y: auto;
-}
-
-.screen.active {
-    display: flex;
-    animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.scr-head {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: calc(16px + var(--st)) 20px 16px;
-    font-size: 18px;
-    font-weight: 800;
-    position: sticky;
-    top: 0;
-    background: rgba(248,249,250,0.95);
-    backdrop-filter: blur(10px);
-    z-index: 10;
-    border-bottom: 1px solid var(--border);
-}
-
-.menu-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-}
-
-.menu-card {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.menu-ico {
-    font-size: 24px;
-}
-
-.list-item {
-    background: #fff;
-    border: 1px solid #e5e5ea;
-    border-radius: 12px;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.toast {
-    position: fixed;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 10000;
-    transition: top 0.3s;
-}
-
-.toast.show {
-    top: 40px;
-}
+/* АДМИНКА */
+.admin-btn { width: 100%; padding: 12px; margin-bottom: 10px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 14px; }
+.admin-input { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; }
 </style>
 </head>
 <body>
 
+<div id="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">ЗАГРУЗКА...</div>
+</div>
+
 <div id="app">
-  <!-- ГЛАВНЫЙ ЭКРАН -->
   <div id="game" style="height:100%;display:flex;flex-direction:column">
     <div class="top-bar">
       <button class="icon-btn" onclick="UI.open('menu')">☰</button>
@@ -451,44 +139,53 @@ html, body {
     </div>
   </div>
 
-  <!-- МЕНЮ -->
   <div id="scr-menu" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('menu')">←</button><span>МЕНЮ</span></div>
     <div class="menu-grid">
       <div class="menu-card" onclick="UI.open('inventory')"><div class="menu-ico">📦</div><div>Инвентарь</div></div>
+      <div class="menu-card" onclick="UI.open('safe')"><div class="menu-ico">🏦</div><div>Сейф</div></div>
       <div class="menu-card" onclick="UI.open('shop')"><div class="menu-ico">⚡</div><div>Бусты (за ₿)</div></div>
       <div class="menu-card" onclick="UI.open('settings')"><div class="menu-ico">⚙️</div><div>Настройки</div></div>
     </div>
   </div>
 
-  <!-- ИНВЕНТАРЬ -->
   <div id="scr-inventory" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('inventory')">←</button><span>ИНВЕНТАРЬ</span></div>
     <div id="inv-list" style="padding:20px;"></div>
   </div>
 
-  <!-- МАГАЗИН -->
+  <div id="scr-safe" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('safe')">←</button><span>СЕЙФ</span></div>
+    <div id="safe-list" style="padding:20px;"></div>
+  </div>
+
   <div id="scr-shop" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('shop')">←</button><span>БУСТЫ</span></div>
     <div id="shop-content" style="padding:20px;"></div>
   </div>
 
-  <!-- НАСТРОЙКИ -->
   <div id="scr-settings" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>НАСТРОЙКИ</span></div>
     <div id="settings-content" style="padding:20px;"></div>
   </div>
+
+  <!-- АДМИНКА -->
+  <div id="scr-admin" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('admin')">←</button><span>👑 АДМИНКА</span></div>
+    <div id="admin-content" style="padding:20px;"></div>
+  </div>
 </div>
 
 <div id="toast" class="toast"></div>
-
 <script>
 'use strict';
 
-// ==========================================
-// 1. КОНФИГ
-// ==========================================
-const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_best_v1' };
+/* ============================================================
+   КОНФИГ
+   ============================================================ */
+const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_safe_v1' };
+const ADMIN_PASSWORD = '3006';
+
 const RARITIES = [
   { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5000 },
   { lvl:2, name:'ОБЫЧНЫЙ',      color:'#94a3b8', chance:35.0, min:15000,     max:80000 },
@@ -505,9 +202,6 @@ const BOOSTS = [
   { id: 'discount', name: '🎟 Скидка', desc: 'Спин -10%', basePrice: 0.5, maxLvl: 5 },
 ];
 
-// ==========================================
-// 2. УТИЛИТЫ
-// ==========================================
 const $ = id => document.getElementById(id);
 const rnd = n => Math.floor(Math.random() * n);
 const pick = arr => arr[rnd(arr.length)];
@@ -524,9 +218,6 @@ function fmtRub(n) {
 }
 const fmtBtc = n => n === 0 ? '0 ₿' : (Math.round(n * 100) / 100).toLocaleString('ru-RU') + ' ₿';
 
-// ==========================================
-// 3. ГЕНЕРАТОР НОМЕРОВ
-// ==========================================
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
 const BEAUTY_DIGITS = {
@@ -561,12 +252,7 @@ function genRu(tier) {
 }
 function genPlate(rarity) { if (!rarity) rarity = RARITIES[1]; return genRu(rarity.tier || 'common'); }
 
-// ==========================================
-// 4. СОСТОЯНИЕ И СОХРАНЕНИЯ
-// ==========================================
-let State = {
-  money: CFG.START, bitcoin: 0, inventory: [], maxRecord: 0, spinning: false, boosts: {}
-};
+let State = { money: CFG.START, bitcoin: 0, inventory: [], safe: [null, null, null], maxRecord: 0, spinning: false, boosts: {}, customChances: null };
 
 function saveGame() { localStorage.setItem(CFG.KEY, JSON.stringify(State)); }
 function loadGame() { 
@@ -574,13 +260,10 @@ function loadGame() {
   if (raw) { try { State = JSON.parse(raw); State.spinning = false; } catch(e){} } 
 }
 
-// ==========================================
-// 5. UI ЛОГИКА
-// ==========================================
 const UI = {
   els: {},
   init() {
-    ['money','bitcoin','reels','region','price','rarity-name','dots','description','inv-list','shop-content','settings-content'].forEach(id => this.els[id] = $(id));
+    ['money','bitcoin','reels','region','price','rarity-name','dots','description','inv-list','safe-list','shop-content','settings-content','admin-content'].forEach(id => this.els[id] = $(id));
   },
   update() {
     this.els.money.textContent = fmtRub(State.money);
@@ -599,8 +282,10 @@ const UI = {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     $('scr-'+id).classList.add('active');
     if (id === 'inventory') UI.renderInv();
+    if (id === 'safe') UI.renderSafe();
     if (id === 'shop') UI.renderShop();
     if (id === 'settings') UI.renderSettings();
+    if (id === 'admin') UI.renderAdmin();
   },
   close(id) { $('scr-'+id).classList.remove('active'); UI.update(); },
   setRarity(win) {
@@ -617,9 +302,21 @@ const UI = {
     let html = '';
     if (!State.inventory.length) html = '<div style="text-align:center; color:#888; padding:20px;">Пусто</div>';
     [...State.inventory].sort((a,b) => b.price - a.price).forEach(i => {
-      html += `<div class="list-item"><div><b>${i.plate} ${i.region}</b><br><span style="color:${i.color}; font-size:12px; font-weight:800;">${fmtRub(i.price)}</span></div><button onclick="Game.sell('${i.id}')" style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;">Продать</button></div>`;
+      html += `<div class="list-item"><div><b>${i.plate} ${i.region}</b><br><span style="color:${i.color}; font-size:12px; font-weight:800;">${fmtRub(i.price)}</span></div><div style="display:flex; flex-direction:column; gap:4px;"><button onclick="Safe.deposit('${i.id}')" style="background:#007aff; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-weight:700; font-size:11px;">В Сейф</button><button onclick="Game.sell('${i.id}')" style="background:#34c759; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-weight:700; font-size:11px;">Продать</button></div></div>`;
     });
     this.els['inv-list'].innerHTML = html;
+  },
+  renderSafe() {
+    let html = '';
+    for(let i=0; i<3; i++) {
+      const item = State.safe[i];
+      if (item) {
+        html += `<div class="list-item"><div><b>${item.plate} ${item.region}</b><br><span style="color:${item.color}; font-size:12px; font-weight:800;">${fmtRub(item.price)}</span></div><button onclick="Safe.withdraw(${i})" style="background:#34c759; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700;">Забрать</button></div>`;
+      } else {
+        html += `<div class="list-item" style="justify-content:center; color:#8e8e93; border-style:dashed;">Слот ${i+1} пуст</div>`;
+      }
+    }
+    this.els['safe-list'].innerHTML = html;
   },
   renderShop() {
     let html = '<div style="font-weight:800; margin-bottom:10px;">Улучшения за Биткоины</div>';
@@ -637,16 +334,25 @@ const UI = {
       <button onclick="Settings.promo()" style="width:100%; background:#007aff; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; margin-bottom:20px;">АКТИВИРОВАТЬ</button>
       <button onclick="if(confirm('Сброс?')){localStorage.clear();location.reload();}" style="width:100%; background:#ff3b30; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700;">СБРОС</button>
     `;
+  },
+  renderAdmin() {
+    let html = '<div style="font-weight:800; margin-bottom:15px; color:#d4af37;">👑 УПРАВЛЕНИЕ</div>';
+    html += `<button class="admin-btn" style="background:#34c759; color:#fff;" onclick="Admin.addMoney()">+ 1 000 000 ₽</button>`;
+    html += `<button class="admin-btn" style="background:#007aff; color:#fff;" onclick="Admin.addBitcoin()">+ 10 ₿</button>`;
+    html += `<div style="font-weight:800; margin: 20px 0 10px;">Настройка шансов</div>`;
+    RARITIES.forEach(r => {
+      html += `<div style="margin-bottom:10px;"><div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700;"><span style="color:${r.color}">${r.name}</span><span id="ch-val-${r.lvl}">${r.chance}%</span></div><input type="range" min="0" max="100" step="0.5" value="${r.chance}" style="width:100%;" oninput="Admin.setChance(${r.lvl}, this.value)"></div>`;
+    });
+    html += `<button class="admin-btn" style="background:#ff9500; color:#fff; margin-top:10px;" onclick="Admin.resetChances()">Сбросить шансы</button>`;
+    html += `<button class="admin-btn" style="background:#ff3b30; color:#fff; margin-top:10px;" onclick="Admin.clearInv()">Очистить инвентарь</button>`;
+    this.els['admin-content'].innerHTML = html;
   }
 };
 
-// ==========================================
-// 6. ИГРА
-// ==========================================
 function rollRarity() {
-  let chances = RARITIES.map(r => r.chance);
-  if (State.boosts.lucky) chances = chances.map((c, i) => Math.max(0, c + (i >= 3 ? State.boosts.lucky : -State.boosts.lucky/2)));
+  let chances = State.customChances || RARITIES.map(r => r.chance);
   let total = chances.reduce((a,b) => a+b, 0);
+  if (total === 0) total = 1; // Защита от деления на ноль
   let r = Math.random() * total, cum = 0;
   for (let i=0; i<RARITIES.length; i++) { cum += chances[i]; if (r <= cum) return RARITIES[i]; }
   return RARITIES[1];
@@ -667,35 +373,42 @@ const Game = {
     UI.els['rarity-name'].textContent = 'КРУТИМ...'; UI.els['rarity-name'].style.color = '#8e8e93';
     UI.els.price.textContent = '...'; UI.els.price.style.color = '#8e8e93';
 
-    const reels = UI.els.reels; reels.innerHTML = '';
+    const reels = UI.els.reels; 
+    reels.innerHTML = '';
     const frag = document.createDocumentFragment();
+    
     for (let i = 0; i < 20; i++) { 
       const d = document.createElement('div'); d.className = 'reel'; d.textContent = genPlate(RARITIES[1]).text; frag.appendChild(d); 
     }
     const finalDiv = document.createElement('div'); finalDiv.className = 'reel'; finalDiv.textContent = generated.text;
-    frag.appendChild(finalDiv); reels.appendChild(frag);
-    reels.style.transition = 'none'; reels.style.transform = 'translateY(0px)';
+    frag.appendChild(finalDiv); 
+    reels.appendChild(frag);
     
-    setTimeout(() => {
-      reels.style.transition = 'transform 2.5s cubic-bezier(.15,.85,.2,1)'; 
-      reels.style.transform = `translateY(-1900px)`; // 20 строк * 95px = 1900
-      
-      let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = rnd(199)+1; }, 60);
-      
-      setTimeout(() => {
-        clearInterval(rTimer);
-        if (UI.els.region) UI.els.region.textContent = generated.region;
+    reels.style.transition = 'none'; 
+    reels.style.transform = 'translateY(0px)';
+    
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        reels.style.transition = 'transform 2.5s cubic-bezier(.15,.85,.2,1)'; 
+        reels.style.transform = `translateY(-1900px)`;
         
-        UI.setRarity(win); 
-        UI.els.description.textContent = 'Номер выпал!'; 
-        UI.els.price.textContent = fmtRub(finalPrice);
+        let rTimer = setInterval(() => { if (UI.els.region) UI.els.region.textContent = rnd(199)+1; }, 60);
         
-        State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: finalPrice, color: win.color });
-        if (finalPrice > State.maxRecord) State.maxRecord = finalPrice;
-        
-        saveGame(); State.spinning = false; UI.update();
-      }, 2600);
-    }, 50);
+        setTimeout(() => {
+          clearInterval(rTimer);
+          if (UI.els.region) UI.els.region.textContent = generated.region;
+          
+          UI.setRarity(win); 
+          UI.els.description.textContent = 'Номер выпал!'; 
+          UI.els.price.textContent = fmtRub(finalPrice);
+          
+          State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: finalPrice, color: win.color });
+          if (finalPrice > State.maxRecord) State.maxRecord = finalPrice;
+          
+          saveGame(); State.spinning = false; UI.update();
+        }, 2600); 
+      });
+    });
   },
   sell(id) {
     const i = State.inventory.findIndex(x => x.id === id);
@@ -704,6 +417,24 @@ const Game = {
       State.inventory.splice(i, 1);
       UI.update(); UI.renderInv(); saveGame();
     }
+  }
+};
+
+const Safe = {
+  deposit(id) {
+    const slot = State.safe.indexOf(null);
+    if (slot === -1) return alert('❌ Сейф заполнен');
+    const i = State.inventory.findIndex(x => x.id === id);
+    if (i < 0) return;
+    State.safe[slot] = State.inventory[i];
+    State.inventory.splice(i, 1);
+    UI.renderInv(); UI.renderSafe(); saveGame();
+  },
+  withdraw(slot) {
+    if (!State.safe[slot]) return;
+    State.inventory.push(State.safe[slot]);
+    State.safe[slot] = null;
+    UI.renderInv(); UI.renderSafe(); saveGame();
   }
 };
 
@@ -718,6 +449,19 @@ const Shop = {
   }
 };
 
+const Admin = {
+  addMoney() { State.money += 1000000; UI.update(); saveGame(); alert('✅ +1 000 000 ₽'); },
+  addBitcoin() { State.bitcoin += 10; UI.update(); saveGame(); alert('✅ +10 ₿'); },
+  setChance(lvl, val) {
+    if (!State.customChances) State.customChances = RARITIES.map(r => r.chance);
+    State.customChances[lvl - 1] = parseFloat(val);
+    const span = document.getElementById('ch-val-' + lvl);
+    if (span) span.textContent = val + '%';
+  },
+  resetChances() { State.customChances = null; saveGame(); UI.renderAdmin(); alert('✅ Шансы сброшены'); },
+  clearInv() { State.inventory = []; UI.renderInv(); saveGame(); alert('✅ Инвентарь очищен'); }
+};
+
 const Settings = {
   promo() {
     const code = $('promo').value.trim().toUpperCase();
@@ -726,7 +470,12 @@ const Settings = {
     if (P[code]) {
       const val = P[code];
       if (typeof val === 'string' && val.startsWith('BTC_')) { State.bitcoin += parseInt(val.replace('BTC_', '')); alert(`✅ +${parseInt(val.replace('BTC_', ''))} ₿`); }
-      else if (typeof val === 'string' && val.startsWith('ADMIN_')) { alert('🔐 Админка в разработке'); return; }
+      else if (typeof val === 'string' && val.startsWith('ADMIN_')) { 
+        $('promo').value = '';
+        UI.close('settings');
+        UI.open('admin');
+        return;
+      }
       else { State.money += val; alert(`✅ +${fmtRub(val)}`); }
       UI.update(); saveGame();
     } else { alert('❌ Неверный код'); }
@@ -734,13 +483,20 @@ const Settings = {
   }
 };
 
-function init() {
+function initGame() {
   loadGame();
   UI.init();
   UI.update();
   $('region').textContent = "77";
 }
-document.addEventListener('DOMContentLoaded', init);
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = $('loader');
+    if (loader) loader.classList.add('hidden');
+    initGame();
+  }, 600);
+});
 </script>
 </body>
 </html>
