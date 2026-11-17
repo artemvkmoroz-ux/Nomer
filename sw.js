@@ -7,12 +7,9 @@ const CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icon.png'
 ];
 
-// Установка — кешируем ядро
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CORE_CACHE)
@@ -21,27 +18,23 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Активация — чистим старые версии
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys
-          .filter((k) => k !== CORE_CACHE && k !== RUNTIME_CACHE)
-          .map((k) => caches.delete(k))
+        keys.filter((k) => k !== CORE_CACHE && k !== RUNTIME_CACHE)
+            .map((k) => caches.delete(k))
       )
     ).then(() => self.clients.claim())
   );
 });
 
-// Fetch — стратегия
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
 
-  // Внешние шрифты Google — stale-while-revalidate
   if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
     event.respondWith(
       caches.open(RUNTIME_CACHE).then((cache) =>
@@ -57,7 +50,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Для навигации — network-first, при офлайне fallback на кеш
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
@@ -71,7 +63,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Всё остальное — cache-first
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
@@ -86,7 +77,6 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Сообщение от клиента — принудительное обновление
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
