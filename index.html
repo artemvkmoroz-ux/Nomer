@@ -28,7 +28,6 @@
     --st: env(safe-area-inset-top, 0px);
 }
 
-/* Классы тем (меняются через JS) */
 body.theme-dark { --bg-main: #050a17; --bg-gradient: radial-gradient(circle at 50% 0%, #10214e 0%, #050a17 70%); --panel-bg: rgba(18, 30, 63, 0.6); --panel-border: rgba(60, 120, 255, 0.3); --text-main: #fff; --text-sub: #8b9bb4; --accent-blue: #007aff; }
 body.theme-neon { --bg-main: #0a0014; --bg-gradient: radial-gradient(circle at 50% 0%, #2a0040 0%, #0a0014 70%); --panel-bg: rgba(42, 0, 64, 0.6); --panel-border: rgba(255, 0, 255, 0.3); --text-main: #00ffff; --text-sub: #a000ff; --accent-blue: #ff00ff; --accent-glow: 0 0 25px rgba(255, 0, 255, 0.6); }
 body.theme-forest { --bg-main: #0a1f0a; --bg-gradient: radial-gradient(circle at 50% 0%, #1a3a1a 0%, #0a1f0a 70%); --panel-bg: rgba(26, 58, 26, 0.6); --panel-border: rgba(76, 175, 80, 0.3); --text-main: #e0ffe0; --text-sub: #80c080; --accent-blue: #4caf50; --accent-glow: 0 0 25px rgba(76, 175, 80, 0.6); }
@@ -63,18 +62,46 @@ body.theme-light .bal-box { background: rgba(255,255,255,0.9); border-color: rgb
 
 .plate-zone { width: 100%; display: flex; flex-direction: column; align-items: center; cursor: pointer; margin-bottom: 20px; transition: transform 0.1s; }
 .plate-zone:active { transform: scale(0.97); }
-.plate { display: grid; grid-template-columns: 1fr 85px; height: 100px; width: 100%; max-width: 380px; background: linear-gradient(180deg, #f4f4f4 0%, #d4d4d4 100%); border-radius: 8px; overflow: hidden; border: 2px solid #fff; box-shadow: 0 0 35px var(--accent-glow), 0 10px 20px rgba(0,0,0,0.6); position: relative; }
+.plate { display: grid; grid-template-columns: 1fr 85px; height: 100px; width: 100%; max-width: 380px; border-radius: 8px; overflow: hidden; border: 2px solid #fff; box-shadow: 0 0 35px var(--accent-glow), 0 10px 20px rgba(0,0,0,0.6); position: relative; transition: background 0.3s; }
 .plate-main { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .reels { position: absolute; top: 0; left: 0; width: 100%; will-change: transform; }
-.reel { height: 100px; line-height: 100px; text-align: center; font-family: 'Arial Black', Impact, sans-serif; font-size: clamp(42px, 14vw, 56px); white-space: nowrap; color: #111; font-weight: 900; }
+.reel { height: 100px; line-height: 100px; text-align: center; font-family: 'Arial Black', Impact, sans-serif; font-size: clamp(42px, 14vw, 56px); white-space: nowrap; font-weight: 900; }
 .plate-side { display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid #111; background: transparent; }
-.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 34px; line-height: 1; color: #111; margin-top: -2px;}
+.region { font-family: 'Arial Black', Impact, sans-serif; font-size: 34px; line-height: 1; color: #111; margin-top: -2px; }
 .flag-box { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
 .rus-text { font-family: 'Arial', sans-serif; font-size: 12px; font-weight: 900; color: #111; }
 .flag-icon { width: 22px; height: 14px; display: flex; flex-direction: column; border: 1px solid #111; }
 .flag-white { flex: 1; background: #fff; }
 .flag-blue  { flex: 1; background: #0039a6; }
 .flag-red   { flex: 1; background: #d52b1e; }
+
+/* КЛАССЫ ДЛЯ ВАРИАЦИЙ НОМЕРОВ */
+.plate.type-civil { background: linear-gradient(180deg, #f4f4f4 0%, #d4d4d4 100%); }
+.plate.type-civil .reel, .plate.type-civil .region { color: #111; }
+
+.plate.type-taxi { background: linear-gradient(180deg, #ffeb3b 0%, #fbc02d 100%); border-color: #000; }
+.plate.type-taxi .reel, .plate.type-taxi .region { color: #000; }
+.plate.type-taxi .plate-side { border-left-color: #000; }
+.plate.type-taxi .flag-icon { border-color: #000; }
+.plate.type-taxi .rus-text { color: #000; }
+
+.plate.type-police { background: linear-gradient(180deg, #1976d2 0%, #0d47a1 100%); border-color: #fff; }
+.plate.type-police .reel, .plate.type-police .region { color: #fff; }
+.plate.type-police .plate-side { border-left-color: #fff; }
+.plate.type-police .flag-icon { border-color: #fff; }
+.plate.type-police .rus-text { color: #fff; }
+
+.plate.type-sport { background: linear-gradient(180deg, #e0e0e0 0%, #9e9e9e 100%); border-color: #ff0000; }
+.plate.type-sport .reel, .plate.type-sport .region { color: #b71c1c; }
+.plate.type-sport .plate-side { border-left-color: #b71c1c; }
+.plate.type-sport .flag-icon { border-color: #b71c1c; }
+.plate.type-sport .rus-text { color: #b71c1c; }
+
+.plate.type-military { background: linear-gradient(180deg, #33691e 0%, #1b5e20 100%); border-color: #000; }
+.plate.type-military .reel, .plate.type-military .region { color: #fff; }
+.plate.type-military .plate-side { border-left-color: #fff; }
+.plate.type-military .flag-icon { border-color: #fff; }
+.plate.type-military .rus-text { color: #fff; }
 
 .tags-container { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 20px; height: 50px; }
 .plate-tag { font-size: 14px; font-weight: 600; color: var(--text-main); text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); line-height: 1.3; }
@@ -111,6 +138,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
 .btn-red { background: #ef4444; }
 .btn-gold { background: var(--gold); color: #000; }
 .btn:disabled { opacity: 0.5; cursor: default; }
+.input-field { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--panel-border); background: rgba(0,0,0,0.2); color: var(--text-main); font-weight: 700; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; }
 
 /* КАЗИНО */
 .case-container { display: flex; flex-direction: column; gap: 15px; padding: 20px; align-items: center; }
@@ -164,7 +192,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
       </div>
 
       <div class="plate-zone" onclick="Game.spin()">
-        <div class="plate" id="plate">
+        <div class="plate type-civil" id="plate">
           <div class="plate-main">
             <div class="reels" id="reels"><div class="reel">А 000 АА</div></div>
           </div>
@@ -219,9 +247,13 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
         <div class="menu-card-img">🎨</div>
         <div class="menu-card-title">Темы</div>
       </div>
-      <div class="menu-card wide" onclick="UI.open('upgrades')">
+      <div class="menu-card" onclick="UI.open('upgrades')">
         <div class="menu-card-img">⚡</div>
-        <div class="menu-card-title">Улучшения (Бусты)</div>
+        <div class="menu-card-title">Улучшения</div>
+      </div>
+      <div class="menu-card" onclick="UI.open('settings')">
+        <div class="menu-card-img">⚙️</div>
+        <div class="menu-card-title">Настройки</div>
       </div>
     </div>
   </div>
@@ -262,6 +294,24 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
     <div id="tasks-list" style="padding:20px;"></div>
   </div>
 
+  <!-- НАСТРОЙКИ -->
+  <div id="scr-settings" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('settings')">←</button><span>Настройки</span></div>
+    <div style="padding:20px;">
+      <div style="font-weight:800; margin-bottom:10px;">Промокод</div>
+      <input type="text" id="promo-input" class="input-field" placeholder="ВВЕДИ КОД">
+      <button onclick="Settings.promo()" class="btn btn-blue" style="width:100%; margin-bottom:20px;">Активировать</button>
+      
+      <div style="font-weight:800; margin-bottom:10px;">Установка</div>
+      <button onclick="Settings.installPWA()" class="btn btn-green" style="width:100%; margin-bottom:20px;">📲 Установить на телефон</button>
+
+      <div style="font-weight:800; margin-bottom:10px;">Опасная зона</div>
+      <button onclick="Settings.reset()" class="btn btn-red" style="width:100%;">Сбросить весь прогресс</button>
+      
+      <div style="text-align:center; color:var(--text-sub); font-size:11px; margin-top:30px; font-weight:700;">NOMERIX — Moroz Company © 2025</div>
+    </div>
+  </div>
+
 </div>
 
 <div id="toast" class="toast"></div>
@@ -269,14 +319,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
 <script>
 'use strict';
 
-/* ============================================================
-   КОНФИГ
-   ============================================================ */
-const CFG = {
-  COST: 5000,
-  START: 500000,
-  KEY: 'nomerix_v55',
-};
+const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_v56' };
 
 const RARITIES = [
   { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5000 },
@@ -290,9 +333,10 @@ const RARITIES = [
 ];
 
 const TIER_BY_LVL = {1:'trash',2:'common',3:'uncommon',4:'rare',5:'epic',6:'legend',7:'elite',8:'god'};
+const PLATE_TYPES = ['civil', 'civil', 'civil', 'taxi', 'police', 'sport', 'military']; // Гражданские выпадают чаще
 
 const THEMES = [
-  { id: 'dark', name: 'Тёмная (Стандарт)', price: 0, bg: 'linear-gradient(135deg, #0a1128 0%, #162244 100%)' },
+  { id: 'dark', name: 'Тёмная', price: 0, bg: 'linear-gradient(135deg, #0a1128 0%, #162244 100%)' },
   { id: 'neon', name: 'Неон', price: 5, bg: 'linear-gradient(135deg, #2a0040 0%, #0a0014 100%)' },
   { id: 'forest', name: 'Лес', price: 5, bg: 'linear-gradient(135deg, #1a3a1a 0%, #0a1f0a 100%)' },
   { id: 'sunset', name: 'Закат', price: 10, bg: 'linear-gradient(135deg, #6a1838 0%, #2a0a1a 100%)' },
@@ -314,7 +358,6 @@ const CASES = [
 const $ = id => document.getElementById(id);
 const rnd = n => Math.floor(Math.random()*n);
 const pick = arr => arr[rnd(arr.length)];
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 
 function fmtRub(n) {
   if (n === 0) return '0 ₽';
@@ -322,8 +365,7 @@ function fmtRub(n) {
   if (abs < 1000) return Math.floor(n) + ' ₽';
   if (abs < 1_000_000) return (n/1000).toFixed(1).replace('.0','') + 'K ₽';
   if (abs < 1_000_000_000) return (n/1_000_000).toFixed(1).replace('.0','') + 'M ₽';
-  if (abs < 1_000_000_000_000) return (n/1_000_000_000).toFixed(1).replace('.0','') + 'B ₽';
-  return (n/1_000_000_000_000).toFixed(1).replace('.0','') + 'T ₽';
+  return (n/1_000_000_000).toFixed(1).replace('.0','') + 'B ₽';
 }
 
 function showToast(msg) {
@@ -335,7 +377,7 @@ function showToast(msg) {
 }
 
 /* ============================================================
-   ГЕНЕРАЦИЯ НОМЕРОВ (С ТЕГАМИ)
+   ГЕНЕРАЦИЯ НОМЕРОВ
    ============================================================ */
 const RU_LETTERS = 'АВЕКМНОРСТУХ';
 const BEAUTY_TOP = ['А','О','Е','К','М','С','Н','Т'];
@@ -389,8 +431,9 @@ function genRu(tier) {
   }
   
   if (tags.length === 0) tags.push('Обычный номер');
+  const type = pick(PLATE_TYPES);
 
-  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, tags };
+  return { text: `${firstLetter} ${digits} ${lastLetters}`, region, tags, type };
 }
 
 function genPlate(rarity) {
@@ -572,9 +615,12 @@ const Game = {
     const win = rollRarity();
     const generated = genPlate(win);
     
-    // Бонус от множителя
     let mult = 1 + (State.boosts.multiplier || 0);
     const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * mult);
+
+    // Убираем старый тип плашки
+    const plateEl = $('plate');
+    plateEl.className = 'plate'; 
 
     $('rarity-name').textContent = 'КРУТИМ...';
     $('rarity-name').style.color = 'var(--text-sub)';
@@ -605,13 +651,17 @@ const Game = {
         setTimeout(() => {
           clearInterval(rTimer);
           $('region').textContent = generated.region;
+          
+          // ПРИМЕНЯЕМ ЦВЕТ ПЛАШКИ
+          plateEl.classList.add('type-' + generated.type);
+          
           UI.setRarity(win);
           $('price').textContent = fmtRub(finalPrice);
           
           let tagsHtml = generated.tags.map(t => `<div class="plate-tag">${t}</div>`).join('');
           $('tags-container').innerHTML = tagsHtml;
 
-          State.inventory.push({ plate: generated.text, region: generated.region, price: finalPrice, color: win.color });
+          State.inventory.push({ plate: generated.text, region: generated.region, price: finalPrice, color: win.color, type: generated.type });
           saveGame();
           State.spinning = false;
           UI.update();
@@ -674,7 +724,7 @@ const Casino = {
           const r = rollRarity();
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color });
+          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -687,7 +737,7 @@ const Casino = {
           const r = RARITIES[3 + rnd(4)]; 
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color });
+          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал РЕДКИЙ номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -701,7 +751,7 @@ const Casino = {
           const r = RARITIES[5 + rnd(3)]; 
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color });
+          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал ЛЕГЕНДАРНЫЙ номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -709,7 +759,6 @@ const Casino = {
       saveGame();
       UI.update();
       
-      // Показываем модалку результата
       $('modal-title').textContent = 'Результат';
       $('modal-sub').textContent = msg;
       $('modal-reward').style.color = winColor;
@@ -746,18 +795,43 @@ const Shop = {
   }
 };
 
-/* ============================================================
-   ИНИЦИАЛИЗАЦИЯ
-   ============================================================ */
+const Settings = {
+  promo() {
+    const val = $('promo-input').value.trim().toUpperCase();
+    if (val === 'NOMERIX') { State.money += 100000; State.bitcoin += 5; showToast('✅ +100K ₽, +5 ₿'); }
+    else if (val === 'MOROZ') { State.money += 500000; showToast('✅ +500K ₽'); }
+    else if (val === 'GITHUB') { State.bitcoin += 20; showToast('✅ +20 ₿'); }
+    else return showToast('❌ Неверный промокод');
+    $('promo-input').value = '';
+    UI.update(); saveGame();
+  },
+  installPWA() {
+    if (window.deferredPrompt) {
+      window.deferredPrompt.prompt();
+    } else {
+      showToast('Установка недоступна. Добавь вручную через меню браузера.');
+    }
+  },
+  reset() {
+    if (confirm('Точно сбросить весь прогресс?')) {
+      localStorage.removeItem(CFG.KEY);
+      location.reload();
+    }
+  }
+};
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+
 function initGame() {
   loadGame();
   UI.update();
   $('region').textContent = "77";
 }
 
-window.addEventListener('load', () => {
-  setTimeout(() => { initGame(); }, 100);
-});
+window.addEventListener('load', () => { setTimeout(initGame, 100); });
 </script>
 </body>
 </html>
