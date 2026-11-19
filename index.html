@@ -75,28 +75,24 @@ body.theme-light .bal-box { background: rgba(255,255,255,0.9); border-color: rgb
 .flag-blue  { flex: 1; background: #0039a6; }
 .flag-red   { flex: 1; background: #d52b1e; }
 
-/* КЛАССЫ ДЛЯ ВАРИАЦИЙ НОМЕРОВ */
+/* ВАРИАЦИИ НОМЕРОВ */
 .plate.type-civil { background: linear-gradient(180deg, #f4f4f4 0%, #d4d4d4 100%); }
 .plate.type-civil .reel, .plate.type-civil .region { color: #111; }
-
 .plate.type-taxi { background: linear-gradient(180deg, #ffeb3b 0%, #fbc02d 100%); border-color: #000; }
 .plate.type-taxi .reel, .plate.type-taxi .region { color: #000; }
 .plate.type-taxi .plate-side { border-left-color: #000; }
 .plate.type-taxi .flag-icon { border-color: #000; }
 .plate.type-taxi .rus-text { color: #000; }
-
 .plate.type-police { background: linear-gradient(180deg, #1976d2 0%, #0d47a1 100%); border-color: #fff; }
 .plate.type-police .reel, .plate.type-police .region { color: #fff; }
 .plate.type-police .plate-side { border-left-color: #fff; }
 .plate.type-police .flag-icon { border-color: #fff; }
 .plate.type-police .rus-text { color: #fff; }
-
 .plate.type-sport { background: linear-gradient(180deg, #e0e0e0 0%, #9e9e9e 100%); border-color: #ff0000; }
 .plate.type-sport .reel, .plate.type-sport .region { color: #b71c1c; }
 .plate.type-sport .plate-side { border-left-color: #b71c1c; }
 .plate.type-sport .flag-icon { border-color: #b71c1c; }
 .plate.type-sport .rus-text { color: #b71c1c; }
-
 .plate.type-military { background: linear-gradient(180deg, #33691e 0%, #1b5e20 100%); border-color: #000; }
 .plate.type-military .reel, .plate.type-military .region { color: #fff; }
 .plate.type-military .plate-side { border-left-color: #fff; }
@@ -145,6 +141,14 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
 .case-item { width: 100%; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .case-box { font-size: 64px; filter: drop-shadow(0 0 20px var(--accent-blue)); }
 
+/* ГАРАЖ */
+.garage-grid { display: flex; flex-direction: column; gap: 15px; padding: 20px; }
+.garage-card { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.car-header { display: flex; justify-content: space-between; align-items: center; }
+.car-icon { font-size: 48px; filter: drop-shadow(0 0 10px var(--accent-blue)); }
+.car-plate-slot { background: rgba(0,0,0,0.4); border: 1px dashed var(--text-sub); border-radius: 8px; padding: 10px; text-align: center; font-weight: 800; color: var(--text-sub); cursor: pointer; }
+.car-plate-slot.installed { border-style: solid; border-color: var(--accent-blue); color: var(--text-main); background: rgba(0,122,255,0.1); }
+
 /* СЕТКА ТЕМ */
 .themes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
 .theme-card { border-radius: 12px; padding: 16px; cursor: pointer; border: 2px solid transparent; display: flex; flex-direction: column; justify-content: flex-end; min-height: 100px; color: #fff; text-shadow: 0 1px 3px #000; }
@@ -155,7 +159,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
 .modal-overlay.show { display: flex; animation: fadeIn 0.25s ease-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-card { background: var(--bg-main); border: 1px solid var(--panel-border); border-radius: 20px; padding: 28px 24px 22px; width: 100%; max-width: 340px; text-align: center; box-shadow: var(--accent-glow); animation: modalPop 0.35s cubic-bezier(.2,1.4,.4,1); color: var(--text-main); }
+.modal-card { background: var(--bg-main); border: 1px solid var(--panel-border); border-radius: 20px; padding: 28px 24px 22px; width: 100%; max-width: 340px; text-align: center; box-shadow: var(--accent-glow); animation: modalPop 0.35s cubic-bezier(.2,1.4,.4,1); color: var(--text-main); max-height: 80vh; overflow-y: auto; }
 @keyframes modalPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .modal-emoji { font-size: 56px; line-height: 1; margin-bottom: 12px; }
 .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
@@ -239,6 +243,10 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
         <div class="menu-card-img">🔐</div>
         <div class="menu-card-title">Сейф</div>
       </div>
+      <div class="menu-card" onclick="UI.open('garage')">
+        <div class="menu-card-img">🏎️</div>
+        <div class="menu-card-title">Гараж</div>
+      </div>
       <div class="menu-card" onclick="UI.open('cases')">
         <div class="menu-card-img">🎁</div>
         <div class="menu-card-title">Казино</div>
@@ -251,7 +259,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
         <div class="menu-card-img">⚡</div>
         <div class="menu-card-title">Улучшения</div>
       </div>
-      <div class="menu-card" onclick="UI.open('settings')">
+      <div class="menu-card wide" onclick="UI.open('settings')">
         <div class="menu-card-img">⚙️</div>
         <div class="menu-card-title">Настройки</div>
       </div>
@@ -262,6 +270,12 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
   <div id="scr-cases" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('cases')">←</button><span>Казино</span></div>
     <div class="case-container" id="cases-list"></div>
+  </div>
+
+  <!-- ГАРАЖ -->
+  <div id="scr-garage" class="screen">
+    <div class="scr-head"><button class="icon-btn" onclick="UI.close('garage')">←</button><span>Гараж</span></div>
+    <div class="garage-grid" id="garage-list"></div>
   </div>
 
   <!-- КОЛЛЕКЦИЯ -->
@@ -282,7 +296,7 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
     <div class="themes-grid" id="themes-list"></div>
   </div>
 
-  <!-- УЛУЧШЕНИЯ -->
+  <!-- УЛУЧШЕНИЯ (Инвентарь) -->
   <div id="scr-upgrades" class="screen">
     <div class="scr-head"><button class="icon-btn" onclick="UI.close('upgrades')">←</button><span>Улучшения</span></div>
     <div id="upgrades-list" style="padding:20px;"></div>
@@ -314,12 +328,31 @@ body.theme-light .menu-card-title { background: linear-gradient(0deg, rgba(255,2
 
 </div>
 
+<!-- МОДАЛКА ВЫБОРА НОМЕРА ДЛЯ МАШИНЫ -->
+<div class="modal-overlay" id="plate-select-modal">
+  <div class="modal-card">
+    <div class="modal-title" style="margin-bottom:15px;">Выбери номер для машины</div>
+    <div id="plate-select-list" style="max-height: 40vh; overflow-y: auto; margin-bottom: 15px; text-align: left;"></div>
+    <button class="modal-btn" onclick="$('plate-select-modal').classList.remove('show')">Отмена</button>
+  </div>
+</div>
+
+<!-- МОДАЛКА РЕЗУЛЬТАТА -->
+<div class="modal-overlay" id="result-modal">
+  <div class="modal-card">
+    <div class="modal-title" id="res-title">Результат</div>
+    <div class="modal-sub" id="res-sub"></div>
+    <div class="modal-reward" id="res-reward"></div>
+    <button class="modal-btn" onclick="$('result-modal').classList.remove('show')">ОК</button>
+  </div>
+</div>
+
 <div id="toast" class="toast"></div>
 
 <script>
 'use strict';
 
-const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_v56' };
+const CFG = { COST: 5000, START: 500000, KEY: 'nomerix_v57' };
 
 const RARITIES = [
   { lvl:1, name:'МУСОР',        color:'#475569', chance:14.0, min:500,       max:5000 },
@@ -333,7 +366,7 @@ const RARITIES = [
 ];
 
 const TIER_BY_LVL = {1:'trash',2:'common',3:'uncommon',4:'rare',5:'epic',6:'legend',7:'elite',8:'god'};
-const PLATE_TYPES = ['civil', 'civil', 'civil', 'taxi', 'police', 'sport', 'military']; // Гражданские выпадают чаще
+const PLATE_TYPES = ['civil', 'civil', 'civil', 'taxi', 'police', 'sport', 'military'];
 
 const THEMES = [
   { id: 'dark', name: 'Тёмная', price: 0, bg: 'linear-gradient(135deg, #0a1128 0%, #162244 100%)' },
@@ -349,6 +382,20 @@ const BOOSTS = [
   { id: 'discount', name: '🎟 Скидка', desc: '-10% к цене спина', basePrice: 0.5, maxLvl: 5 }
 ];
 
+const INVENTORY_SLOTS = [
+  { limit: 50, price: 0 },
+  { limit: 100, price: 5 },
+  { limit: 500, price: 25 },
+  { limit: 1000, price: 100 }
+];
+
+const CARS = [
+  { id: 'vaz', name: 'ВАЗ 2107', icon: '🚗', price: 50000, reqSales: 0 },
+  { id: 'bmw', name: 'BMW M5', icon: '🚘', price: 500000, reqSales: 10 },
+  { id: 'porsche', name: 'Porsche 911', icon: '🏎️', price: 5000000, reqSales: 50 },
+  { id: 'bugatti', name: 'Bugatti', icon: '🚀', price: 50000000, reqSales: 200 }
+];
+
 const CASES = [
     { id: 'common', name: 'Обычный кейс', icon: '📦', price: 50000, currency: 'rub' },
     { id: 'rare', name: 'Редкий кейс', icon: '🎁', price: 5, currency: 'btc' },
@@ -358,6 +405,7 @@ const CASES = [
 const $ = id => document.getElementById(id);
 const rnd = n => Math.floor(Math.random()*n);
 const pick = arr => arr[rnd(arr.length)];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 
 function fmtRub(n) {
   if (n === 0) return '0 ₽';
@@ -392,47 +440,37 @@ function genRu(tier) {
   switch(tier) {
     case 'trash': 
       digits = String(rnd(1000)).padStart(3,'0'); firstLetter = pick(RU_LETTERS); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = String(150+rnd(50)); 
-      tags.push('Без особенностей');
-      break;
+      tags.push('Без особенностей'); break;
     case 'common': 
       digits = String(rnd(1000)).padStart(3,'0'); firstLetter = pick(RU_LETTERS); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = String(30+rnd(120)); 
-      if (digits === '777') tags.push('Три семёрки');
-      break;
+      if (digits === '777') tags.push('Три семёрки'); break;
     case 'uncommon': 
       digits = pick(BEAUTY_DIGITS.uncommon); firstLetter = pick(RU_LETTERS); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = pick(['50','90','150','47','23']); 
-      tags.push('Красивые цифры'); 
-      break;
+      tags.push('Красивые цифры'); break;
     case 'rare': 
       if (Math.random()<0.5) { digits = pick(BEAUTY_DIGITS.rare); tags.push('Красивые цифры'); } 
       else { digits = pick(MIRROR); tags.push('Зеркальные цифры'); }
-      firstLetter = pick(BEAUTY_TOP); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = pick(PREMIUM_REGIONS); 
-      break;
+      firstLetter = pick(BEAUTY_TOP); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = pick(PREMIUM_REGIONS); break;
     case 'epic': 
       firstLetter = pick(BEAUTY_TOP); 
       if (Math.random() < 0.6) { lastLetters = firstLetter + firstLetter; tags.push('Палиндром букв'); } 
       else { lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); }
-      digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97']); 
-      tags.push('Эпичные цифры');
-      break;
+      digits = pick(BEAUTY_DIGITS.epic); region = pick(['77','99','97']); tags.push('Эпичные цифры'); break;
     case 'legend': 
       firstLetter = pick(BEAUTY_TOP); lastLetters = firstLetter+firstLetter; digits = pick(BEAUTY_DIGITS.legend); region = pick(['77','99','97']); 
-      tags.push('Палиндром букв', 'Легендарные цифры');
-      break;
+      tags.push('Палиндром букв', 'Легендарные цифры'); break;
     case 'elite': 
       firstLetter = pick(['О','Е','К','М','С']); lastLetters = firstLetter + pick(['О','Е','К','М','С']); digits = pick(['001','007','777','888']); region = '77'; 
-      tags.push('Элитный номер');
-      break;
+      tags.push('Элитный номер'); break;
     case 'god': 
       firstLetter = pick(['О','А','Е','К']); lastLetters = firstLetter+firstLetter; digits = pick(['001','007','777']); region = '77'; 
-      tags.push('Божественный', 'Абсолютный палиндром');
-      break;
+      tags.push('Божественный', 'Абсолютный палиндром'); break;
     default: 
       digits = String(rnd(1000)).padStart(3,'0'); firstLetter = pick(RU_LETTERS); lastLetters = pick(RU_LETTERS)+pick(RU_LETTERS); region = '77';
   }
   
   if (tags.length === 0) tags.push('Обычный номер');
   const type = pick(PLATE_TYPES);
-
   return { text: `${firstLetter} ${digits} ${lastLetters}`, region, tags, type };
 }
 
@@ -450,11 +488,13 @@ const DEFAULT_STATE = {
   money: CFG.START,
   bitcoin: 15, 
   inventory: [],
-  safe: [null, null, null],
+  safe: [], // Бесконечный сейф
+  garage: [], // Купленные машины
   spinning: false,
   boosts: {},
   theme: 'dark',
   unlockedThemes: ['dark'],
+  invLvl: 0,
   tasks: { spins: 0, sales: 0, claimed: false }
 };
 
@@ -480,6 +520,7 @@ const UI = {
     if (id === 'themes') this.renderThemes();
     if (id === 'upgrades') this.renderUpgrades();
     if (id === 'tasks') this.renderTasks();
+    if (id === 'garage') this.renderGarage();
   },
   close(id) { $('scr-'+id).classList.remove('active'); this.update(); },
   update() {
@@ -500,9 +541,12 @@ const UI = {
   resetDots() {
     $('dots').querySelectorAll('.dot').forEach(d => d.style.background = 'rgba(255,255,255,0.1)');
   },
+  
   renderInventory() {
-    let html = '';
-    if (!State.inventory.length) html = '<div style="text-align:center;color:var(--text-sub);padding:20px;">Пусто. Крути номера!</div>';
+    const max = INVENTORY_SLOTS[State.invLvl].limit;
+    let html = `<div style="margin-bottom:15px; font-size:13px; color:var(--text-sub); display:flex; justify-content:space-between;"><span>Занято: ${State.inventory.length} / ${max}</span><span>Сейф: ∞</span></div>`;
+    if (!State.inventory.length) html += '<div style="text-align:center;color:var(--text-sub);padding:20px;">Пусто. Крути номера!</div>';
+    
     State.inventory.forEach((i, idx) => {
       html += `<div class="list-item">
         <div>
@@ -517,17 +561,61 @@ const UI = {
     });
     $('inv-list').innerHTML = html;
   },
+
   renderSafe() {
-    let html = '<div style="margin-bottom:15px; font-size:13px; color:var(--text-sub);">В сейфе номера не продаются случайно и защищены.</div>';
+    let html = `<div style="margin-bottom:15px; font-size:13px; color:var(--text-sub);">В сейфе номера защищены (мест: ${State.safe.length})</div>`;
+    if (!State.safe.length) html += '<div style="text-align:center;color:var(--text-sub);padding:20px;">Сейф пуст</div>';
+    
     State.safe.forEach((item, idx) => {
-      if (item) {
-        html += `<div class="list-item"><div><b>${item.plate} ${item.region}</b><br><span style="color:${item.color};font-size:12px;font-weight:800;">${fmtRub(item.price)}</span></div><button onclick="Game.fromSafe(${idx})" class="btn btn-green">Забрать</button></div>`;
-      } else {
-        html += `<div class="list-item" style="justify-content:center; color:var(--text-sub); border-style:dashed;">Слот ${idx+1} пуст</div>`;
-      }
+      html += `<div class="list-item">
+        <div><b>${item.plate} ${item.region}</b><br><span style="color:${item.color};font-size:12px;font-weight:800;">${fmtRub(item.price)}</span></div>
+        <button onclick="Game.fromSafe(${idx})" class="btn btn-green">Забрать</button>
+      </div>`;
     });
     $('safe-list').innerHTML = html;
   },
+
+  renderGarage() {
+    let html = '';
+    CARS.forEach(car => {
+      const ownedCar = State.garage.find(c => c.carId === car.id);
+      const canBuy = State.tasks.sales >= car.reqSales;
+      
+      if (!ownedCar) {
+        html += `<div class="garage-card">
+          <div class="car-header">
+            <div>
+              <b style="font-size:16px;">${car.name}</b><br>
+              <span style="font-size:12px; color:var(--text-sub);">Нужно продаж: ${car.reqSales}</span>
+            </div>
+            <div class="car-icon">${car.icon}</div>
+          </div>
+          <button onclick="Garage.buy('${car.id}')" class="btn ${canBuy ? 'btn-blue' : 'btn-disabled'}" style="width:100%;" ${canBuy ? '' : 'disabled'}>Купить за ${fmtRub(car.price)}</button>
+        </div>`;
+      } else {
+        let plateHtml = '';
+        if (ownedCar.plate) {
+          plateHtml = `<div class="car-plate-slot installed">${ownedCar.plate} ${ownedCar.region}</div>`;
+        } else {
+          plateHtml = `<div class="car-plate-slot" onclick="Garage.openSelect('${car.id}')">+ Установить номер</div>`;
+        }
+        
+        html += `<div class="garage-card" style="border-color:var(--accent-blue);">
+          <div class="car-header">
+            <div>
+              <b style="font-size:16px;">${car.name}</b><br>
+              <span style="font-size:12px; color:var(--accent-blue); font-weight:800;">Стоимость: ${fmtRub(ownedCar.totalPrice)}</span>
+            </div>
+            <div class="car-icon">${car.icon}</div>
+          </div>
+          ${plateHtml}
+          <button onclick="Garage.sell('${car.id}')" class="btn btn-green" style="width:100%; margin-top:5px;">Продать машину</button>
+        </div>`;
+      }
+    });
+    $('garage-list').innerHTML = html;
+  },
+
   renderCases() {
     let html = '';
     CASES.forEach(c => {
@@ -540,6 +628,7 @@ const UI = {
     });
     $('cases-list').innerHTML = html;
   },
+
   renderThemes() {
     let html = '';
     THEMES.forEach(t => {
@@ -552,8 +641,10 @@ const UI = {
     });
     $('themes-list').innerHTML = html;
   },
+
   renderUpgrades() {
     let html = '';
+    // Бусты
     BOOSTS.forEach(b => {
       const lvl = State.boosts[b.id] || 0;
       const price = b.basePrice * Math.pow(2, lvl);
@@ -562,8 +653,22 @@ const UI = {
         <button onclick="Shop.buyBoost('${b.id}')" class="btn btn-blue" ${lvl>=b.maxLvl?'disabled':''}>Купить</button>
       </div>`;
     });
+
+    // Улучшение инвентаря
+    html += `<div style="font-weight:800; margin:20px 0 10px;">Улучшение инвентаря</div>`;
+    const nextSlot = INVENTORY_SLOTS[State.invLvl + 1];
+    if (nextSlot) {
+      html += `<div class="list-item">
+        <div><b>Слоты: ${INVENTORY_SLOTS[State.invLvl].limit} → ${nextSlot.limit}</b><br><b style="color:var(--gold)">${nextSlot.price} ₿</b></div>
+        <button onclick="Shop.buyInv()" class="btn btn-blue">Улучшить</button>
+      </div>`;
+    } else {
+      html += `<div class="list-item" style="justify-content:center; color:var(--accent-blue); font-weight:800;">Максимальный уровень (${INVENTORY_SLOTS[State.invLvl].limit} мест)</div>`;
+    }
+
     $('upgrades-list').innerHTML = html;
   },
+
   renderTasks() {
     let html = `
       <div class="list-item">
@@ -605,20 +710,19 @@ const Game = {
     if (State.spinning) return;
     const cost = Math.floor(CFG.COST * (1 - (State.boosts.discount||0)*0.1));
     if (State.money < cost) return showToast('Не хватает денег!');
+    const maxSlots = INVENTORY_SLOTS[State.invLvl].limit;
+    if (State.inventory.length >= maxSlots) return showToast('Инвентарь полон! Улучши в магазине.');
 
     State.spinning = true;
     State.money -= cost;
     State.tasks.spins++;
-    UI.update();
-    UI.resetDots();
+    UI.update(); UI.resetDots();
 
     const win = rollRarity();
     const generated = genPlate(win);
-    
     let mult = 1 + (State.boosts.multiplier || 0);
     const finalPrice = Math.floor((rnd(win.max - win.min) + win.min) * mult);
 
-    // Убираем старый тип плашки
     const plateEl = $('plate');
     plateEl.className = 'plate'; 
 
@@ -651,17 +755,14 @@ const Game = {
         setTimeout(() => {
           clearInterval(rTimer);
           $('region').textContent = generated.region;
-          
-          // ПРИМЕНЯЕМ ЦВЕТ ПЛАШКИ
           plateEl.classList.add('type-' + generated.type);
-          
           UI.setRarity(win);
           $('price').textContent = fmtRub(finalPrice);
           
           let tagsHtml = generated.tags.map(t => `<div class="plate-tag">${t}</div>`).join('');
           $('tags-container').innerHTML = tagsHtml;
 
-          State.inventory.push({ plate: generated.text, region: generated.region, price: finalPrice, color: win.color, type: generated.type });
+          State.inventory.push({ id: uid(), plate: generated.text, region: generated.region, price: finalPrice, color: win.color, type: generated.type });
           saveGame();
           State.spinning = false;
           UI.update();
@@ -677,16 +778,16 @@ const Game = {
     showToast('✅ Номер продан!');
   },
   toSafe(idx) {
-    const slot = State.safe.indexOf(null);
-    if (slot === -1) return showToast('Сейф заполнен!');
-    State.safe[slot] = State.inventory[idx];
+    State.safe.push(State.inventory[idx]);
     State.inventory.splice(idx, 1);
     UI.update(); UI.renderInventory(); saveGame();
     showToast('✅ Отправлено в сейф');
   },
-  fromSafe(slot) {
-    State.inventory.push(State.safe[slot]);
-    State.safe[slot] = null;
+  fromSafe(idx) {
+    const max = INVENTORY_SLOTS[State.invLvl].limit;
+    if (State.inventory.length >= max) return showToast('Инвентарь полон!');
+    State.inventory.push(State.safe[idx]);
+    State.safe.splice(idx, 1);
     UI.update(); UI.renderSafe(); saveGame();
   },
   claimTask() {
@@ -694,6 +795,59 @@ const Game = {
     State.tasks.claimed = true;
     UI.update(); UI.renderTasks(); saveGame();
     showToast('✅ Награда получена!');
+  }
+};
+
+const Garage = {
+  buy(carId) {
+    const car = CARS.find(c => c.id === carId);
+    if (State.money < car.price) return showToast('Не хватает денег!');
+    State.money -= car.price;
+    State.garage.push({ carId: car.id, name: car.name, icon: car.icon, plate: null, region: null, totalPrice: car.price });
+    UI.update(); UI.renderGarage(); saveGame();
+    showToast('✅ Машина куплена!');
+  },
+  openSelect(carId) {
+    if (!State.inventory.length) return showToast('Нет номеров в инвентаре!');
+    let html = '';
+    State.inventory.forEach((inv, idx) => {
+      html += `<div class="list-item" style="cursor:pointer;" onclick="Garage.install('${carId}', '${inv.id}')">
+        <div><b>${inv.plate} ${inv.region}</b><br><span style="font-size:12px; color:${inv.color}">${fmtRub(inv.price)}</span></div>
+      </div>`;
+    });
+    $('plate-select-list').innerHTML = html;
+    $('plate-select-modal').classList.add('show');
+  },
+  install(carId, invId) {
+    const car = State.garage.find(c => c.carId === carId);
+    const invIdx = State.inventory.findIndex(i => i.id === invId);
+    if (invIdx === -1) return;
+    
+    const num = State.inventory[invIdx];
+    car.plate = num.plate;
+    car.region = num.region;
+    // Машина с номером стоит: Машина + Номер * 2
+    car.totalPrice = car.totalPrice + (num.price * 2);
+    
+    State.inventory.splice(invIdx, 1);
+    $('plate-select-modal').classList.remove('show');
+    UI.renderGarage(); saveGame();
+    showToast('✅ Номер установлен! Цена выросла!');
+  },
+  sell(carId) {
+    const idx = State.garage.findIndex(c => c.carId === carId);
+    if (idx === -1) return;
+    const car = State.garage[idx];
+    State.money += car.totalPrice;
+    State.garage.splice(idx, 1);
+    
+    // Модалка результата
+    $('res-title').textContent = 'Продажа!';
+    $('res-sub').textContent = `Вы продали ${car.name}`;
+    $('res-reward').textContent = `+${fmtRub(car.totalPrice)}`;
+    $('result-modal').classList.add('show');
+    
+    UI.update(); UI.renderGarage(); saveGame();
   }
 };
 
@@ -714,6 +868,7 @@ const Casino = {
       const roll = Math.random();
       let msg = '';
       let winColor = '#fff';
+      let resTitle = 'Результат';
 
       if (caseId === 'common') {
         if (roll < 0.7) {
@@ -724,7 +879,7 @@ const Casino = {
           const r = rollRarity();
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
+          State.inventory.push({ id: uid(), plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -737,7 +892,7 @@ const Casino = {
           const r = RARITIES[3 + rnd(4)]; 
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
+          State.inventory.push({ id: uid(), plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал РЕДКИЙ номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -751,7 +906,7 @@ const Casino = {
           const r = RARITIES[5 + rnd(3)]; 
           const gen = genPlate(r);
           const price = rnd(r.max - r.min) + r.min;
-          State.inventory.push({ plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
+          State.inventory.push({ id: uid(), plate: gen.text, region: gen.region, price, color: r.color, type: gen.type });
           msg = `Выпал ЛЕГЕНДАРНЫЙ номер: ${gen.text}`;
           winColor = r.color;
         }
@@ -759,11 +914,11 @@ const Casino = {
       saveGame();
       UI.update();
       
-      $('modal-title').textContent = 'Результат';
-      $('modal-sub').textContent = msg;
-      $('modal-reward').style.color = winColor;
-      $('modal-reward').textContent = caseId.toUpperCase();
-      $('daily-modal').classList.add('show');
+      $('res-title').textContent = resTitle;
+      $('res-sub').textContent = msg;
+      $('res-reward').style.color = winColor;
+      $('res-reward').textContent = caseId.toUpperCase();
+      $('result-modal').classList.add('show');
       
     }, 800);
   }
@@ -792,6 +947,17 @@ const Shop = {
       UI.update(); UI.renderUpgrades(); saveGame();
       showToast('✅ Улучшение куплено!');
     }
+  },
+  buyInv() {
+    const nextLvl = State.invLvl + 1;
+    if (!INVENTORY_SLOTS[nextLvl]) return;
+    const price = INVENTORY_SLOTS[nextLvl].price;
+    if (State.bitcoin >= price) {
+      State.bitcoin -= price;
+      State.invLvl = nextLvl;
+      UI.update(); UI.renderUpgrades(); saveGame();
+      showToast(`✅ Инвентарь расширен до ${INVENTORY_SLOTS[nextLvl].limit}!`);
+    } else return showToast('Мало BTC!');
   }
 };
 
